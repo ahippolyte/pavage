@@ -41,6 +41,6 @@ bool *coordinate_compare(coordinate_s *coordinate_1, coordinate_s *coordinate_2)
  * @brief Deletes the coordinate and frees the allocated memory.
  * @param coordinate the coordinate to delete
  **/
-void coordinate_delete(coordinate_s **coordinate)
+void coordinate_delete(coordinate_s **coordinate);
 
 #endif  // __COORDINATE_H__
