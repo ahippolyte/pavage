@@ -7,11 +7,11 @@
 #ifndef __COORDINATE_H__
 #define __COORDINATE_H__
 
-struct coordinate_s
+typedef struct coordinate
 {
     int x;
     int y;
-};
+}coordinate_s;
 
 /**
  * @brief Creates a new coordinate.
