@@ -2,18 +2,26 @@
 
 hach_s *hach_new(void)
 {
-    hach_s *p_table = NULL;
-    p_table = malloc(sizeof(*p_table));
-    if (p_table != NULL)
+    hach_s *p_table = malloc(sizeof(hach_s));
+    if (p_table == NULL)
     {
-        p_table->p_cell = NULL;
-        p_table->size = 0;
-    }
-    else
-    {
-        fprintf(stderr, "Memoire insufisante\n");
+        printf("Allocation failed!");
         exit(EXIT_FAILURE);
     }
+    p_table->size = 0;
+
+    p_table->p_cell = malloc(p_table->size*sizeof(cell_s));
+    if(p_table->p_cell == NULL){
+        printf("Allocation failed!");
+        exit(EXIT_FAILURE);
+    }
+
+    p_table->p_cell->key = malloc(sizeof(coordinate_s));
+    if(p_table->p_cell->key == NULL){
+        printf("Allocation failed!");
+        exit(EXIT_FAILURE);
+    }
+
     return (p_table);
 }
 

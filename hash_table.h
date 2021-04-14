@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "coordinate.h"
+
 /**
  * @file hash_table.h
  * @brief Hash table structure.
@@ -11,16 +13,16 @@
 #ifndef __HASH_TABLE_H__
 #define __HASH_TABLE_H__
 
-typedef struct
+typedef struct cell
 {
-    char *indice;
-    void *data;
+    coordinate_s * key;
+    int high;
 } cell_s;
 
 typedef struct hach
 {
     cell_s *p_cell;
-    int size;
+    uint size;
 } hach_s;
 
 /**
@@ -49,6 +51,6 @@ void *hach_search(hach_s *p_table, const char *key);
  * @brief Deletes the hash table and frees the allocated memory.
  * @param p_table the hash table to delete
  **/
-void hach_delete(hach_s **p_table)
+void hach_delete(hach_s **p_table);
 
 #endif  // __HASH_TABLE_H__
