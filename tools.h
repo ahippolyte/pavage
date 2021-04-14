@@ -18,14 +18,14 @@ typedef enum {
  **/
 typedef enum {
     SHAPE_IS_PAVABLE = 0,
-    SHAPE_IS_NOT_PAVABLE = 1;
+    SHAPE_IS_NOT_PAVABLE = 1,
     SHAPE_IS_DICONECTED = 2,
-    ERROR_DIRECTION_TABLE = 3;
-    ERROR_MAP = 4;
+    ERROR_DIRECTION_TABLE = 3,
+    ERROR_MAP = 4,
 } how_fill_fonction_worked;
 
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(direction[] list_of_direction; hach_s map_of_height);
+how_fill_fonction_worked fill_map_edge_from_direction_list(direction list_of_direction[], hach_s map_of_height);
 
 
 #endif  // __TOOLS_H__
