@@ -19,17 +19,18 @@ typedef struct cell
     int high;
 } cell_s;
 
-typedef struct hach
+typedef struct hash
 {
     cell_s *p_cell;
     uint size;
-} hach_s;
+    uint maxsize;
+} hash_s;
 
 /**
  * @brief Creates a new empty hash table.
  * @return an empty hash table
  **/
-hach_s *hach_new(void);
+hash_s *hach_new(void);
 
 /**
  * @brief Add or update in the hash table the height of the key.
@@ -37,7 +38,7 @@ hach_s *hach_new(void);
  * @param key the coordinate
  * @param data the height 
  **/
-void hach_add(hach_s *p_table, const char *key, void *data);
+void hach_add(hash_s *p_table, const char *key, void *data);
 
 /**
  * @brief Find in the hash table the height of the key.
@@ -45,12 +46,12 @@ void hach_add(hach_s *p_table, const char *key, void *data);
  * @param key the coordinate
  * @return the height of the coordinate if it find it
  **/
-void *hach_search(hach_s *p_table, const char *key);
+void *hach_search(hash_s *p_table, const char *key);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.
  * @param p_table the hash table to delete
  **/
-void hach_delete(hach_s **p_table);
+void hach_delete(hash_s **p_table);
 
 #endif  // __HASH_TABLE_H__
