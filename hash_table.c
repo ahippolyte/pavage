@@ -1,8 +1,8 @@
 #include "hash_table.h"
 
-hach_s *hach_new(void)
+hash_s *hash_new(void)
 {
-    hach_s *p_table = malloc(sizeof(hach_s));
+    hash_s *p_table = malloc(sizeof(hash_s));
     if (p_table == NULL)
     {
         printf("Allocation failed!");
@@ -10,14 +10,16 @@ hach_s *hach_new(void)
     }
     p_table->size = 0;
 
-    p_table->p_cell = malloc(p_table->size*sizeof(cell_s));
-    if(p_table->p_cell == NULL){
+    p_table->p_cell = malloc(p_table->size * sizeof(cell_s));
+    if (p_table->p_cell == NULL)
+    {
         printf("Allocation failed!");
         exit(EXIT_FAILURE);
     }
 
     p_table->p_cell->key = malloc(sizeof(coordinate_s));
-    if(p_table->p_cell->key == NULL){
+    if (p_table->p_cell->key == NULL)
+    {
         printf("Allocation failed!");
         exit(EXIT_FAILURE);
     }
@@ -25,7 +27,8 @@ hach_s *hach_new(void)
     return (p_table);
 }
 
-void hach_add(hach_s *p_table, const char *key, void *data){
+void hach_add(hash_s *p_table, const char *key, void *data)
+{
 
     if (p_table != NULL && key != NULL)
     {
@@ -75,7 +78,7 @@ void hach_add(hach_s *p_table, const char *key, void *data){
     }
 }
 
-void *hach_search(hach_s *p_table, const char *key)
+void *hash_search(hash_s *p_table, const char *key)
 {
     void *data = NULL;
     if (p_table != NULL && key != NULL)
@@ -94,7 +97,7 @@ void *hach_search(hach_s *p_table, const char *key)
     return (data);
 }
 
-void hach_delete(hach_s **p_table)
+void hach_delete(hash_s **p_table)
 {
     int i;
     for (i = 0; i < (*p_table)->size; i++)
