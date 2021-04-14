@@ -1,7 +1,3 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "hash_table.h"
 
 #ifndef __TOOLS_H__

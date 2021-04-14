@@ -1,6 +1,5 @@
 #include "hash_table.h"
 
-
 hach_s *hach_new(void)
 {
     hach_s *p_table = NULL;
@@ -73,7 +72,7 @@ void *hach_search(hach_s *p_table, const char *key)
     void *data = NULL;
     if (p_table != NULL && key != NULL)
     {
-        inti = 0;
+        int i = 0;
         while (i < p_table->size)
         {
             if (strcmp(p_table->p_cell[i].key, key) == 0)

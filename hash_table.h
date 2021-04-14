@@ -1,3 +1,7 @@
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
  * @file hash_table.h
  * @brief Hash table structure.

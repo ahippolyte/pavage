@@ -1,3 +1,7 @@
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
  * @file coordinate.h
  * @brief coordinate structure.
