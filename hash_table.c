@@ -1,7 +1,7 @@
 #include "hash_table.h"
 
 hash_s *hash_new(void) {
-    hash_s *p_table = (hash_s*)malloc(sizeof(hash_s));
+    hash_s *p_table = (hash_s *)malloc(sizeof(hash_s));
     if (p_table == NULL) {
         fprintf(stderr, "Allocation failed!");
         exit(EXIT_FAILURE);
@@ -9,14 +9,14 @@ hash_s *hash_new(void) {
     p_table->size = 0;
     p_table->maxsize = 20;
 
-    p_table->p_cell = (cell_s**)malloc(p_table->maxsize * sizeof(cell_s));
+    p_table->p_cell = (cell_s **)malloc(p_table->maxsize * sizeof(cell_s));
     if (p_table->p_cell == NULL) {
         fprintf(stderr, "Allocation failed!");
         exit(EXIT_FAILURE);
     }
 
-    for(uint i=0; i<p_table->maxsize; i++){
-        p_table->p_cell[i] = (cell_s*)malloc(sizeof(cell_s));
+    for (uint i = 0; i < p_table->maxsize; i++) {
+        p_table->p_cell[i] = (cell_s *)malloc(sizeof(cell_s));
         if (p_table->p_cell[i] == NULL) {
             fprintf(stderr, "Allocation failed!");
             exit(EXIT_FAILURE);
@@ -24,7 +24,7 @@ hash_s *hash_new(void) {
     }
 
     for (uint i = 0; i < p_table->size; i++) {
-        p_table->p_cell[i]->key = (coordinate_s*)malloc(sizeof(coordinate_s));
+        p_table->p_cell[i]->key = (coordinate_s *)malloc(sizeof(coordinate_s));
         if (p_table->p_cell[i]->key == NULL) {
             fprintf(stderr, "Allocation failed!");
             exit(EXIT_FAILURE);
@@ -35,8 +35,8 @@ hash_s *hash_new(void) {
     return p_table;
 }
 
-void hash_print(hash_s *p_table){
-    if(p_table == NULL){
+void hash_print(hash_s *p_table) {
+    if (p_table == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
@@ -45,7 +45,7 @@ void hash_print(hash_s *p_table){
     printf("Size: %u\n", p_table->size);
     printf("Capacity: %u\n", p_table->maxsize);
     printf("________________________\n\n");
-    for(uint i=0; i<p_table->size; i++){
+    for (uint i = 0; i < p_table->size; i++) {
         printf("ELEMENT %u\n", i);
         printf("Coordinates: ");
         coordinate_print(p_table->p_cell[i]->key);

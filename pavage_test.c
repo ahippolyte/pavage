@@ -1,7 +1,8 @@
+#include <string.h>
+
 #include "coordinate.h"
 #include "hash_table.h"
 #include "tools.h"
-#include <string.h>
 
 /*---------------- COORDINATE ---------------*/
 
@@ -51,7 +52,7 @@ bool test_hash_new() { return true; }
 
 bool test_hash_print() {
     hash_s *table = hash_new();
-    if(table == NULL){
+    if (table == NULL) {
         fprintf(stderr, "Failed to create a hash table!");
         return false;
     }
@@ -65,7 +66,7 @@ bool test_hash_print() {
 
     hash_print(table);
 
-    return true; 
+    return true;
 }
 
 /**     test_hash_add    **/
@@ -89,7 +90,7 @@ void usage(int argc, char *argv[]) {
 
 /*-------------- fonction main --------------*/
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc == 1) usage(argc, argv);
 
     fprintf(stderr, "=> Start test \"%s\"\n", argv[1]);

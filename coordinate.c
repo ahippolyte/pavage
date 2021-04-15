@@ -13,8 +13,8 @@ coordinate_s *coordinate_new(int x, int y) {
     return (coordinate);
 }
 
-void coordinate_print(const coordinate_s * coordinate){
-    if(coordinate == NULL){
+void coordinate_print(const coordinate_s *coordinate) {
+    if (coordinate == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
