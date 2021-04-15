@@ -13,7 +13,7 @@ coordinate_s *coordinate_new(int x, int y) {
     return (coordinate);
 }
 
-void coordinate_print(coordinate_s * coordinate){
+void coordinate_print(const coordinate_s * coordinate){
     if(coordinate == NULL){
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
@@ -22,7 +22,7 @@ void coordinate_print(coordinate_s * coordinate){
     return;
 }
 
-bool *coordinate_compare(coordinate_s *coordinate_1, coordinate_s *coordinate_2) {
+bool coordinate_compare(const coordinate_s *coordinate_1, const coordinate_s *coordinate_2) {
     if (coordinate_1 == NULL) {
         fprintf(stderr, "Coordonnées 1 invalides\n");
         exit(EXIT_FAILURE);
@@ -38,8 +38,6 @@ bool *coordinate_compare(coordinate_s *coordinate_1, coordinate_s *coordinate_2)
 }
 
 void coordinate_delete(coordinate_s *coordinate) {
-    free(coordinate->x);
-    free(coordinate->y);
     free(coordinate);
     return;
 }

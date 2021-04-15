@@ -2,9 +2,6 @@
 #include "hash_table.h"
 #include "tools.h"
 
-<<<<<<< HEAD
-int main(int argc, char* argv[]) {
-=======
 /*---------------- COORDINATE ---------------*/
 
 /**     test_coordinate_new    **/
@@ -49,6 +46,27 @@ bool test_coordinate_compare() {
 
 bool test_hash_new() { return true; }
 
+/**     test_hash_print    **/
+
+bool test_hash_print() {
+    hash_s *table = hash_new();
+    if(table == NULL){
+        fprintf(stderr, "Failed to create a hash table!");
+        return false;
+    }
+    coordinate_s *key_1 = coordinate_new(10, 6);
+    int height_1 = -5;
+    hash_add(table, key_1, height_1);
+
+    coordinate_s *key_2 = coordinate_new(2, 7);
+    int height_2 = 4;
+    hash_add(table, key_2, height_2);
+
+    hash_print(table);
+
+    return true; 
+}
+
 /**     test_hash_add    **/
 
 bool test_hash_add() { return true; }
@@ -71,7 +89,7 @@ void usage(int argc, char *argv[]) {
 /*-------------- fonction main --------------*/
 
 int main(int argc, char *argv[]) {
->>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
     printf("Beginning tests...\n");
+    printf("%d", test_hash_print());
     return EXIT_SUCCESS;
 }

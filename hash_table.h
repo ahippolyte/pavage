@@ -14,6 +14,8 @@
 #ifndef __HASH_TABLE_H__
 #define __HASH_TABLE_H__
 
+typedef unsigned int uint;
+
 typedef struct cell {
     coordinate_s * key;
     int height;
@@ -35,7 +37,7 @@ hash_s *hash_new(void);
  * @brief Prints a whole hash table.
  * @param p_table the hash table
  **/
-void *hash_print(hash_s *p_table);
+void hash_print(hash_s *p_table);
 
 /**
  * @brief Add or update in the hash table the height of the key.
@@ -51,7 +53,7 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height);
  * @param key the coordinate
  * @return the height of the coordinate if it find it
  **/
-int *hash_search(hash_s *p_table, const coordinate_s *key);
+int hash_search(hash_s *p_table, const coordinate_s *key);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.

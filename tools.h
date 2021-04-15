@@ -25,7 +25,7 @@ typedef enum {
 } how_fill_fonction_worked;
 
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(direction list_of_direction[], hach_s map_of_height);
+how_fill_fonction_worked fill_map_edge_from_direction_list(direction list_of_direction[], hash_s* map_of_height);
 
 
 #endif  // __TOOLS_H__

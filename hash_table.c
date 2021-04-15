@@ -27,7 +27,7 @@ hash_s *hash_new(void) {
     return p_table;
 }
 
-void *hash_print(hash_s *p_table){
+void hash_print(hash_s *p_table){
     if(p_table == NULL){
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
@@ -43,6 +43,8 @@ void *hash_print(hash_s *p_table){
         printf("Height: %d", p_table->p_cell[i]->height);
         printf("---------\n");
     }
+    printf("--------------------");
+    return;
 }
 
 void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
@@ -53,7 +55,7 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
 
     p_table->size++;
     if (p_table->size >= p_table->maxsize) {
-        realloc(p_table, 2 * p_table->maxsize * sizeof(hash_s));
+        p_table = realloc(p_table, 2 * p_table->maxsize * sizeof(hash_s));
         if (p_table == NULL) {
             fprintf(stderr, "Reallocation failed!");
             exit(EXIT_FAILURE);
@@ -65,7 +67,7 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
     return;
 }
 
-int *hash_search(hash_s *p_table, const coordinate_s *key) {
+int hash_search(hash_s *p_table, const coordinate_s *key) {
     if (p_table == NULL || key == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
