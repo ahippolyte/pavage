@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "coordinate.h"
 
@@ -15,7 +16,7 @@
 
 typedef struct cell {
     coordinate_s * key;
-    int high;
+    int height;
 } cell_s;
 
 typedef struct hash {
@@ -36,7 +37,7 @@ hash_s *hash_new(void);
  * @param key the coordinate
  * @param data the height 
  **/
-void hash_add(hash_s *p_table, const coordinate_s *key, int high);
+void hash_add(hash_s *p_table, const coordinate_s *key, int height);
 
 /**
  * @brief Find in the hash table the height of the key.
@@ -44,12 +45,12 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int high);
  * @param key the coordinate
  * @return the height of the coordinate if it find it
  **/
-void *hash_search(hash_s *p_table, const char *key);
+int *hash_search(hash_s *p_table, const coordinate_s *key);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.
  * @param p_table the hash table to delete
  **/
-void hash_delete(hash_s **p_table);
+void hash_delete(hash_s *p_table);
 
 #endif  // __HASH_TABLE_H__
