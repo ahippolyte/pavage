@@ -44,7 +44,7 @@ void hash_print(hash_s *p_table){
     printf("|_____ HASH TABLE _____|\n\n");
     printf("Size: %u\n", p_table->size);
     printf("Capacity: %u\n", p_table->maxsize);
-    printf("--------------------\n");
+    printf("________________________\n\n");
     for(uint i=0; i<p_table->size; i++){
         printf("ELEMENT %u\n", i);
         printf("Coordinates: ");
