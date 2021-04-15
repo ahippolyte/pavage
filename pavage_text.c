@@ -1,6 +1,6 @@
 #include "tools.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
     printf("Hey there!\n");
     return EXIT_SUCCESS;
 }

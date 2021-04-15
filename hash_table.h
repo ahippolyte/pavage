@@ -13,15 +13,13 @@
 #ifndef __HASH_TABLE_H__
 #define __HASH_TABLE_H__
 
-typedef struct cell
-{
+typedef struct cell {
     coordinate_s * key;
     int high;
 } cell_s;
 
-typedef struct hash
-{
-    cell_s *p_cell;
+typedef struct hash {
+    cell_s* *p_cell;
     uint size;
     uint maxsize;
 } hash_s;
@@ -30,7 +28,7 @@ typedef struct hash
  * @brief Creates a new empty hash table.
  * @return an empty hash table
  **/
-hash_s *hach_new(void);
+hash_s *hash_new(void);
 
 /**
  * @brief Add or update in the hash table the height of the key.
@@ -38,7 +36,7 @@ hash_s *hach_new(void);
  * @param key the coordinate
  * @param data the height 
  **/
-void hach_add(hash_s *p_table, const char *key, void *data);
+void hash_add(hash_s *p_table, const coordinate_s *key, int high);
 
 /**
  * @brief Find in the hash table the height of the key.
@@ -46,12 +44,12 @@ void hach_add(hash_s *p_table, const char *key, void *data);
  * @param key the coordinate
  * @return the height of the coordinate if it find it
  **/
-void *hach_search(hash_s *p_table, const char *key);
+void *hash_search(hash_s *p_table, const char *key);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.
  * @param p_table the hash table to delete
  **/
-void hach_delete(hash_s **p_table);
+void hash_delete(hash_s **p_table);
 
 #endif  // __HASH_TABLE_H__
