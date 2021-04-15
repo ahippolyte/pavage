@@ -26,6 +26,12 @@ typedef struct coordinate
 coordinate_s *coordinate_new(int x, int y);
 
 /**
+ * @brief Print a coordinate.
+ * @param coordinate the corresponding coordinate
+ **/
+void coordinate_print(coordinate_s *coordinate);
+
+/**
  * @brief Compare two coordinates.
  * @param coordinate_1 the first coordinate 
  * @param coordinate_2 the second coordinate

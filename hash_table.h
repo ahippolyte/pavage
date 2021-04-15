@@ -32,6 +32,12 @@ typedef struct hash {
 hash_s *hash_new(void);
 
 /**
+ * @brief Prints a whole hash table.
+ * @param p_table the hash table
+ **/
+void *hash_print(hash_s *p_table);
+
+/**
  * @brief Add or update in the hash table the height of the key.
  * @param p_table the hash table
  * @param key the coordinate

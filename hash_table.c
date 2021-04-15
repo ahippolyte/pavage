@@ -27,9 +27,27 @@ hash_s *hash_new(void) {
     return p_table;
 }
 
+void *hash_print(hash_s *p_table){
+    if(p_table == NULL){
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+    printf("---- HASH TABLE ----\n");
+    printf("Size: %u\n", p_table->size);
+    printf("Capacity: %u\n", p_table->maxsize);
+    printf("--------------------");
+    for(uint i=0; i<p_table->size; i++){
+        printf("ELEMENT %u\n", i);
+        printf("Coordinates: ");
+        coordinate_print(p_table->p_cell[i]->key);
+        printf("Height: %d", p_table->p_cell[i]->height);
+        printf("---------\n");
+    }
+}
+
 void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
     if (p_table == NULL || key == NULL) {
-        printf("Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
 
@@ -49,7 +67,7 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
 
 int *hash_search(hash_s *p_table, const coordinate_s *key) {
     if (p_table == NULL || key == NULL) {
-        printf("Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
 

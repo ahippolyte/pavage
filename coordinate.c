@@ -13,6 +13,15 @@ coordinate_s *coordinate_new(int x, int y) {
     return (coordinate);
 }
 
+void coordinate_print(coordinate_s * coordinate){
+    if(coordinate == NULL){
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+    printf("(%d, %d)", coordinate->x, coordinate->y);
+    return;
+}
+
 bool *coordinate_compare(coordinate_s *coordinate_1, coordinate_s *coordinate_2) {
     if (coordinate_1 == NULL) {
         fprintf(stderr, "Coordonnées 1 invalides\n");
