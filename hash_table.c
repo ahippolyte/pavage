@@ -15,7 +15,7 @@ hash_s *hash_new(void) {
         exit(EXIT_FAILURE);
     }
 
-    for(uint i=0; i<p_table->size; i++){
+    for (uint i = 0; i < p_table->size; i++) {
         p_table->p_cell[i]->key = malloc(sizeof(coordinate_s));
         if (p_table->p_cell[i]->key == NULL) {
             fprintf(stderr, "Allocation failed!");
@@ -28,7 +28,7 @@ hash_s *hash_new(void) {
 }
 
 void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
-    if(p_table == NULL || key == NULL){
+    if (p_table == NULL || key == NULL) {
         printf("Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
@@ -47,15 +47,14 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
     return;
 }
 
-
 int *hash_search(hash_s *p_table, const coordinate_s *key) {
-    if(p_table == NULL || key == NULL){
+    if (p_table == NULL || key == NULL) {
         printf("Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
 
-    for(uint i=0; i<p_table->size; i++){
-        if(coordinate_compare(p_table->p_cell[i]->key, key) == true){
+    for (uint i = 0; i < p_table->size; i++) {
+        if (coordinate_compare(p_table->p_cell[i]->key, key) == true) {
             return p_table->p_cell[i]->height;
         }
     }
@@ -64,11 +63,11 @@ int *hash_search(hash_s *p_table, const coordinate_s *key) {
 }
 
 void hash_delete(hash_s *p_table) {
-    if(p_table == NULL){
+    if (p_table == NULL) {
         fprintf(stderr, "Invalid pointer adress!");
         exit(EXIT_FAILURE);
     }
-    for(uint i=0; i<p_table->size; i++){
+    for (uint i = 0; i < p_table->size; i++) {
         coordinate_delete(p_table->p_cell[i]->key);
         free(p_table->p_cell[i]);
     }
@@ -77,7 +76,7 @@ void hash_delete(hash_s *p_table) {
     return;
 }
 
-//Old functions
+// Old functions
 
 /**void hash_add(hash_s *p_table, const char *key, void *data) {
     if (p_table != NULL && key != NULL) {
