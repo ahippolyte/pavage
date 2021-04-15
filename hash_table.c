@@ -1,29 +1,52 @@
 #include "hash_table.h"
 
+<<<<<<< HEAD
 hash_s *hash_new(void) {
     hash_s *p_table = malloc(sizeof(hash_s));
     if (p_table == NULL) {
         fprintf(stderr, "Allocation failed!");
+=======
+hash_s *hash_new(void)
+{
+    hash_s *p_table = malloc(sizeof(hash_s));
+    if (p_table == NULL)
+    {
+        printf("Allocation failed!");
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
         exit(EXIT_FAILURE);
     }
     p_table->size = 0;
     p_table->maxsize = 20;
 
+<<<<<<< HEAD
     p_table->p_cell = malloc(p_table->maxsize * sizeof(cell_s));
     if (p_table->p_cell == NULL) {
         fprintf(stderr, "Allocation failed!");
+=======
+    p_table->p_cell = malloc(p_table->size * sizeof(cell_s));
+    if (p_table->p_cell == NULL)
+    {
+        printf("Allocation failed!");
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
         exit(EXIT_FAILURE);
     }
 
     p_table->p_cell->key = malloc(sizeof(coordinate_s));
+<<<<<<< HEAD
     if (p_table->p_cell->key == NULL) {
         fprintf(stderr, "Allocation failed!");
+=======
+    if (p_table->p_cell->key == NULL)
+    {
+        printf("Allocation failed!");
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
         exit(EXIT_FAILURE);
     }
 
     return (p_table);
 }
 
+<<<<<<< HEAD
 void hash_add(hash_s *p_table, const coordinate_s *key, int high) {
     p_table->size++;
     if (p_table->size >= p_table->maxsize) {
@@ -39,6 +62,10 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int high) {
 
     return;
 }
+=======
+void hash_add(hash_s *p_table, const char *key, void *data)
+{
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
 
 /**void hash_add(hash_s *p_table, const char *key, void *data) {
     if (p_table != NULL && key != NULL) {
@@ -79,7 +106,12 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int high) {
     }
 }**/
 
+<<<<<<< HEAD
 void *hash_search(hash_s *p_table, const char *key) {
+=======
+void *hash_search(hash_s *p_table, const char *key)
+{
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
     void *data = NULL;
     if (p_table != NULL && key != NULL) {
         int i = 0;
@@ -94,7 +126,12 @@ void *hash_search(hash_s *p_table, const char *key) {
     return (data);
 }
 
+<<<<<<< HEAD
 void hash_delete(hash_s **p_table) {
+=======
+void hash_delete(hash_s **p_table)
+{
+>>>>>>> 71e4d98d8a6e8aff83ea33519816c21c68bcfc6e
     int i;
     for (i = 0; i < (*p_table)->size; i++) free((*p_table)->p_cell[i].key);
     free((*p_table)->p_cell);
