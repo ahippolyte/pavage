@@ -23,5 +23,10 @@ add_library(pavage coordinate.c hash_table.c tools.c)
 #----------------------------------------#
 
 #------ AJOUT DES TESTS ------#
-#add_test(pavage_test_clear ./pavage_test clear)
+add_test(test_coordinate_new ./pavage_test coordinate_new)
+add_test(test_coordinate_compare ./pavage_test coordinate_compare)
+add_test(test_hash_new ./pavage_test hash_new)
+add_test(test_hash_print ./pavage_test hash_print)
+add_test(test_hash_add ./pavage_test hash_add)
+add_test(test_hash_delete ./pavage_test hash_delete)
 #-----------------------------#

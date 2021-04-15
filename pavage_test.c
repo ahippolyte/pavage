@@ -1,6 +1,7 @@
 #include "coordinate.h"
 #include "hash_table.h"
 #include "tools.h"
+#include <string.h>
 
 /*---------------- COORDINATE ---------------*/
 
@@ -88,8 +89,37 @@ void usage(int argc, char *argv[]) {
 
 /*-------------- fonction main --------------*/
 
-int main(int argc, char *argv[]) {
-    printf("Beginning tests...\n");
-    printf("%d", test_hash_print());
-    return EXIT_SUCCESS;
+int main(int argc, char* argv[]) {
+    if (argc == 1) usage(argc, argv);
+
+    fprintf(stderr, "=> Start test \"%s\"\n", argv[1]);
+
+    bool test = false;
+    if (strcmp("coordinate_new", argv[1]) == 0)
+        test = test_coordinate_new();
+    else if (strcmp("coordinate_compare", argv[1]) == 0)
+        test = test_coordinate_compare();
+    else if (strcmp("hash_new", argv[1]) == 0)
+        test = test_hash_new();
+    else if (strcmp("hash_print", argv[1]) == 0)
+        test = test_hash_print();
+    else if (strcmp("hash_add", argv[1]) == 0)
+        test = test_hash_add();
+    else if (strcmp("hash_search", argv[1]) == 0)
+        test = test_hash_search();
+    else if (strcmp("hash_delete", argv[1]) == 0)
+        test = test_hash_delete();
+    else {
+        fprintf(stderr, "Error: test \"%s\" not found!\n", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+
+    // Tests results
+    if (test) {
+        fprintf(stderr, "Test \"%s\" finished: SUCCESS\n", argv[1]);
+        return EXIT_SUCCESS;
+    } else {
+        fprintf(stderr, "Test \"%s\" finished: FAILURE\n", argv[1]);
+        return EXIT_FAILURE;
+    }
 }

@@ -18,7 +18,7 @@ void coordinate_print(const coordinate_s * coordinate){
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
-    printf("(%d, %d)", coordinate->x, coordinate->y);
+    printf("(%d, %d)\n", coordinate->x, coordinate->y);
     return;
 }
 
