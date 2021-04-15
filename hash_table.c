@@ -41,8 +41,7 @@ void hash_add(hash_s *p_table, const coordinate_s *key, int height) {
             exit(EXIT_FAILURE);
         }
     }
-    p_table->p_cell[p_table->size - 1]->key->x = key->x;
-    p_table->p_cell[p_table->size - 1]->key->y = key->y;
+    p_table->p_cell[p_table->size - 1]->key = coordinate_new(key->x, key->y);
     p_table->p_cell[p_table->size - 1]->height = height;
 
     return;
@@ -70,7 +69,7 @@ void hash_delete(hash_s *p_table) {
         exit(EXIT_FAILURE);
     }
     for(uint i=0; i<p_table->size; i++){
-        free(p_table->p_cell[i]->key);
+        coordinate_delete(p_table->p_cell[i]->key);
         free(p_table->p_cell[i]);
     }
     free(p_table->p_cell);
