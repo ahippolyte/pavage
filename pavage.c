@@ -43,3 +43,19 @@ int Ymax(hash_s *hash) {
     }
     return max;
 }
+
+coordinate_s next_coordinate(coordinate_s *c, direction d) {
+    if (d == NORTH) {
+        c->y++;
+    }
+    if (d == SOUTH) {
+        c->y--;
+    }
+    if (d == EST) {
+        c->x++;
+    }
+    if (d == WEST) {
+        c->x--;
+    }
+    return *c;
+}
