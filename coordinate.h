@@ -39,7 +39,7 @@ void coordinate_print(const coordinate_s *coordinate);
  * @pre @p coordinate_2 must be a valid pointer toward a coordinate structure.
  * @return true if the two coordinates are equal, false otherwise
  **/
-bool coordinate_compare(const coordinate_s *coordinate_1, const coordinate_s *coordinate_2);
+bool coordinate_is_equal(const coordinate_s *coordinate_1, const coordinate_s *coordinate_2);
 
 /**
  * @brief Deletes the coordinate and frees the allocated memory.

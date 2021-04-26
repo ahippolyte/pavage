@@ -22,7 +22,7 @@ void coordinate_print(const coordinate_s *coordinate) {
     return;
 }
 
-bool coordinate_compare(const coordinate_s *coordinate_1, const coordinate_s *coordinate_2) {
+bool coordinate_is_equal(const coordinate_s *coordinate_1, const coordinate_s *coordinate_2) {
     if (coordinate_1 == NULL) {
         fprintf(stderr, "Coordonnées 1 invalides\n");
         exit(EXIT_FAILURE);
