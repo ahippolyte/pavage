@@ -3,19 +3,10 @@
 #include <stdlib.h>
 
 #include "hash_table.h"
+#include "queue.h"
 
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
-
-/**
- * @brief Different direction used to define an edge of a map
- **/
-typedef enum {
-    NORTH = 0,
-    EST = 1,
-    SOUTH = 2,
-    WEST = 3,
-} direction;
 
 /**
  * @brief Different end result for the fonction fill_map_edge_from_direction_list
