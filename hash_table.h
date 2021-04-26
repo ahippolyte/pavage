@@ -1,7 +1,7 @@
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
 #include "coordinate.h"
 
@@ -17,12 +17,12 @@
 typedef unsigned int uint;
 
 typedef struct cell {
-    coordinate_s * key;
+    coordinate_s *key;
     int height;
 } cell_s;
 
 typedef struct hash {
-    cell_s* *p_cell;
+    cell_s **p_cell;
     uint size;
     uint maxsize;
 } hash_s;
@@ -43,7 +43,7 @@ void hash_print(hash_s *p_table);
  * @brief Add or update in the hash table the height of the key.
  * @param p_table the hash table
  * @param key the coordinate
- * @param data the height 
+ * @param data the height
  **/
 void hash_add(hash_s *p_table, const coordinate_s *key, int height);
 

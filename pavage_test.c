@@ -1,8 +1,9 @@
+#include "pavage.h"
+
 #include <string.h>
 
 #include "coordinate.h"
 #include "hash_table.h"
-#include "pavage.h"
 
 /*---------------- COORDINATE ---------------*/
 
@@ -10,7 +11,7 @@
 
 bool test_coordinate_new() {
     coordinate_s *coordinate = coordinate_new(1, 1);
-    if(coordinate == NULL){
+    if (coordinate == NULL) {
         return false;
     }
     if (coordinate->x != 1 || coordinate->y != 1) {
@@ -53,11 +54,11 @@ bool test_coordinate_is_equal() {
 /**     test_hash_new    **/
 
 bool test_hash_new() {
-    hash_s * table = hash_new();
-    if(table == NULL){
+    hash_s *table = hash_new();
+    if (table == NULL) {
         return false;
     }
-    return true; 
+    return true;
 }
 
 /**     test_hash_print    **/
@@ -84,11 +85,11 @@ bool test_hash_print() {
 /**     test_hash_add    **/
 
 bool test_hash_add() {
-    hash_s * table = hash_new();
-    coordinate_s * coordinate = coordinate_new(1,0);
+    hash_s *table = hash_new();
+    coordinate_s *coordinate = coordinate_new(1, 0);
     hash_add(table, coordinate, 1);
-    if(table->size == 1){
-        if(table->p_cell[table->size-1]->key->x == 1 && table->p_cell[table->size-1]->key->y == 0){
+    if (table->size == 1) {
+        if (table->p_cell[table->size - 1]->key->x == 1 && table->p_cell[table->size - 1]->key->y == 0) {
             hash_delete(table);
             return true;
         }
@@ -102,11 +103,11 @@ bool test_hash_add() {
 /**     test_hash_search    **/
 
 bool test_hash_search() {
-    hash_s * table = hash_new();
-    coordinate_s * coordinate = coordinate_new(1,0);
+    hash_s *table = hash_new();
+    coordinate_s *coordinate = coordinate_new(1, 0);
     hash_add(table, coordinate, 1);
-    if(hash_search(table, coordinate) == 1){
-        //coordinate_delete(coordinate);
+    if (hash_search(table, coordinate) == 1) {
+        // coordinate_delete(coordinate);
         hash_delete(table);
         return true;
     }
@@ -115,9 +116,9 @@ bool test_hash_search() {
 
 /*--------------- QUEUE --------------*/
 
-bool test_queue_new(){
-    queue_s * queue = queue_new(5);
-    if(queue == NULL){
+bool test_queue_new() {
+    queue_s *queue = queue_new(5);
+    if (queue == NULL) {
         queue_delete(queue);
         return false;
     }
@@ -125,9 +126,9 @@ bool test_queue_new(){
     return true;
 }
 
-bool test_queue_print(){
-    queue_s * queue = queue_new(5);
-    if(queue == NULL){
+bool test_queue_print() {
+    queue_s *queue = queue_new(5);
+    if (queue == NULL) {
         queue_delete(queue);
         return false;
     }
@@ -144,35 +145,30 @@ bool test_queue_print(){
     return true;
 }
 
-bool test_queue_enqueue(){
-    queue_s * queue = queue_new(2);
+bool test_queue_enqueue() {
+    queue_s *queue = queue_new(2);
     queue_enqueue(queue, 5);
     queue_enqueue(queue, 3);
-    if(queue_peek(queue) == 3){
+    if (queue_peek(queue) == 3) {
         return true;
     }
     return false;
 }
 
-bool test_queue_dequeue(){
-    queue_s * queue = queue_new(2);
+bool test_queue_dequeue() {
+    queue_s *queue = queue_new(2);
     queue_enqueue(queue, 5);
     queue_enqueue(queue, 3);
     queue_dequeue(queue);
-    if(queue_peek(queue) == 3){
+    if (queue_peek(queue) == 3) {
         return true;
     }
     return false;
 }
 
-bool test_queue_is_empty(){
-    queue_s * queue = queue_new(2);
-    
-}
+bool test_queue_is_empty() { queue_s *queue = queue_new(2); }
 
-bool test_queue_peek(){
-    return true;
-}
+bool test_queue_peek() { return true; }
 
 /*-------------- fonction usage --------------*/
 

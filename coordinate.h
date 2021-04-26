@@ -11,8 +11,7 @@
 #ifndef __COORDINATE_H__
 #define __COORDINATE_H__
 
-typedef struct coordinate
-{
+typedef struct coordinate {
     int x;
     int y;
 } coordinate_s;
@@ -33,7 +32,7 @@ void coordinate_print(const coordinate_s *coordinate);
 
 /**
  * @brief Compare two coordinates.
- * @param coordinate_1 the first coordinate 
+ * @param coordinate_1 the first coordinate
  * @param coordinate_2 the second coordinate
  * @pre @p coordinate_1 must be a valid pointer toward a coordinate structure.
  * @pre @p coordinate_2 must be a valid pointer toward a coordinate structure.
@@ -47,4 +46,4 @@ bool coordinate_is_equal(const coordinate_s *coordinate_1, const coordinate_s *c
  **/
 void coordinate_delete(coordinate_s *coordinate);
 
-#endif // __COORDINATE_H__
+#endif  // __COORDINATE_H__

@@ -25,7 +25,7 @@ bool coordinate_is_equal(const coordinate_s *coordinate_1, const coordinate_s *c
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
-    if(coordinate_1->x == coordinate_2->x && coordinate_1->y == coordinate_2->y){
+    if (coordinate_1->x == coordinate_2->x && coordinate_1->y == coordinate_2->y) {
         return true;
     }
     return false;
