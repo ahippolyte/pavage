@@ -84,7 +84,7 @@ int hash_search(hash_s *p_table, const coordinate_s *key) {
     }
 
     for (uint i = 0; i < p_table->size; i++) {
-        if (coordinate_compare(p_table->p_cell[i]->key, key) == true) {
+        if (coordinate_is_equal(p_table->p_cell[i]->key, key) == true) {
             return p_table->p_cell[i]->height;
         }
     }
