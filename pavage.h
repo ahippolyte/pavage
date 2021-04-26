@@ -25,7 +25,6 @@ coordinate next_coordinate(coordinate old_coordinate, direction direction);
 
 int calculate_height(coordinate old_coordinate, int old_height, direction direction);
 
-
 /**
  * @param hash a pointer on a hash table
  * @return the smallest abscissas of a given hash table
@@ -54,5 +53,12 @@ int Ymin(hash_s *hash);
  * */
 int Ymax(hash_s *hash);
 
+/**
+ * @param c a pointer on a coordinate
+ * @param d a direction
+ * @return the next coordinate after the given direction
+ * @pre @p c must be a valid pointer
+ * */
+coordinate_s next_coordinate(coordinate_s *c, direction d);
 
 #endif  // __TOOLS_H__
