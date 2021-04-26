@@ -1,5 +1,7 @@
 #include "pavage.h"
 
+/**       X/Y min/max      **/
+
 int Xmin(hash_s *hash) {
     int min = 0;
     for (uint i = 0; i < hash->size; i++) {
@@ -40,9 +42,11 @@ int Ymax(hash_s *hash) {
     return max;
 }
 
+/**   Auxiliary function for fill_map_edge_from_direction_list   **/
+
 coordinate_s next_coordinate(coordinate_s *c, direction d) {
     if (c == NULL) {
-        fpintf(stderr, "invalid pointer adresse");
+        fprintf(stderr, "invalid pointer adresse");
         exit(EXIT_FAILURE);
     }
     coordinate_s *next_c = coordinate_new(c->x, c->y);
@@ -59,4 +63,23 @@ coordinate_s next_coordinate(coordinate_s *c, direction d) {
         next_c->x--;
     }
     return *next_c;
+}
+
+int calculate_height(coordinate_s *old_coordinate, int old_height, direction direction) {
+    if (old_coordinate->x % 2 == old_coordinate->y % 2) {
+        if (direction == EST || direction == WEST) {
+            old_height--;
+        }
+        if (direction == NORTH || direction == SOUTH) {
+            old_height++;
+        }
+    } else {
+        if (direction == EST || direction == WEST) {
+            old_height++;
+        }
+        if (direction == NORTH || direction == SOUTH) {
+            old_height--;
+        }
+    }
+    return old_height;
 }
