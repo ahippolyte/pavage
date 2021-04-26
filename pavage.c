@@ -41,6 +41,10 @@ int Ymax(hash_s *hash) {
 }
 
 coordinate_s next_coordinate(coordinate_s *c, direction d) {
+    if (c == NULL) {
+        fpintf(stderr, "invalid pointer adresse");
+        exit(EXIT_FAILURE);
+    }
     if (d == NORTH) {
         c->y++;
     }
