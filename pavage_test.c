@@ -2,7 +2,7 @@
 
 #include "coordinate.h"
 #include "hash_table.h"
-#include "tools.h"
+#include "pavage.h"
 
 /*---------------- COORDINATE ---------------*/
 

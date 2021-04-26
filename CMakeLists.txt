@@ -18,7 +18,7 @@ add_executable(pavage_test pavage_test.c)
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
 
-add_library(pavage coordinate.c hash_table.c tools.c)
+add_library(pavage coordinate.c hash_table.c pavage.c)
 #les dépendances sont calculées automatiquement
 #----------------------------------------#
 
