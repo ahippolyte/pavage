@@ -1,17 +1,12 @@
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "hash_table.h"
+#include "queue.h"
 
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
-
-/**
- * @brief Different direction used to define an edge of a map
- **/
-typedef enum {
-    NORTH = 0,
-    EST = 1,
-    SOUTH = 2,
-    WEST = 3,
-} direction;
 
 /**
  * @brief Different end result for the fonction fill_map_edge_from_direction_list
@@ -25,6 +20,11 @@ typedef enum {
 } how_fill_fonction_worked;
 
 how_fill_fonction_worked fill_map_edge_from_direction_list(direction list_of_direction[], hash_s *map_of_height);
+
+coordinate next_coordinate(coordinate old_coordinate, direction direction);
+
+int calculate_height(coordinate old_coordinate, int old_height, direction direction);
+
 
 /**
  * @param hash a pointer on a hash table
@@ -53,5 +53,6 @@ int Ymin(hash_s *hash);
  * @pre @p hash must be a valid pointer toward a hash_s structure
  * */
 int Ymax(hash_s *hash);
+
 
 #endif  // __TOOLS_H__
