@@ -21,10 +21,6 @@ typedef enum {
 
 how_fill_fonction_worked fill_map_edge_from_direction_list(direction list_of_direction[], hash_s *map_of_height);
 
-coordinate next_coordinate(coordinate old_coordinate, direction direction);
-
-int calculate_height(coordinate old_coordinate, int old_height, direction direction);
-
 /**
  * @param hash a pointer on a hash table
  * @return the smallest abscissas of a given hash table
@@ -60,5 +56,7 @@ int Ymax(hash_s *hash);
  * @pre @p c must be a valid pointer
  * */
 coordinate_s next_coordinate(coordinate_s *c, direction d);
+
+int calculate_height(coordinate_s * old_coordinate, int old_height, direction direction);
 
 #endif  // __TOOLS_H__
