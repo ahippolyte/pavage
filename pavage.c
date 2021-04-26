@@ -45,7 +45,7 @@ coordinate_s next_coordinate(coordinate_s *c, direction d) {
         fpintf(stderr, "invalid pointer adresse");
         exit(EXIT_FAILURE);
     }
-    coordinate_s next_c = coordinate_new(c->x, c->y);
+    coordinate_s *next_c = coordinate_new(c->x, c->y);
     if (d == NORTH) {
         next_c->y++;
     }
