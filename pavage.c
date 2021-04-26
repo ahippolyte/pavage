@@ -1,9 +1,5 @@
 #include "pavage.h"
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 int Xmin(hash_s *hash) {
     int min = 0;
     for (uint i = 0; i < hash->size; i++) {
