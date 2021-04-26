@@ -45,17 +45,18 @@ coordinate_s next_coordinate(coordinate_s *c, direction d) {
         fpintf(stderr, "invalid pointer adresse");
         exit(EXIT_FAILURE);
     }
+    coordinate_s next_c = coordinate_new(c->x, c->y);
     if (d == NORTH) {
-        c->y++;
+        next_c->y++;
     }
     if (d == SOUTH) {
-        c->y--;
+        next_c->y--;
     }
     if (d == EST) {
-        c->x++;
+        next_c->x++;
     }
     if (d == WEST) {
-        c->x--;
+        next_c->x--;
     }
-    return *c;
+    return *next_c;
 }
