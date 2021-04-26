@@ -1,21 +1,13 @@
 #include "pavage.h"
 
-<<<<<<< HEAD
-/**       X/Y min/max      **/
-=======
-
-
-
 how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s* map_of_height){
 
     hash_add(map_of_height,coordinate_new(0,0),0);
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction[], map_of_height, coordinate_new(0,0));
+    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, coordinate_new(0,0));
 }
 
-
-
-fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s* map_of_height, coordinate last_coordinate){
+fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s* map_of_height, coordinate_s* last_coordinate){
     if (list_of_direction == NULL){
         return ERROR_DIRECTION_TABLE;
     }
@@ -35,10 +27,10 @@ fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s* map_
 
     direction new_direction = queue_peek(list_of_direction);
     queue_dequeue(list_of_direction);
-    coordinate new_coordinate = next_coordinate(last_coordinate,new_direction);
+    coordinate_s * new_coordinate = next_coordinate(last_coordinate,new_direction);
 
     if (coordinate_compare(new_coordinate,coordinate_new(0,0)) && queue_is_empty(list_of_direction)){
-        if (calculate_height(last_coordinate, hash_search(map_of_height ,old_coordinate),new_direction) == 0 ){
+        if (calculate_height(last_coordinate, hash_search(map_of_height, last_coordinate),new_direction) == 0 ){
             return SHAPE_IS_MAYBE_PAVABLE;
         }else{
             return SHAPE_IS_NOT_PAVABLE;
@@ -49,11 +41,10 @@ fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s* map_
         return SHAPE_IS_DICONECTED;
     }
 
-    hash_add(map_of_height,new_coordinate,calculate_height(last_coordinate, hash_search(map_of_height ,old_coordinate),new_direction));
+    hash_add(map_of_height,new_coordinate,calculate_height(last_coordinate, hash_search(map_of_height, last_coordinate),new_direction));
 
     return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, new_coordinate);
 }
->>>>>>> 0b00a17cce69ac2328d7b636a9c115d42bb43cc9
 
 int Xmin(hash_s *hash) {
     int min = 0;
@@ -97,7 +88,7 @@ int Ymax(hash_s *hash) {
 
 /**   Auxiliary function for fill_map_edge_from_direction_list   **/
 
-coordinate_s next_coordinate(coordinate_s *c, direction d) {
+coordinate_s * next_coordinate(coordinate_s *c, direction d) {
     if (c == NULL) {
         fprintf(stderr, "invalid pointer adresse");
         exit(EXIT_FAILURE);
@@ -115,7 +106,7 @@ coordinate_s next_coordinate(coordinate_s *c, direction d) {
     if (d == WEST) {
         next_c->x--;
     }
-    return *next_c;
+    return next_c;
 }
 
 int calculate_height(coordinate_s *old_coordinate, int old_height, direction direction) {

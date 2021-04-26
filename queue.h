@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <limits.h>
 
 typedef unsigned int uint;
 
@@ -29,6 +30,3 @@ void queue_dequeue(queue_s * queue);
 bool queue_is_empty(queue_s * queue);
 int queue_peek(queue_s * queue);
 void queue_delete(queue_s * queue);
-
-
-int items[SIZE], front = -1, rear = -1;

@@ -27,38 +27,25 @@ bool test_coordinate_is_equal() {
     coordinate_s *coordinate_1 = coordinate_new(1, 1);
     coordinate_s *coordinate_2 = coordinate_new(1, 1);
     coordinate_s *coordinate_3 = coordinate_new(1, 2);
-    printf("0");
 
-    if (test_coordinate_is_equal(coordinate_1, coordinate_2) == false) {
+    if (coordinate_is_equal(coordinate_1, coordinate_2) == false) {
         coordinate_delete(coordinate_1);
         coordinate_delete(coordinate_2);
         coordinate_delete(coordinate_3);
         return false;
     }
 
-    printf("1");
-
-    if (test_coordinate_is_equal(coordinate_1, coordinate_3) == true) {
+    if (coordinate_is_equal(coordinate_1, coordinate_3) == true) {
         coordinate_delete(coordinate_1);
         coordinate_delete(coordinate_2);
         coordinate_delete(coordinate_3);
         return false;
     }
 
-    printf("2");
     coordinate_delete(coordinate_1);
     coordinate_delete(coordinate_2);
     coordinate_delete(coordinate_3);
     return true;
-}
-
-bool test_coordinate_delete() {
-    coordinate_s *coordinate_1 = coordinate_new(1, 1);
-    coordinate_delete(coordinate_1);
-    if(coordinate_1 == NULL){
-        return true;
-    }
-    return false;
 }
 
 /*---------------- HASH_TABLE ---------------*/
@@ -99,9 +86,9 @@ bool test_hash_print() {
 bool test_hash_add() {
     hash_s * table = hash_new();
     coordinate_s * coordinate = coordinate_new(1,0);
-    hash_add(table, coordinate, 1); 
+    hash_add(table, coordinate, 1);
     if(table->size == 1){
-        if(table->p_cell[table->size-1]->key->x == 1 && table->p_cell[table->size-1]->key->y == 1){
+        if(table->p_cell[table->size-1]->key->x == 1 && table->p_cell[table->size-1]->key->y == 0){
             hash_delete(table);
             return true;
         }
@@ -126,15 +113,65 @@ bool test_hash_search() {
     return false;
 }
 
-/**     test_hash_delete   **/
+/*--------------- QUEUE --------------*/
 
-bool test_hash_delete() { 
-    hash_s * table = hash_new();
-    hash_delete(table);
-    if(table == NULL){
+bool test_queue_new(){
+    queue_s * queue = queue_new(5);
+    if(queue == NULL){
+        queue_delete(queue);
+        return false;
+    }
+    queue_delete(queue);
+    return true;
+}
+
+bool test_queue_print(){
+    queue_s * queue = queue_new(5);
+    if(queue == NULL){
+        queue_delete(queue);
+        return false;
+    }
+    queue_enqueue(queue, 7);
+    queue_enqueue(queue, 3);
+    queue_enqueue(queue, 4);
+    queue_enqueue(queue, 1);
+    queue_enqueue(queue, 6);
+    queue_print(queue);
+    queue_dequeue(queue);
+    queue_print(queue);
+
+    queue_delete(queue);
+    return true;
+}
+
+bool test_queue_enqueue(){
+    queue_s * queue = queue_new(2);
+    queue_enqueue(queue, 5);
+    queue_enqueue(queue, 3);
+    if(queue_peek(queue) == 3){
         return true;
     }
     return false;
+}
+
+bool test_queue_dequeue(){
+    queue_s * queue = queue_new(2);
+    queue_enqueue(queue, 5);
+    queue_enqueue(queue, 3);
+    queue_dequeue(queue);
+    if(queue_peek(queue) == 3){
+        return true;
+    }
+    return false;
+}
+
+bool test_queue_is_empty(){
+    queue_s * queue = queue_new(2);
+    
+}
+
+bool test_queue_peek(){
+    return true;
 }
 
 /*-------------- fonction usage --------------*/
@@ -156,8 +193,6 @@ int main(int argc, char *argv[]) {
         test = test_coordinate_new();
     else if (strcmp("coordinate_is_equal", argv[1]) == 0)
         test = test_coordinate_is_equal();
-    else if (strcmp("coordinate_delete", argv[1]) == 0)
-        test = test_coordinate_delete();
     else if (strcmp("hash_new", argv[1]) == 0)
         test = test_hash_new();
     else if (strcmp("hash_print", argv[1]) == 0)
@@ -166,8 +201,18 @@ int main(int argc, char *argv[]) {
         test = test_hash_add();
     else if (strcmp("hash_search", argv[1]) == 0)
         test = test_hash_search();
-    else if (strcmp("hash_delete", argv[1]) == 0)
-        test = test_hash_delete();
+    else if (strcmp("queue_new", argv[1]) == 0)
+        test = test_queue_new();
+    else if (strcmp("queue_print", argv[1]) == 0)
+        test = test_queue_print();
+    else if (strcmp("queue_enqueue", argv[1]) == 0)
+        test = test_queue_enqueue();
+    else if (strcmp("queue_dequeue", argv[1]) == 0)
+        test = test_queue_dequeue();
+    else if (strcmp("queue_is_empty", argv[1]) == 0)
+        test = test_queue_is_empty();
+    else if (strcmp("queue_peek", argv[1]) == 0)
+        test = test_queue_peek();
     else {
         fprintf(stderr, "Error: test \"%s\" not found!\n", argv[1]);
         exit(EXIT_FAILURE);

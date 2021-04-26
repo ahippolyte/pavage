@@ -30,9 +30,9 @@ void queue_print(queue_s * queue) {
     printf("|_____ QUEUE _____|\n\n");
     printf("Size: %u\n", queue->size);
     printf("________________________\n\n");
-    for (uint i = 0; i < queue->size; i++) {
+    for (uint i = queue->front; i<queue->rear+1; i++) {
         printf("ELEMENT %u\n", i);
-        printf("Coordinates: ");
+        printf("Value: ");
         printf("%d ", queue->items[i]);
         printf("---------\n");
     }
@@ -50,11 +50,10 @@ void queue_enqueue(queue_s * queue, int item){
     if (queue->rear == queue->size-1)
         printf("Queue is full!\n");
     else {
-        if (front == -1)
-            front = 0;
+        if (queue->front == -1)
+            queue->front = 0;
         queue->rear++;
         queue->items[queue->rear] = item;
-        printf("Inserted -> %d\n", item);
     }
 }
 
@@ -67,7 +66,6 @@ void queue_dequeue(queue_s * queue){
     if (queue->front == -1)
         printf("Queue is empty!\n");
     else {
-        printf("Deleted : %d\n", queue->items[queue->front]);
         queue->front++;
         if (queue->front > queue->rear)
             queue->front = queue->rear = -1;
@@ -80,7 +78,7 @@ bool queue_is_empty(queue_s * queue){
         exit(EXIT_FAILURE);
     }
 
-    if(queue->size = 0){
+    if(queue->size == 0){
         return true;
     }
     return false;
@@ -92,10 +90,12 @@ int queue_peek(queue_s * queue){
         exit(EXIT_FAILURE);
     }
 
-    if(queue_is_empty(queue))
+    if(queue_is_empty(queue)){
         printf("Can't peek into an empty queue!");
-    else
-        return queue->items[queue->rear];
+        exit(EXIT_FAILURE);
+    }
+
+    return queue->items[queue->rear];
 }
 
 void queue_delete(queue_s * queue){
