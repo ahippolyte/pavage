@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 typedef unsigned int uint;
@@ -15,7 +17,7 @@ typedef enum {
 #define SIZE 5
 
 typedef struct queue{
-    int items[];
+    int * items;
     uint size;
     int front, rear;
 } queue_s;

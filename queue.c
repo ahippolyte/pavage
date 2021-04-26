@@ -1,4 +1,3 @@
-#include "pavage_private.h"
 #include "queue.h"
 
 queue_s * queue_new(uint size){
@@ -99,7 +98,7 @@ int queue_peek(queue_s * queue){
         return queue->items[queue->rear];
 }
 
-int queue_delete(queue_s * queue){
+void queue_delete(queue_s * queue){
     if (queue == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
