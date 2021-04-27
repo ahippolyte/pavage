@@ -161,12 +161,28 @@ bool test_queue_dequeue() {
     queue_enqueue(queue, 3);
     queue_dequeue(queue);
     if (queue_peek(queue) == 3) {
+        queue_delete(queue);
         return true;
     }
+    queue_delete(queue);
     return false;
 }
 
-bool test_queue_is_empty() { queue_s *queue = queue_new(2); }
+bool test_queue_is_empty() { 
+    queue_s *queue_1 = queue_new(2);
+    queue_s *queue_2 = queue_new(2);
+    queue_enqueue(queue_1, 1);
+
+    if(!queue_is_empty(queue_1) && queue_is_empty(queue_2)){
+        queue_delete(queue_1);
+        queue_delete(queue_2);
+        return true;
+    }
+    queue_delete(queue_1);
+    queue_delete(queue_2);
+    return false;
+    
+}
 
 bool test_queue_peek() { return true; }
 

@@ -76,7 +76,7 @@ bool queue_is_empty(queue_s* queue) {
         exit(EXIT_FAILURE);
     }
 
-    if (queue->size == 0) {
+    if (queue->rear == -1 && queue->front == -1) {
         return true;
     }
     return false;
