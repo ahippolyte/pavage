@@ -58,6 +58,7 @@ bool test_hash_new() {
     if (table == NULL) {
         return false;
     }
+    hash_delete(table);
     return true;
 }
 
@@ -79,6 +80,7 @@ bool test_hash_print() {
 
     hash_print(table);
 
+    hash_delete(table);
     return true;
 }
 
@@ -148,10 +150,11 @@ bool test_queue_print() {
 bool test_queue_enqueue() {
     queue_s *queue = queue_new(2);
     queue_enqueue(queue, 5);
-    queue_enqueue(queue, 3);
-    if (queue_peek(queue) == 3) {
+    if (queue_peek(queue) == 5) {
+        queue_delete(queue);
         return true;
     }
+    queue_delete(queue);
     return false;
 }
 
@@ -181,10 +184,19 @@ bool test_queue_is_empty() {
     queue_delete(queue_1);
     queue_delete(queue_2);
     return false;
-    
 }
 
-bool test_queue_peek() { return true; }
+bool test_queue_peek() { 
+    queue_s *queue = queue_new(2);
+    queue_enqueue(queue, 1);
+    queue_enqueue(queue, 2);
+    if(queue_peek(queue) == 1){
+        queue_delete(queue);
+        return true;
+    }
+    queue_delete(queue);
+    return false;
+}
 
 /*-------------- fonction usage --------------*/
 

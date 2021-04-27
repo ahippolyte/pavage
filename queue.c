@@ -93,7 +93,7 @@ int queue_peek(queue_s* queue) {
         exit(EXIT_FAILURE);
     }
 
-    return queue->items[queue->rear];
+    return queue->items[queue->front];
 }
 
 void queue_delete(queue_s* queue) {
