@@ -2,3 +2,6 @@ build/
 .vscode
 pavage_test.exe
 pavage_text.exe
+latex/*
+!latex/sample.tex
+!latex/biblio.bib
