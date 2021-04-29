@@ -3,5 +3,5 @@ build/
 pavage_test.exe
 pavage_text.exe
 latex/*
-!latex/sample.tex
+!latex/rapport.tex
 !latex/biblio.bib
