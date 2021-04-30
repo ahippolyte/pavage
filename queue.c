@@ -10,6 +10,7 @@ queue_s* queue_new(uint size) {
     queue->items = (int*)malloc(size * sizeof(int));
     if (queue->items == NULL) {
         fprintf(stderr, "Allocation failed!");
+        free(queue);
         exit(EXIT_FAILURE);
     }
 
@@ -62,7 +63,7 @@ void queue_dequeue(queue_s* queue) {
         exit(EXIT_FAILURE);
     }
 
-    if (queue->front == -1)
+    if (queue_is_empty(queue))
         printf("Queue is empty!\n");
     else {
         queue->front++;

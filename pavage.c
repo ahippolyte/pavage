@@ -9,11 +9,13 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
         return ERROR_MAP;
     }
 
+    coordinate_s * starting_point = coordinate_new(0, 0);
+
     if (queue_is_empty(list_of_direction)) {
-        if (coordinate_is_equal(last_coordinate, coordinate_new(0, 0))) {
-            return SHAPE_IS_MAYBE_PAVABLE;
+        if (coordinate_is_equal(last_coordinate, starting_point)) {
+            return EDGE_IS_CONNECTED;
         } else {
-            return SHAPE_IS_DISCONNECTED;
+            return EDGE_IS_DISCONNECTED;
         }
     }
 
