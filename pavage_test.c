@@ -131,9 +131,9 @@ bool test_queue_new() {
 bool test_queue_print() {
     queue_s *queue = queue_new(5);
     if (queue == NULL) {
-        queue_delete(queue);
         return false;
     }
+    printf("0");
     queue_enqueue(queue, 7);
     queue_enqueue(queue, 3);
     queue_enqueue(queue, 4);

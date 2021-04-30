@@ -39,7 +39,6 @@ void queue_print(queue_s* queue) {
     }
     printf(" _______________________ \n");
     printf("|_________ END _________|\n");
-    queue_delete(queue);
     return;
 }
 
