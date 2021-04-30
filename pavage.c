@@ -23,7 +23,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     queue_dequeue(list_of_direction);
     coordinate_s *new_coordinate = next_coordinate(last_coordinate, new_direction);
 
-    if (coordinate_is_equal(new_coordinate, coordinate_new(0, 0)) && queue_is_empty(list_of_direction)) {
+    if (coordinate_is_equal(new_coordinate, starting_point) && queue_is_empty(list_of_direction)) {
         if (calculate_height(last_coordinate, hash_search(map_of_height, last_coordinate), new_direction) == 0) {
             return SHAPE_IS_MAYBE_PAVABLE;
         } else {
@@ -32,7 +32,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     }
 
     if (hash_search(map_of_height, new_coordinate) != INT_MAX) {
-        return SHAPE_IS_DISCONNECTED;
+        return EDGE_IS_DISCONNECTED;
     }
 
     hash_add(map_of_height, new_coordinate, calculate_height(last_coordinate, hash_search(map_of_height, last_coordinate), new_direction));

@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
         case SHAPE_IS_NOT_PAVABLE:
             printf("Le contour n'est pas pavable\n");
             break;
-        case SHAPE_IS_DISCONNECTED:
+        case EDGE_IS_DISCONNECTED:
             printf("Le contour est ouvert\n");
             break;
         case ERROR_DIRECTION_TABLE:
@@ -50,6 +50,8 @@ int main(int argc, char* argv[]) {
         default:
             break;
         }
+
+        hash_print(hash);
     }
     
     return EXIT_SUCCESS;

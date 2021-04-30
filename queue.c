@@ -39,6 +39,7 @@ void queue_print(queue_s* queue) {
     }
     printf(" _______________________ \n");
     printf("|_________ END _________|\n");
+    queue_delete(queue);
     return;
 }
 
@@ -63,8 +64,9 @@ void queue_dequeue(queue_s* queue) {
         exit(EXIT_FAILURE);
     }
 
-    if (queue_is_empty(queue))
+    if (queue_is_empty(queue)){
         printf("Queue is empty!\n");
+    }
     else {
         queue->front++;
         if (queue->front > queue->rear) queue->front = queue->rear = -1;
