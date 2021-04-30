@@ -13,11 +13,13 @@
  * @brief Different end result for the fonction fill_map_edge_from_direction_list
  **/
 typedef enum {
-    SHAPE_IS_MAYBE_PAVABLE = 0,
-    SHAPE_IS_NOT_PAVABLE = 1,
-    SHAPE_IS_DISCONNECTED = 2,
-    ERROR_DIRECTION_TABLE = 3,
-    ERROR_MAP = 4,
+    EDGE_IS_DISCONNECTED = 0,
+    EDGE_IS_CONNECTED = 1,  // Edge is a shape
+    SHAPE_IS_MAYBE_PAVABLE = 2,
+    SHAPE_IS_NOT_PAVABLE = 3,
+    SHAPE_IS_PAVABLE = 4,
+    ERROR_DIRECTION_TABLE = 5,
+    ERROR_MAP = 6,
 } how_fill_fonction_worked;
 
 how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height);
