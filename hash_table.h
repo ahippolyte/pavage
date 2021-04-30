@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "coordinate.h"
+#include "point.h"
 
 /**
  * @file hash_table.h
@@ -17,7 +17,7 @@
 typedef unsigned int uint;
 
 typedef struct cell {
-    coordinate_s *key;
+    point_s *key;
     int height;
 } cell_s;
 
@@ -42,18 +42,18 @@ void hash_print(hash_s *p_table);
 /**
  * @brief Add or update in the hash table the height of the key.
  * @param p_table the hash table
- * @param key the coordinate
+ * @param key the point
  * @param data the height
  **/
-void hash_add(hash_s *p_table, const coordinate_s *key, int height);
+void hash_add(hash_s *p_table, const point_s *key, int height);
 
 /**
  * @brief Find in the hash table the height of the key.
  * @param p_table the hash table
- * @param key the coordinate
- * @return the height of the coordinate if it find it
+ * @param key the point
+ * @return the height of the point if it find it
  **/
-int hash_search(hash_s *p_table, const coordinate_s *key);
+int hash_search(hash_s *p_table, const point_s *key);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.

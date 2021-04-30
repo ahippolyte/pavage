@@ -2,50 +2,50 @@
 
 #include <string.h>
 
-#include "coordinate.h"
+#include "point.h"
 #include "hash_table.h"
 
-/*---------------- COORDINATE ---------------*/
+/*---------------- point ---------------*/
 
-/**     test_coordinate_new    **/
+/**     test_point_new    **/
 
-bool test_coordinate_new() {
-    coordinate_s *coordinate = coordinate_new(1, 1);
-    if (coordinate == NULL) {
+bool test_point_new() {
+    point_s *point = point_new(1, 1);
+    if (point == NULL) {
         return false;
     }
-    if (coordinate->x != 1 || coordinate->y != 1) {
-        coordinate_delete(coordinate);
+    if (point->x != 1 || point->y != 1) {
+        point_delete(point);
         return false;
     }
-    coordinate_delete(coordinate);
+    point_delete(point);
     return true;
 }
 
-/**     test_coordinate_compare    **/
+/**     test_point_compare    **/
 
-bool test_coordinate_is_equal() {
-    coordinate_s *coordinate_1 = coordinate_new(1, 1);
-    coordinate_s *coordinate_2 = coordinate_new(1, 1);
-    coordinate_s *coordinate_3 = coordinate_new(1, 2);
+bool test_point_is_equal() {
+    point_s *point_1 = point_new(1, 1);
+    point_s *point_2 = point_new(1, 1);
+    point_s *point_3 = point_new(1, 2);
 
-    if (coordinate_is_equal(coordinate_1, coordinate_2) == false) {
-        coordinate_delete(coordinate_1);
-        coordinate_delete(coordinate_2);
-        coordinate_delete(coordinate_3);
+    if (point_is_equal(point_1, point_2) == false) {
+        point_delete(point_1);
+        point_delete(point_2);
+        point_delete(point_3);
         return false;
     }
 
-    if (coordinate_is_equal(coordinate_1, coordinate_3) == true) {
-        coordinate_delete(coordinate_1);
-        coordinate_delete(coordinate_2);
-        coordinate_delete(coordinate_3);
+    if (point_is_equal(point_1, point_3) == true) {
+        point_delete(point_1);
+        point_delete(point_2);
+        point_delete(point_3);
         return false;
     }
 
-    coordinate_delete(coordinate_1);
-    coordinate_delete(coordinate_2);
-    coordinate_delete(coordinate_3);
+    point_delete(point_1);
+    point_delete(point_2);
+    point_delete(point_3);
     return true;
 }
 
@@ -70,11 +70,11 @@ bool test_hash_print() {
         fprintf(stderr, "Failed to create a hash table!");
         return false;
     }
-    coordinate_s *key_1 = coordinate_new(10, 6);
+    point_s *key_1 = point_new(10, 6);
     int height_1 = -5;
     hash_add(table, key_1, height_1);
 
-    coordinate_s *key_2 = coordinate_new(2, 7);
+    point_s *key_2 = point_new(2, 7);
     int height_2 = 4;
     hash_add(table, key_2, height_2);
 
@@ -88,8 +88,8 @@ bool test_hash_print() {
 
 bool test_hash_add() {
     hash_s *table = hash_new();
-    coordinate_s *coordinate = coordinate_new(1, 0);
-    hash_add(table, coordinate, 1);
+    point_s *point = point_new(1, 0);
+    hash_add(table, point, 1);
     if (table->size == 1) {
         if (table->p_cell[table->size - 1]->key->x == 1 && table->p_cell[table->size - 1]->key->y == 0) {
             hash_delete(table);
@@ -106,10 +106,10 @@ bool test_hash_add() {
 
 bool test_hash_search() {
     hash_s *table = hash_new();
-    coordinate_s *coordinate = coordinate_new(1, 0);
-    hash_add(table, coordinate, 1);
-    if (hash_search(table, coordinate) == 1) {
-        // coordinate_delete(coordinate);
+    point_s *point = point_new(1, 0);
+    hash_add(table, point, 1);
+    if (hash_search(table, point) == 1) {
+        // point_delete(point);
         hash_delete(table);
         return true;
     }
@@ -213,10 +213,10 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "=> Start test \"%s\"\n", argv[1]);
 
     bool test = false;
-    if (strcmp("coordinate_new", argv[1]) == 0)
-        test = test_coordinate_new();
-    else if (strcmp("coordinate_is_equal", argv[1]) == 0)
-        test = test_coordinate_is_equal();
+    if (strcmp("point_new", argv[1]) == 0)
+        test = test_point_new();
+    else if (strcmp("point_is_equal", argv[1]) == 0)
+        test = test_point_is_equal();
     else if (strcmp("hash_new", argv[1]) == 0)
         test = test_hash_new();
     else if (strcmp("hash_print", argv[1]) == 0)

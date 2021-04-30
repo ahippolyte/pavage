@@ -18,13 +18,13 @@ add_executable(pavage_test pavage_test.c)
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
 
-add_library(pavage coordinate.c hash_table.c pavage.c queue.c)
+add_library(pavage point.c hash_table.c pavage.c queue.c)
 #les dépendances sont calculées automatiquement
 #----------------------------------------#
 
 #------ AJOUT DES TESTS ------#
-add_test(test_coordinate_new ./pavage_test coordinate_new)
-add_test(test_coordinate_is_equal ./pavage_test coordinate_is_equal)
+add_test(test_point_new ./pavage_test point_new)
+add_test(test_point_is_equal ./pavage_test point_is_equal)
 
 add_test(test_hash_new ./pavage_test hash_new)
 add_test(test_hash_print ./pavage_test hash_print)

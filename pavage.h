@@ -53,13 +53,13 @@ int Ymin(hash_s *hash);
 int Ymax(hash_s *hash);
 
 /**
- * @param c a pointer on a coordinate
+ * @param c a pointer on a point
  * @param d a direction
- * @return the next coordinate after the given direction
+ * @return the next point after the given direction
  * @pre @p c must be a valid pointer
  * */
-coordinate_s *next_coordinate(coordinate_s *c, direction d);
+point_s *next_point(point_s *c, direction d);
 
-int calculate_height(coordinate_s *old_coordinate, int old_height, direction direction);
+int calculate_height(point_s *old_point, int old_height, direction direction);
 
 #endif  // __TOOLS_H__
