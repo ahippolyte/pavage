@@ -15,7 +15,7 @@
 typedef enum {
     SHAPE_IS_MAYBE_PAVABLE = 0,
     SHAPE_IS_NOT_PAVABLE = 1,
-    SHAPE_IS_DICONECTED = 2,
+    SHAPE_IS_DISCONNECTED = 2,
     ERROR_DIRECTION_TABLE = 3,
     ERROR_MAP = 4,
 } how_fill_fonction_worked;

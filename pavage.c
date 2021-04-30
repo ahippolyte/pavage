@@ -13,7 +13,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
         if (coordinate_is_equal(last_coordinate, coordinate_new(0, 0))) {
             return SHAPE_IS_MAYBE_PAVABLE;
         } else {
-            return SHAPE_IS_DICONECTED;
+            return SHAPE_IS_DISCONNECTED;
         }
     }
 
@@ -30,7 +30,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     }
 
     if (hash_search(map_of_height, new_coordinate) != INT_MAX) {
-        return SHAPE_IS_DICONECTED;
+        return SHAPE_IS_DISCONNECTED;
     }
 
     hash_add(map_of_height, new_coordinate, calculate_height(last_coordinate, hash_search(map_of_height, last_coordinate), new_direction));
@@ -39,9 +39,10 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
 }
 
 how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height) {
-    hash_add(map_of_height, coordinate_new(0, 0), 0);
+    coordinate_s * first = coordinate_new(0, 0);
+    hash_add(map_of_height, first, 0);
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, coordinate_new(0, 0));
+    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, first);
 }
 
 int Xmin(hash_s *hash) {
