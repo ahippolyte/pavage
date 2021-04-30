@@ -12,8 +12,8 @@
 #define __point_H__
 
 typedef struct point {
-    int x;
-    int y;
+    float x;
+    float y;
 } point_s;
 
 /**

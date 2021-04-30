@@ -1,6 +1,6 @@
 #include "pavage.h"
 
-how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s *map_of_height, point_s *last_point) {
+how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s *map_of_height, point_s *last_point, point_s **inter_points, uint *nb_inter_points) {
     if (list_of_direction == NULL) {
         return ERROR_DIRECTION_TABLE;
     }
@@ -23,6 +23,15 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     queue_dequeue(list_of_direction);
     point_s *new_point = next_point(last_point, new_direction);
 
+    if(new_direction == NORTH){
+        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y-0.5);
+        nb_inter_points++;
+    }
+    else if(new_direction == SOUTH){
+        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y-0.5);
+        *nb_inter_points++;
+    }
+
     if (point_is_equal(new_point, starting_point) && queue_is_empty(list_of_direction)) {
         if (calculate_height(last_point, hash_search(map_of_height, last_point), new_direction) == 0) {
             return SHAPE_IS_MAYBE_PAVABLE;
@@ -37,14 +46,14 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
 
     hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, new_point);
+    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, new_point, inter_points, nb_inter_points);
 }
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height) {
+how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points){
     point_s * first = point_new(0, 0);
     hash_add(map_of_height, first, 0);
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, first);
+    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, first, inter_points, nb_inter_points);
 }
 
 int Xmin(hash_s *hash) {
@@ -111,7 +120,7 @@ point_s *next_point(point_s *c, direction d) {
 }
 
 int calculate_height(point_s *old_point, int old_height, direction direction) {
-    if (old_point->x % 2 == old_point->y % 2) {
+    if ((int)old_point->x % 2 == (int)old_point->y % 2) {
         if (direction == EST || direction == WEST) {
             old_height--;
         }

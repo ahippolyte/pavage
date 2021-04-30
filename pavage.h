@@ -22,7 +22,7 @@ typedef enum {
     ERROR_MAP = 6,
 } how_fill_fonction_worked;
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height);
+how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points);
 
 /**
  * @param hash a pointer on a hash table
