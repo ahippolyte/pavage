@@ -16,7 +16,7 @@ void point_print(const point_s *point) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
     }
-    printf("(%d, %d)\n", point->x, point->y);
+    printf("(%.1f, %.1f)\n", point->x, point->y);
     return;
 }
 

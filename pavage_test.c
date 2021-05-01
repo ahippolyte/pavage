@@ -2,8 +2,9 @@
 
 #include <string.h>
 
-#include "point.h"
 #include "hash_table.h"
+#include "heap.h"
+#include "point.h"
 
 /*---------------- point ---------------*/
 
@@ -171,12 +172,12 @@ bool test_queue_dequeue() {
     return false;
 }
 
-bool test_queue_is_empty() { 
+bool test_queue_is_empty() {
     queue_s *queue_1 = queue_new(2);
     queue_s *queue_2 = queue_new(2);
     queue_enqueue(queue_1, 1);
 
-    if(!queue_is_empty(queue_1) && queue_is_empty(queue_2)){
+    if (!queue_is_empty(queue_1) && queue_is_empty(queue_2)) {
         queue_delete(queue_1);
         queue_delete(queue_2);
         return true;
@@ -186,17 +187,50 @@ bool test_queue_is_empty() {
     return false;
 }
 
-bool test_queue_peek() { 
+bool test_queue_peek() {
     queue_s *queue = queue_new(2);
     queue_enqueue(queue, 1);
     queue_enqueue(queue, 2);
-    if(queue_peek(queue) == 1){
+    if (queue_peek(queue) == 1) {
         queue_delete(queue);
         return true;
     }
     queue_delete(queue);
     return false;
 }
+
+/*--------------- HEAP --------------*/
+
+bool test_heap_new() {
+    heap_s *heap = heap_new(5);
+    if (heap == NULL) {
+        return false;
+    }
+    heap_delete(heap);
+    return true;
+}
+
+bool test_heap_print() {
+    heap_s *heap = heap_new(5);
+    if (heap == NULL) {
+        return false;
+    }
+    heap_print(heap);
+    heap_add(heap, 5);
+    heap_add(heap, 3);
+    heap_print(heap);
+    printf("Top : %d", heap_top(heap));
+    heap_delete(heap);
+    return true;
+}
+
+bool test_heap_empty() { return true; }
+
+bool test_heap_add() { return true; }
+
+bool test_heap_top() { return true; }
+
+bool test_heap_pop() { return true; }
 
 /*-------------- fonction usage --------------*/
 
@@ -237,6 +271,18 @@ int main(int argc, char *argv[]) {
         test = test_queue_is_empty();
     else if (strcmp("queue_peek", argv[1]) == 0)
         test = test_queue_peek();
+    else if (strcmp("heap_new", argv[1]) == 0)
+        test = test_heap_new();
+    else if (strcmp("heap_print", argv[1]) == 0)
+        test = test_heap_print();
+    else if (strcmp("heap_empty", argv[1]) == 0)
+        test = test_heap_empty();
+    else if (strcmp("heap_add", argv[1]) == 0)
+        test = test_heap_add();
+    else if (strcmp("heap_top", argv[1]) == 0)
+        test = test_heap_top();
+    else if (strcmp("heap_pop", argv[1]) == 0)
+        test = test_heap_pop();
     else {
         fprintf(stderr, "Error: test \"%s\" not found!\n", argv[1]);
         exit(EXIT_FAILURE);

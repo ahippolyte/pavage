@@ -1,6 +1,7 @@
 #include "pavage.h"
 
-how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s *map_of_height, point_s *last_point, point_s **inter_points, uint *nb_inter_points) {
+how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s *map_of_height, point_s *last_point,
+                                                                 point_s **inter_points, uint *nb_inter_points) {
     if (list_of_direction == NULL) {
         return ERROR_DIRECTION_TABLE;
     }
@@ -9,7 +10,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
         return ERROR_MAP;
     }
 
-    point_s * starting_point = point_new(0, 0);
+    point_s *starting_point = point_new(0, 0);
 
     if (queue_is_empty(list_of_direction)) {
         if (point_is_equal(last_point, starting_point)) {
@@ -23,12 +24,11 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     queue_dequeue(list_of_direction);
     point_s *new_point = next_point(last_point, new_direction);
 
-    if(new_direction == NORTH){
-        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y-0.5);
+    if (new_direction == NORTH) {
+        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y - 0.5);
         nb_inter_points++;
-    }
-    else if(new_direction == SOUTH){
-        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y-0.5);
+    } else if (new_direction == SOUTH) {
+        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y - 0.5);
         *nb_inter_points++;
     }
 
@@ -49,9 +49,11 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
     return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, new_point, inter_points, nb_inter_points);
 }
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points){
-    point_s * first = point_new(0, 0);
+how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points,
+                                                           uint *nb_inter_points) {
+    point_s *first = point_new(0, 0);
     hash_add(map_of_height, first, 0);
+    *nb_inter_points = 0;
 
     return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, first, inter_points, nb_inter_points);
 }

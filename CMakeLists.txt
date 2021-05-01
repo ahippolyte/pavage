@@ -18,7 +18,7 @@ add_executable(pavage_test pavage_test.c)
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
 
-add_library(pavage point.c hash_table.c pavage.c queue.c)
+add_library(pavage point.c hash_table.c pavage.c queue.c heap.c)
 #les dépendances sont calculées automatiquement
 #----------------------------------------#
 
@@ -37,4 +37,11 @@ add_test(test_queue_enqueue ./pavage_test queue_enqueue)
 add_test(test_queue_dequeue ./pavage_test queue_dequeue)
 add_test(test_queue_is_empty ./pavage_test queue_is_empty)
 add_test(test_queue_peek ./pavage_test queue_peek)
+
+add_test(test_heap_new ./pavage_test heap_new)
+add_test(test_heap_print ./pavage_test heap_print)
+add_test(test_heap_empty ./pavage_test heap_empty)
+add_test(test_heap_add ./pavage_test heap_add)
+add_test(test_heap_top ./pavage_test heap_top)
+add_test(test_heap_pop ./pavage_test heap_pop)
 #-----------------------------#
