@@ -10,9 +10,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     }
     
     point_s * first_point = point_new(0, 0);
-
     point_s * last_point = first_point;
-
     direction new_direction = 0;
     point_s *new_point = NULL;
 
@@ -20,7 +18,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         new_direction = list_of_direction[i];
         new_point = next_point(last_point, new_direction);
 
-        if (hash_search(map_of_height, new_point) != INT_MAX) {
+        if (hash_search(map_of_height, new_point) != INT_MAX && i != nb_of_direction-1) {
             return EDGE_IS_LOOPING;
         }
 

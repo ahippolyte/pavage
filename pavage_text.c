@@ -45,6 +45,9 @@ int main(int argc, char* argv[]) {
         */
         state result = fill_map_edge_from_direction_list(directions, size, hash);
         switch (result) {
+            case EDGE_IS_LOOPING:
+                printf("Le contour forme une boucle\n");
+                break;
             case EDGE_IS_DISCONNECTED:
                 printf("Le contour ne se ferme pas\n");
                 break;
@@ -67,11 +70,9 @@ int main(int argc, char* argv[]) {
                 printf("Table de hash incorrecte\n");
                 break;
             default:
-                printf("ERROR\n");
+                printf("Erreur inconnue\n");
                 break;
         }
-
-        hash_print(hash);
     }
 
     return EXIT_SUCCESS;
