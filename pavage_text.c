@@ -31,22 +31,28 @@ int main(int argc, char* argv[]) {
         }
         point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
         uint nb_inter_points = 0;
-        how_fill_fonction_worked state = fill_map_edge_from_direction_list(queue, hash, inter_points, &nb_inter_points);
-        switch (state) {
-            case SHAPE_IS_MAYBE_PAVABLE:
-                printf("Le contour est peut-être pavable\n");
-                break;
-            case SHAPE_IS_NOT_PAVABLE:
-                printf("Le contour n'est pas pavable\n");
-                break;
+        state result = get_edge_from_direction_list(queue, hash, inter_points, &nb_inter_points);
+        switch (result) {
             case EDGE_IS_DISCONNECTED:
-                printf("Le contour est ouvert\n");
+                printf("Le contour ne se ferme pas\n");
+                break;
+            case EDGE_IS_CONNECTED:
+                printf("Le contour est connecté\n");
+                break;
+            case AREA_IS_MAYBE_PAVABLE:
+                printf("L'aire est peut être pavable\n");
+                break;
+            case AREA_IS_NOT_PAVABLE:
+                printf("L'aire n'est pas pavable\n");
+                break;
+            case AREA_IS_PAVABLE:
+                printf("L'aire est pavable\n");
                 break;
             case ERROR_DIRECTION_TABLE:
-                printf("Erreur dans la liste des directions\n");
+                printf("Direction inconnue\n");
                 break;
             case ERROR_MAP:
-                printf("Erreur dans la table de hash\n");
+                printf("Table de hash incorrecte\n");
                 break;
             default:
                 break;

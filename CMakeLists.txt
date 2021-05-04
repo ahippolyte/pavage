@@ -9,7 +9,7 @@ enable_testing()
 include(CTest)
 
 #positionne la variable
-set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall --coverage")
+set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall")
 
 #------ EXECUTABLES ET BIBLIOTHEQUE ------#
 add_executable(pavage_text pavage_text.c)

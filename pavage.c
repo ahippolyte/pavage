@@ -1,8 +1,7 @@
 #include "pavage.h"
 
-how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_of_direction, hash_s *map_of_height, point_s *last_point,
-                                                                 point_s **inter_points, uint *nb_inter_points) {
-    if (list_of_direction == NULL) {
+state get_edge_from_direction_list_recur(queue_s *direction_list, hash_s *map_of_height, point_s *last_point, point_s **inter_points, uint *nb_inter_points) {
+    if (direction_list == NULL) {
         return ERROR_DIRECTION_TABLE;
     }
 
@@ -12,7 +11,7 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
 
     point_s *starting_point = point_new(0, 0);
 
-    if (queue_is_empty(list_of_direction)) {
+    if (queue_is_empty(direction_list)) {
         if (point_is_equal(last_point, starting_point)) {
             return EDGE_IS_CONNECTED;
         } else {
@@ -20,8 +19,8 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
         }
     }
 
-    direction new_direction = queue_peek(list_of_direction);
-    queue_dequeue(list_of_direction);
+    direction new_direction = queue_peek(direction_list);
+    queue_dequeue(direction_list);
     point_s *new_point = next_point(last_point, new_direction);
 
     if (new_direction == NORTH) {
@@ -32,11 +31,11 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
         *nb_inter_points++;
     }
 
-    if (point_is_equal(new_point, starting_point) && queue_is_empty(list_of_direction)) {
+    if (point_is_equal(new_point, starting_point) && queue_is_empty(direction_list)) {
         if (calculate_height(last_point, hash_search(map_of_height, last_point), new_direction) == 0) {
-            return SHAPE_IS_MAYBE_PAVABLE;
+            return AREA_IS_MAYBE_PAVABLE;
         } else {
-            return SHAPE_IS_NOT_PAVABLE;
+            return AREA_IS_NOT_PAVABLE;
         }
     }
 
@@ -46,16 +45,15 @@ how_fill_fonction_worked fill_map_edge_from_direction_list_recur(queue_s *list_o
 
     hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, new_point, inter_points, nb_inter_points);
+    return get_edge_from_direction_list_recur(direction_list, map_of_height, new_point, inter_points, nb_inter_points);
 }
 
-how_fill_fonction_worked fill_map_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points,
-                                                           uint *nb_inter_points) {
+state get_edge_from_direction_list(queue_s *direction_list, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points) {
     point_s *first = point_new(0, 0);
     hash_add(map_of_height, first, 0);
     *nb_inter_points = 0;
 
-    return fill_map_edge_from_direction_list_recur(list_of_direction, map_of_height, first, inter_points, nb_inter_points);
+    return get_edge_from_direction_list_recur(direction_list, map_of_height, first, inter_points, nb_inter_points);
 }
 
 int Xmin(hash_s *hash) {
