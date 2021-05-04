@@ -34,6 +34,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     point_delete(first_point);
 
     if (hash_search(map_of_height, last_point) != 0){
+        hash_print(map_of_height);
         return AREA_IS_NOT_PAVABLE;
     }
 
@@ -109,20 +110,21 @@ point_s *next_point(point_s *c, direction d) {
 }
 
 int calculate_height(point_s *old_point, int old_height, direction direction) {
-    if ((int)old_point->x%2 == (int)old_point->y%2) {
+    int height = old_height;
+    if (abs((int)(old_point->x)%2) == abs((int)(old_point->y)%2)) {
         if (direction == EST || direction == WEST) {
-            old_height--;
+            height--;
         }
         if (direction == NORTH || direction == SOUTH) {
-            old_height++;
+            height++;
         }
     } else {
         if (direction == EST || direction == WEST) {
-            old_height++;
+            height++;
         }
         if (direction == NORTH || direction == SOUTH) {
-            old_height--;
+            height--;
         }
     }
-    return old_height;
+    return height;
 }
