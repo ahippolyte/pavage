@@ -3,35 +3,47 @@
 int main(int argc, char* argv[]) {
     if (argc > 1) {
         uint size = argc - 1;
-        char directions[size];
+        char directions_char[size];
         for (uint i = 0; i < size; i++) {
-            directions[i] = argv[i + 1][0];
+            directions_char[i] = argv[i + 1][0];
         }
-        directions[size] = '\0';
-        hash_s* hash = hash_new(size);
-        queue_s* queue = queue_new(size);
-        for (uint i = 0; i < size; i++) {
-            switch (directions[i]) {
-                case 'N':
-                    queue_enqueue(queue, NORTH);
+        directions_char[size] = '\0';
+        direction directions[size];
+        uint nb_N=0, nb_S=0, nb_E=0, nb_W=0;
+        for(uint i=0; i<size; i++){
+            switch (directions_char[i]) {
+                case 'N' :
+                    nb_N++;
+                    directions[i] = NORTH;
                     break;
-                case 'S':
-                    queue_enqueue(queue, SOUTH);
+                case 'S' :
+                    nb_S++;
+                    directions[i] = SOUTH;
                     break;
-                case 'E':
-                    queue_enqueue(queue, EST);
+                case 'E' :
+                    nb_E++;
+                    directions[i] = EST;
                     break;
-                case 'W':
-                    queue_enqueue(queue, WEST);
+                case 'W' :
+                    nb_W++;
+                    directions[i] = WEST;
                     break;
                 default:
                     fprintf(stderr, "Unknown direction\n");
                     break;
             }
         }
+        if(!(nb_N == nb_S && nb_E == nb_W)){
+            fprintf(stderr, "Le contour n'est pas correcte");
+            exit(EXIT_FAILURE);
+        }
+        hash_s* hash = hash_new((nb_N+1)*(nb_W+1));
+        
+        /*
         point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
         uint nb_inter_points = 0;
-        state result = get_edge_from_direction_list(queue, hash, inter_points, &nb_inter_points);
+        */
+        state result = fill_map_edge_from_direction_list(directions, size, hash);
         switch (result) {
             case EDGE_IS_DISCONNECTED:
                 printf("Le contour ne se ferme pas\n");
@@ -55,6 +67,7 @@ int main(int argc, char* argv[]) {
                 printf("Table de hash incorrecte\n");
                 break;
             default:
+                printf("ERROR\n");
                 break;
         }
 

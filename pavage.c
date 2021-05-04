@@ -13,7 +13,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
 
     point_s * last_point = first_point;
 
-    direction new_direction = NULL;
+    direction new_direction = 0;
     point_s *new_point = NULL;
 
     for (int i = 0; i< nb_of_direction; i++){
