@@ -13,6 +13,7 @@
  * @brief Different end result for the fonction fill_map_edge_from_direction_list
  **/
 typedef enum {
+    EDGE_IS_LOOPING,
     EDGE_IS_DISCONNECTED,
     EDGE_IS_CONNECTED,  // Edge is an area
     AREA_IS_MAYBE_PAVABLE,
@@ -22,7 +23,7 @@ typedef enum {
     ERROR_MAP,
 } state;
 
-state get_edge_from_direction_list(queue_s *list_of_direction, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points);
+state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height);
 
 /**
  * @param hash a pointer on a hash table

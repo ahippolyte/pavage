@@ -1,60 +1,49 @@
 #include "pavage.h"
 
-state get_edge_from_direction_list_recur(queue_s *direction_list, hash_s *map_of_height, point_s *last_point, point_s **inter_points, uint *nb_inter_points) {
-    if (direction_list == NULL) {
+state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height) {
+    if (list_of_direction == NULL) {
         return ERROR_DIRECTION_TABLE;
     }
 
     if (map_of_height == NULL) {
         return ERROR_MAP;
     }
+    
+    point_s * first = point_new(0, 0);
 
-    point_s *starting_point = point_new(0, 0);
+    point_s * last_point = first;
 
-    if (queue_is_empty(direction_list)) {
-        if (point_is_equal(last_point, starting_point)) {
-            return EDGE_IS_CONNECTED;
-        } else {
-            return EDGE_IS_DISCONNECTED;
+    for (int i = 0; i< nb_of_direction; i++){
+
+        direction new_direction = list_of_direction[i];
+        point_s *new_point = next_point(last_point, new_direction);
+
+        if (hash_search(map_of_height, new_point) != INT_MAX) {
+            point_delete(first);
+            return EDGE_IS_LOOPING;
         }
+
+        hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
+
+        last_point = new_point;
+
     }
 
-    direction new_direction = queue_peek(direction_list);
-    queue_dequeue(direction_list);
-    point_s *new_point = next_point(last_point, new_direction);
-
-    if (new_direction == NORTH) {
-        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y - 0.5);
-        nb_inter_points++;
-    } else if (new_direction == SOUTH) {
-        inter_points[*nb_inter_points] = point_new(new_point->x, new_point->y - 0.5);
-        *nb_inter_points++;
-    }
-
-    if (point_is_equal(new_point, starting_point) && queue_is_empty(direction_list)) {
-        if (calculate_height(last_point, hash_search(map_of_height, last_point), new_direction) == 0) {
-            return AREA_IS_MAYBE_PAVABLE;
-        } else {
-            return AREA_IS_NOT_PAVABLE;
-        }
-    }
-
-    if (hash_search(map_of_height, new_point) != INT_MAX) {
+    if (!point_is_equal(new_point, starting_point)) {
         return EDGE_IS_DISCONNECTED;
     }
 
-    hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
+    if (hash_search(map_of_height, last_point) != 0){
+        return AREA_IS_NOT_PAVABLE;
+    }
 
-    return get_edge_from_direction_list_recur(direction_list, map_of_height, new_point, inter_points, nb_inter_points);
+    return AREA_IS_MAYBE_PAVABLE;
 }
 
-state get_edge_from_direction_list(queue_s *direction_list, hash_s *map_of_height, point_s **inter_points, uint *nb_inter_points) {
-    point_s *first = point_new(0, 0);
-    hash_add(map_of_height, first, 0);
-    *nb_inter_points = 0;
 
-    return get_edge_from_direction_list_recur(direction_list, map_of_height, first, inter_points, nb_inter_points);
-}
+
+/**   X Y min max   **/
+
 
 int Xmin(hash_s *hash) {
     int min = 0;
@@ -120,7 +109,7 @@ point_s *next_point(point_s *c, direction d) {
 }
 
 int calculate_height(point_s *old_point, int old_height, direction direction) {
-    if ((int)old_point->x % 2 == (int)old_point->y % 2) {
+    if (old_point->x % 2 == old_point->y % 2) {
         if (direction == EST || direction == WEST) {
             old_height--;
         }
