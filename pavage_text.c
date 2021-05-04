@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
             directions[i] = argv[i + 1][0];
         }
         directions[size] = '\0';
-        hash_s* hash = hash_new();
+        hash_s* hash = hash_new(size);
         queue_s* queue = queue_new(size);
         for (uint i = 0; i < size; i++) {
             switch (directions[i]) {

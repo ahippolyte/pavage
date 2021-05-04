@@ -50,70 +50,78 @@ bool test_point_is_equal() {
     return true;
 }
 
-/*---------------- HASH_TABLE ---------------*/
+/*---------------- HASH_hash ---------------*/
 
 /**     test_hash_new    **/
 
 bool test_hash_new() {
-    hash_s *table = hash_new();
-    if (table == NULL) {
+    hash_s *hash = hash_new(5);
+    if (hash == NULL) {
         return false;
     }
-    hash_delete(table);
+    hash_delete(hash);
     return true;
 }
 
 /**     test_hash_print    **/
 
 bool test_hash_print() {
-    hash_s *table = hash_new();
-    if (table == NULL) {
+    hash_s* hash = hash_new(2);
+    if (hash == NULL) {
         fprintf(stderr, "Failed to create a hash table!");
         return false;
     }
-    point_s *key_1 = point_new(10, 6);
+    point_s* key_1 = point_new(10, 6);
     int height_1 = -5;
-    hash_add(table, key_1, height_1);
+    hash_add(hash, key_1, height_1);
 
-    point_s *key_2 = point_new(2, 7);
+    point_s* key_2 = point_new(2, 7);
     int height_2 = 4;
-    hash_add(table, key_2, height_2);
+    hash_add(hash, key_2, height_2);
 
-    hash_print(table);
+    hash_print(hash);
 
-    hash_delete(table);
+    point_delete(key_1);
+    point_delete(key_2);
+    hash_delete(hash);
     return true;
 }
 
 /**     test_hash_add    **/
 
 bool test_hash_add() {
-    hash_s *table = hash_new();
+    hash_s *hash = hash_new(1);
     point_s *point = point_new(1, 0);
-    hash_add(table, point, 1);
-    if (table->size == 1) {
-        if (table->p_cell[table->size - 1]->key->x == 1 && table->p_cell[table->size - 1]->key->y == 0) {
-            hash_delete(table);
+    hash_add(hash, point, 1);
+    if (hash->index == 1) {
+        if (hash->p_cell[hash->size - 1]->key->x == 1 && hash->p_cell[hash->size - 1]->key->y == 0) {
+            point_delete(point);
+            hash_delete(hash);
             return true;
         }
-        hash_delete(table);
+        point_delete(point);
+        hash_delete(hash);
         return false;
     }
-    hash_delete(table);
+    point_delete(point);
+    hash_delete(hash);
     return false;
 }
 
 /**     test_hash_search    **/
 
 bool test_hash_search() {
-    hash_s *table = hash_new();
+    hash_s *hash = hash_new(1);
     point_s *point = point_new(1, 0);
-    hash_add(table, point, 1);
-    if (hash_search(table, point) == 1) {
+    hash_add(hash, point, 1);
+    if (hash_search(hash, point) == 1) {
         // point_delete(point);
-        hash_delete(table);
+        point_delete(point);
+        hash_delete(hash);
         return true;
     }
+    point_delete(point);
+    hash_delete(hash);
     return false;
 }
 

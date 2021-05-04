@@ -23,15 +23,14 @@ typedef struct cell {
 
 typedef struct hash {
     cell_s **p_cell;
-    uint size;
-    uint maxsize;
+    uint index, size;
 } hash_s;
 
 /**
  * @brief Creates a new empty hash table.
  * @return an empty hash table
  **/
-hash_s *hash_new(void);
+hash_s *hash_new(uint size);
 
 /**
  * @brief Prints a whole hash table.
