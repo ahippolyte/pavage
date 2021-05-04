@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
                     break;
             }
         }
-        point_s* *inter_points = (point_s**)malloc(size/2*sizeof(point_s));
+        point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
         uint nb_inter_points = 0;
         how_fill_fonction_worked state = fill_map_edge_from_direction_list(queue, hash, inter_points, &nb_inter_points);
         switch (state) {

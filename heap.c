@@ -6,7 +6,7 @@ heap_s *heap_new(uint size) {
         fprintf(stderr, "Allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    heap->array = (int *)malloc((size+1) * sizeof(int));
+    heap->array = (int *)malloc((size + 1) * sizeof(int));
     if (heap->array == NULL) {
         fprintf(stderr, "Allocation failed\n");
         free(heap);
@@ -45,7 +45,7 @@ void heap_add(heap_s *heap, int value) {
         fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
-    
+
     if (heap->n >= heap->nmax) {
         fprintf(stderr, "Heap is full!\n");
         return;
@@ -113,7 +113,7 @@ void heap_print(heap_s *h) {
         return;
     }
 
-    if(heap_empty(h)){
+    if (heap_empty(h)) {
         printf("Empty heap\n");
     }
 

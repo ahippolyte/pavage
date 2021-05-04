@@ -66,16 +66,16 @@ bool test_hash_new() {
 /**     test_hash_print    **/
 
 bool test_hash_print() {
-    hash_s* hash = hash_new(2);
+    hash_s *hash = hash_new(2);
     if (hash == NULL) {
         fprintf(stderr, "Failed to create a hash table!");
         return false;
     }
-    point_s* key_1 = point_new(10, 6);
+    point_s *key_1 = point_new(10, 6);
     int height_1 = -5;
     hash_add(hash, key_1, height_1);
 
-    point_s* key_2 = point_new(2, 7);
+    point_s *key_2 = point_new(2, 7);
     int height_2 = 4;
     hash_add(hash, key_2, height_2);
 
@@ -240,7 +240,7 @@ bool test_heap_print() {
     printf("Insert -> %d\n", 1);
     heap_add(heap, 1);
     heap_print(heap);
-    
+
     heap_delete(heap);
     return true;
 }
@@ -257,8 +257,8 @@ bool test_heap_empty() {
 }
 
 bool test_heap_add() {
-    heap_s* heap = heap_new(5);
-    
+    heap_s *heap = heap_new(5);
+
     heap_add(heap, 2);
     heap_add(heap, 1);
     bool top1 = (heap_top(heap) == 1);
@@ -272,7 +272,7 @@ bool test_heap_add() {
 }
 
 bool test_heap_top() {
-    heap_s* heap = heap_new(3);
+    heap_s *heap = heap_new(3);
     heap_add(heap, 4);
     heap_add(heap, 5);
     heap_add(heap, 3);
@@ -281,9 +281,9 @@ bool test_heap_top() {
     return (assert);
 }
 
-bool test_heap_pop() { 
-    heap_s* heap = heap_new(5);
-    
+bool test_heap_pop() {
+    heap_s *heap = heap_new(5);
+
     heap_add(heap, 2);
     heap_add(heap, 1);
     heap_add(heap, 4);
@@ -294,10 +294,10 @@ bool test_heap_pop() {
     heap_pop(heap);
     heap_pop(heap);
     bool pop2 = (heap_pop(heap) == 3);
-    
+
     heap_delete(heap);
 
-    return pop1 && pop2; 
+    return pop1 && pop2;
 }
 
 /*-------------- fonction usage --------------*/
