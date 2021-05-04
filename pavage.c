@@ -9,29 +9,31 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         return ERROR_MAP;
     }
     
-    point_s * first = point_new(0, 0);
+    point_s * first_point = point_new(0, 0);
 
-    point_s * last_point = first;
+    point_s * last_point = first_point;
+
+    direction new_direction = NULL;
+    point_s *new_point = NULL;
 
     for (int i = 0; i< nb_of_direction; i++){
-
-        direction new_direction = list_of_direction[i];
-        point_s *new_point = next_point(last_point, new_direction);
+        new_direction = list_of_direction[i];
+        new_point = next_point(last_point, new_direction);
 
         if (hash_search(map_of_height, new_point) != INT_MAX) {
-            point_delete(first);
             return EDGE_IS_LOOPING;
         }
 
         hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
 
         last_point = new_point;
-
     }
 
-    if (!point_is_equal(new_point, starting_point)) {
+    if (!point_is_equal(new_point, first_point)) {
+        point_delete(first_point);
         return EDGE_IS_DISCONNECTED;
     }
+    point_delete(first_point);
 
     if (hash_search(map_of_height, last_point) != 0){
         return AREA_IS_NOT_PAVABLE;
