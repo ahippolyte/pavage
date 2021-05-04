@@ -111,7 +111,7 @@ point_s *next_point(point_s *c, direction d) {
 }
 
 int calculate_height(point_s *old_point, int old_height, direction direction) {
-    if (old_point->x % 2 == old_point->y % 2) {
+    if ((int)old_point->x%2 == (int)old_point->y%2) {
         if (direction == EST || direction == WEST) {
             old_height--;
         }
