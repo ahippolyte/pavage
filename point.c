@@ -1,6 +1,6 @@
 #include "point.h"
 
-point_s *point_new(int x, int y) {
+point_s *point_new(float x, float y) {
     point_s *point = malloc(sizeof(*point));
     if (point == NULL) {
         fprintf(stderr, "Allocation failed!");

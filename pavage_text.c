@@ -38,12 +38,12 @@ int main(int argc, char* argv[]) {
             exit(EXIT_FAILURE);
         }
         hash_s* hash = hash_new((nb_N+1)*(nb_W+1));
+        printf("%d\n",(nb_N+1)*(nb_W+1));
         
-        /*
         point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
-        uint nb_inter_points = 0;
-        */
-        state result = fill_map_edge_from_direction_list(directions, size, hash);
+        int nb_inter_points = 0;
+
+        state result = fill_map_edge_from_direction_list(directions, size, hash, &nb_inter_points, inter_points);
         switch (result) {
             case EDGE_IS_LOOPING:
                 printf("Le contour forme une boucle\n");
@@ -72,6 +72,10 @@ int main(int argc, char* argv[]) {
             default:
                 printf("Erreur inconnue\n");
                 break;
+        }
+
+        for(uint i=0; i<nb_inter_points; i++){
+            point_print(inter_points[i]);
         }
     }
 

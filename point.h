@@ -22,7 +22,7 @@ typedef struct point {
  * @param y the y point
  * @return the point
  **/
-point_s *point_new(int x, int y);
+point_s *point_new(float x, float y);
 
 /**
  * @brief Print a point.
