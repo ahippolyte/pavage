@@ -97,7 +97,7 @@ void hash_delete(hash_s *p_table) {
         fprintf(stderr, "Invalid pointer adress!");
         exit(EXIT_FAILURE);
     }
-    for (uint i = 0; i < p_table->size; i++) {
+    for (uint i = 0; i < p_table->maxsize; i++) {
         point_delete(p_table->p_cell[i]->key);
         free(p_table->p_cell[i]);
     }

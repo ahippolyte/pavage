@@ -15,10 +15,10 @@ set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall --coverage")
 add_executable(pavage_text pavage_text.c)
 add_executable(pavage_test pavage_test.c)
 
+add_library(pavage point.c hash_table.c pavage.c queue.c heap.c)
+
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
-
-add_library(pavage point.c hash_table.c pavage.c queue.c heap.c)
 #les dépendances sont calculées automatiquement
 #----------------------------------------#
 

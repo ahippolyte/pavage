@@ -216,21 +216,81 @@ bool test_heap_print() {
         return false;
     }
     heap_print(heap);
-    heap_add(heap, 5);
-    heap_add(heap, 3);
+
+    printf("Insert -> %d\n", 0);
+    heap_add(heap, 0);
     heap_print(heap);
-    printf("Top : %d", heap_top(heap));
+    printf("Insert -> %d\n", 2);
+    heap_add(heap, 2);
+    heap_print(heap);
+    printf("Insert -> %d\n", -2);
+    heap_add(heap, -2);
+    heap_print(heap);
+    printf("Insert -> %d\n", -3);
+    heap_add(heap, -3);
+    heap_print(heap);
+    printf("Insert -> %d\n", 1);
+    heap_add(heap, 1);
+    heap_print(heap);
+    
     heap_delete(heap);
     return true;
 }
 
-bool test_heap_empty() { return true; }
+bool test_heap_empty() {
+    heap_s *heap_1 = heap_new(2);
+    heap_s *heap_2 = heap_new(2);
+    heap_add(heap_1, 1);
 
-bool test_heap_add() { return true; }
+    bool assert = heap_empty(heap_2) && !heap_empty(heap_1);
+    heap_delete(heap_1);
+    heap_delete(heap_2);
+    return assert;
+}
 
-bool test_heap_top() { return true; }
+bool test_heap_add() {
+    heap_s* heap = heap_new(5);
+    
+    heap_add(heap, 2);
+    heap_add(heap, 1);
+    bool top1 = (heap_top(heap) == 1);
+    heap_add(heap, 4);
+    heap_add(heap, 3);
+    heap_add(heap, 0);
+    bool top2 = (heap_top(heap) == 0);
 
-bool test_heap_pop() { return true; }
+    heap_delete(heap);
+    return (top1 && top2);
+}
+
+bool test_heap_top() {
+    heap_s* heap = heap_new(3);
+    heap_add(heap, 4);
+    heap_add(heap, 5);
+    heap_add(heap, 3);
+    bool assert = (heap_top(heap) == 3);
+    heap_delete(heap);
+    return (assert);
+}
+
+bool test_heap_pop() { 
+    heap_s* heap = heap_new(5);
+    
+    heap_add(heap, 2);
+    heap_add(heap, 1);
+    heap_add(heap, 4);
+    heap_add(heap, 3);
+    heap_add(heap, 0);
+
+    bool pop1 = (heap_pop(heap) == 0);
+    heap_pop(heap);
+    heap_pop(heap);
+    bool pop2 = (heap_pop(heap) == 3);
+    
+    heap_delete(heap);
+
+    return pop1 && pop2; 
+}
 
 /*-------------- fonction usage --------------*/
 
