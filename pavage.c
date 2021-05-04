@@ -1,6 +1,6 @@
 #include "pavage.h"
 
-state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point,point_s *** half_points) {
+state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point, point_s* *half_points) {
     if (list_of_direction == NULL) {
         return ERROR_DIRECTION_TABLE;
     }
@@ -25,12 +25,12 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
 
         if (new_direction == NORTH){
-            half_points[nb_half_point] = point_new( (last_point->x) + 0.5, (last_point->y));
-            * nb_half_point += 1;
+            half_points[*nb_half_point] = point_new( (last_point->x) + 0.5, (last_point->y));
+            *nb_half_point += 1;
         }
         if (new_direction == SOUTH){
-            half_points[nb_half_point] = point_new( (last_point->x) - 0.5, (last_point->y));
-            * nb_half_point += 1;
+            half_points[*nb_half_point] = point_new( (last_point->x) - 0.5, (last_point->y));
+            *nb_half_point += 1;
         }
 
         last_point = new_point;

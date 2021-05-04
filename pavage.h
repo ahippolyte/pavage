@@ -23,7 +23,7 @@ typedef enum {
     ERROR_MAP,
 } state;
 
-state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height,int* nb_half_point,point_s *** half_points);
+state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point,point_s* *half_points);
 
 
 
