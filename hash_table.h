@@ -16,10 +16,16 @@
 
 typedef unsigned int uint;
 
-typedef struct cell {
-    point_s *key;
+typedef struct{
+    point_s *point;
     int height;
-} cell_s;
+}cell_s;
+
+cell_s* cell_new(point_s* s, int height);
+
+bool cell_is_equal(cell_s* cell1, cell_s* cell2);
+
+void cell_delete(cell_s* cell);
 
 typedef struct hash {
     cell_s **p_cell;
@@ -36,7 +42,7 @@ hash_s *hash_new(uint size);
  * @brief Prints a whole hash table.
  * @param p_table the hash table
  **/
-void hash_print(hash_s *p_table);
+void hash_print(hash_s *hash);
 
 /**
  * @brief Add or update in the hash table the height of the key.
@@ -44,7 +50,7 @@ void hash_print(hash_s *p_table);
  * @param key the point
  * @param data the height
  **/
-void hash_add(hash_s *p_table, const point_s *key, int height);
+void hash_add(hash_s *hash, cell_s* cell);
 
 /**
  * @brief Find in the hash table the height of the key.
@@ -52,12 +58,12 @@ void hash_add(hash_s *p_table, const point_s *key, int height);
  * @param key the point
  * @return the height of the point if it find it
  **/
-int hash_search(hash_s *p_table, const point_s *key);
+int hash_search(hash_s *hash, const point_s *point);
 
 /**
  * @brief Deletes the hash table and frees the allocated memory.
  * @param p_table the hash table to delete
  **/
-void hash_delete(hash_s *p_table);
+void hash_delete(hash_s *hash);
 
 #endif  // __HASH_TABLE_H__

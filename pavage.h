@@ -4,10 +4,19 @@
 #include <string.h>
 
 #include "hash_table.h"
-#include "pavage_private.h"
 
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
+
+/**
+ * @brief Different direction used to define an edge of a map
+ **/
+typedef enum {
+    NORTH,
+    EST,
+    SOUTH,
+    WEST,
+} direction;
 
 /**
  * @brief Different end result for the fonction fill_map_edge_from_direction_list
@@ -24,8 +33,6 @@ typedef enum {
 } state;
 
 state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point,point_s* *half_points);
-
-
 
 /**
  * @param hash a pointer on a hash table

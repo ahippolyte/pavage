@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <limits.h>
 
+#include "hash_table.h"
+#include "point.h"
+
 // Structure de tas binaire:
 //
 //  array = tableau de stockage des objets à partir de l'indice 1 (au lieu de 0)
@@ -15,10 +18,9 @@
 typedef unsigned int uint;
 
 typedef struct heap{
-  int *array;
-  int n,nmax;
+  cell_s* *array;
+  int index,size;
 } heap_s;
-
 
 // Crée un tas pouvant accueillir au plus k>0 objets avec une fonction
 // de comparaison f() prédéfinie. NB: La taille d'un objet pointé par
@@ -42,18 +44,18 @@ bool heap_empty(heap_s *heap);
 
 // Ajoute un objet au tas h. On supposera h!=NULL. Renvoie vrai s'il
 // n'y a pas assez de place, et faux sinon.
-void heap_add(heap_s *heap, int value);
+void heap_add(heap_s *heap, cell_s* cell);
 
 
 // Renvoie l'objet en haut du tas h, c'est-à-dire l'élément minimal
 // selon f(), sans le supprimer. On supposera h!=NULL. Renvoie NULL si
 // le tas est vide.
-int heap_top(heap_s *heap);
+cell_s* heap_top(heap_s *heap);
 
 
 // Comme heap_top() sauf que l'objet est en plus supprimé du
 // tas. Renvoie NULL si le tas est vide.
-int heap_pop(heap_s *heap);
+cell_s* heap_pop(heap_s *heap);
 
 //Print heap
 void heap_print(heap_s *heap);
