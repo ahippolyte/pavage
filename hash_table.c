@@ -41,7 +41,7 @@ void hash_print(hash_s *hash) {
     return;
 }
 
-void hash_add(hash_s *hash, point_s *point, int height) {
+void hash_add(hash_s *hash, point_s* point, int height) {
     if (hash == NULL || point == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
@@ -79,9 +79,9 @@ void hash_delete(hash_s *hash) {
         exit(EXIT_FAILURE);
     }
     for (uint i = 0; i < hash->size; i++) {
-        cell_delete(hash->p_cell[i]);
+        free(hash->p_cell[i]->point);
+        free(hash->p_cell[i]);
     }
     free(hash->p_cell);
     free(hash);
-    return;
 }

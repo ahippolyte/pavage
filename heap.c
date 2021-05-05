@@ -6,39 +6,27 @@ heap_s *heap_new(uint size) {
         fprintf(stderr, "Allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    heap->array = (cell_s **)malloc(size * sizeof(cell_s *));
+    heap->size = size;
+    
+    heap->array = (cell_s **)malloc((heap->size+1) * sizeof(cell_s));
     if (heap->array == NULL) {
         fprintf(stderr, "Allocation failed\n");
         free(heap);
         exit(EXIT_FAILURE);
     }
-    for (uint i = 0; i < size; i++) {
-        heap->array[i] = (cell_s *)malloc(size * sizeof(cell_s));
-        if (heap->array[i] == NULL) {
-            fprintf(stderr, "Allocation failed!\n");
+
+    for (uint i = 0; i<heap->size+1; i++) {
+        heap->array[i] = cell_new(point_new(0, 0), 0);
+        if(heap->array[i] == NULL){
+            fprintf(stderr, "Allocation failed\n");
+            free(heap->array);
+            free(heap);
             exit(EXIT_FAILURE);
         }
-        heap->array[i]->point = point_new(0, 0);
-        heap->array[i]->height = 0;
     }
-    heap->size = size;
+
     heap->index = 0;
     return heap;
-}
-
-// Détruit le tas h. On supposera h!=NULL. Attention ! Il s'agit de
-// libérer ce qui a été alloué par heap_create(). NB: Les objets
-// stockés dans le tas n'ont pas à être libérés.
-void heap_delete(heap_s *heap) {
-    if (heap == NULL) {
-        fprintf(stderr, "Invalid pointer adress\n");
-        exit(EXIT_FAILURE);
-    }
-    for (uint i = 0; i < heap->size; i++) {
-        cell_delete(heap->array[i]);
-    }
-    free(heap->array);
-    free(heap);
 }
 
 bool heap_empty(heap_s *heap) {
@@ -58,33 +46,27 @@ void heap_add(heap_s *heap, cell_s *cell) {
         exit(EXIT_FAILURE);
     }
 
-    if (heap->index >= heap->size) {
+    if (heap->index+1 > heap->size) {
         fprintf(stderr, "Heap is full!\n");
         return;
     }
 
-    heap->index++;
-    heap->array[heap->index] = cell;
-
+    heap->array[++heap->index] = cell;
+    
     int i = heap->index;
-    while (i > 1 && heap->array[i]->height < heap->array[i / 2]->height) {
-        cell_s *temp = heap->array[i / 2];
-        heap->array[i / 2] = heap->array[i];
+    while (i > 1 && heap->array[i]->height < heap->array[i/2]->height) {
+        cell_s *temp = heap->array[i/2];
+        heap->array[i/2] = heap->array[i];
         heap->array[i] = temp;
         i /= 2;
     }
 }
 
-// Renvoie l'objet en haut du tas h, c'est-à-dire l'élément minimal
-// selon f(), sans le supprimer. On supposera h!=NULL. Renvoie NULL si
-// le tas est vide.
 cell_s *heap_top(heap_s *heap) {
     if (heap_empty(heap)) return NULL;
     return heap->array[1];
 }
 
-// Comme heap_top() sauf que l'objet est en plus supprimé du
-// tas. Renvoie NULL si le tas est vide.
 cell_s *heap_pop(heap_s *heap) {
     cell_s *resultMin = heap_top(heap);
 
@@ -111,9 +93,6 @@ cell_s *heap_pop(heap_s *heap) {
     }
     return resultMin;
 }
-
-// affiche le contenu du tas h d'éléments de type t
-// sous la forme d'un arbre
 
 void rule(int n, char *s) {
     for (int i = 0; i < n; i++) printf("%s", s);
@@ -173,4 +152,16 @@ void heap_print(heap_s *h) {
 
     rule(2, "-");
     printf("\n\n");
+}
+
+void heap_delete(heap_s *heap) {
+    if (heap == NULL) {
+        fprintf(stderr, "Invalid pointer adress\n");
+        exit(EXIT_FAILURE);
+    }
+    for (uint i = 0; i < heap->size+1; i++) {
+        cell_delete(heap->array[i]);
+    }
+    free(heap->array);
+    free(heap);
 }

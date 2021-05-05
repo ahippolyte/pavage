@@ -9,7 +9,7 @@ enable_testing()
 include(CTest)
 
 #positionne la variable
-set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall")
+set(CMAKE_C_FLAGS " -std=c99 -g -Wall")
 
 #------ EXECUTABLES ET BIBLIOTHEQUE ------#
 add_executable(pavage_text pavage_text.c)
@@ -25,6 +25,9 @@ target_link_libraries(pavage_test pavage)
 #------ AJOUT DES TESTS ------#
 add_test(test_point_new ./pavage_test point_new)
 add_test(test_point_is_equal ./pavage_test point_is_equal)
+
+add_test(test_cell_new ./pavage_test cell_new)
+add_test(test_cell_is_equal ./pavage_test cell_is_equal)
 
 add_test(test_hash_new ./pavage_test hash_new)
 add_test(test_hash_print ./pavage_test hash_print)

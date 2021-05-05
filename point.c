@@ -1,14 +1,14 @@
 #include "point.h"
 
 point_s *point_new(float x, float y) {
-    point_s *point = malloc(sizeof(*point));
+    point_s *point = (point_s*)malloc(sizeof(point_s));
     if (point == NULL) {
         fprintf(stderr, "Allocation failed!");
         exit(EXIT_FAILURE);
     }
     point->x = x;
     point->y = y;
-    return (point);
+    return point;
 }
 
 void point_print(const point_s *point) {
@@ -33,5 +33,4 @@ bool point_is_equal(const point_s *point_1, const point_s *point_2) {
 
 void point_delete(point_s *point) {
     free(point);
-    return;
 }

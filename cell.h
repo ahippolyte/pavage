@@ -10,7 +10,7 @@ typedef struct{
     int height;
 }cell_s;
 
-cell_s* cell_new(point_s* s, int height);
+cell_s* cell_new(point_s* point, int height);
 
 bool cell_is_equal(cell_s* cell1, cell_s* cell2);
 

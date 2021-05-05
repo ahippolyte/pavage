@@ -5,9 +5,7 @@
 #include "heap.h"
 #include "point.h"
 
-/*---------------- point ---------------*/
-
-/**     test_point_new    **/
+/*---------------- POINT ---------------*/
 
 bool test_point_new() {
     point_s *point = point_new(1, 1);
@@ -21,8 +19,6 @@ bool test_point_new() {
     point_delete(point);
     return true;
 }
-
-/**     test_point_compare    **/
 
 bool test_point_is_equal() {
     point_s *point_1 = point_new(1, 1);
@@ -49,7 +45,48 @@ bool test_point_is_equal() {
     return true;
 }
 
-/*---------------- HASH_hash ---------------*/
+/*---------------- CELL ---------------*/
+
+bool test_cell_new(){
+    cell_s* cell = cell_new(point_new(1.5, 0), 2);
+    if(cell == NULL){
+        cell_delete(cell);
+        return false;
+    }
+    cell_delete(cell);
+    return true;
+}
+
+bool test_cell_is_equal(){
+    cell_s* cell1 = cell_new(point_new(1, 0), 2);
+    cell_s* cell2 = cell_new(point_new(1, 1), 2);
+    cell_s* cell3 = cell_new(point_new(1, 0), 3);
+    cell_s* cell4 = cell_new(point_new(1, 0), 2);
+
+    if(cell1 == NULL || cell2 == NULL || cell3 == NULL || cell4 == NULL){
+        cell_delete(cell1);
+        cell_delete(cell2);
+        cell_delete(cell3);
+        cell_delete(cell4);
+        return false;
+    }
+
+    if(!cell_is_equal(cell1,cell2) && !cell_is_equal(cell1,cell2) && !cell_is_equal(cell1,cell3) && cell_is_equal(cell1,cell4)){
+        cell_delete(cell1);
+        cell_delete(cell2);
+        cell_delete(cell3);
+        cell_delete(cell4);
+        return true;
+    }
+
+    cell_delete(cell1);
+    cell_delete(cell2);
+    cell_delete(cell3);
+    cell_delete(cell4);
+    return false;
+}
+
+/*---------------- HASH ---------------*/
 
 /**     test_hash_new    **/
 
@@ -232,9 +269,10 @@ bool test_heap_pop() {
 
     cell_s *pop1 = heap_pop(heap);
     cell_s *pop2 = heap_pop(heap);
+    bool assert = (pop1 == cell2) && (pop2 == cell3);
 
     heap_delete(heap);
-    return (pop1 == cell2) && (pop2 == cell3);
+    return assert;
 }
 
 /*-------------- fonction usage --------------*/
@@ -256,6 +294,10 @@ int main(int argc, char *argv[]) {
         test = test_point_new();
     else if (strcmp("point_is_equal", argv[1]) == 0)
         test = test_point_is_equal();
+    else if (strcmp("cell_new", argv[1]) == 0)
+        test = test_cell_new();
+    else if (strcmp("cell_is_equal", argv[1]) == 0)
+        test = test_cell_is_equal();
     else if (strcmp("hash_new", argv[1]) == 0)
         test = test_hash_new();
     else if (strcmp("hash_print", argv[1]) == 0)
