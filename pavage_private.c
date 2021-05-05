@@ -24,6 +24,11 @@ void cell_delete(cell_s* cell){
     free(cell);
 }
 
-int get_height_from_cell(cell_s* *tab, point_s* p){
-    
+int cell_tab_get_height(cell_s* *tab, uint size, point_s* point){
+    for(uint i=0; i<size; i++){
+        if(point_is_equal(tab[i]->point, point)){
+            return tab[i]->height;
+        }
+    }
+    return INT_MAX;
 }
