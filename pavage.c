@@ -52,6 +52,45 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     return AREA_IS_MAYBE_PAVABLE;
 }
 
+fill_map_inside(heap_s * heap_of_point,hash_s *map_of_height,point_s* *half_points){
+
+    cell_s *cellule;
+    point* point;
+    int hauteur;
+
+    point* point_suivant;
+
+    while (heap_empty(heap_of_point)){
+        
+        cellule = heap_pop(heap_of_point);
+
+        point = cellule->point;
+        hauteur = cellule->height;
+
+        
+        if (abs((int)point->x%2) == abs((int)point->y%2)) { // On a du noirs en haut a gauche don on ne doit tester que Nord et Sud
+            
+            // NORD
+            point_suivant = next_point(point, NORTH);
+            if(is_inside(point_suivant, half_points)){
+                if (hash_search(map_of_height, point_suivant) == INT_MAX){
+                    hash_add(map_of_height,point_suivant,hauteur+1);
+                    heap_
+                }
+            }
+
+        } else {
+        
+        }
+    }
+
+    }
+
+}
+
+
+
+
 
 /**   X Y min max   **/
 

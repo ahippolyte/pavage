@@ -5,6 +5,7 @@
 
 #include "hash_table.h"
 #include "pavage_private.h"
+#include "heap.h"
 
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
