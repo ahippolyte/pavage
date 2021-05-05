@@ -1,0 +1,272 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\title{Rendu \LaTeX}
+\author{de Muret de Labouret Michel}
+
+% Cela permet de faire des retours a la ligne avant les debuts de sous-sections en priorité
+\let\LaTeXStandardSubsection\subsection
+\makeatletter
+\renewcommand{\subsection}[1]{\filbreak\LaTeXStandardSubsection{#1}}
+\makeatother
+
+% Definitions pour le package color
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{green}{rgb}{0,1,0}
+\definecolor{blue}{rgb}{0,0,1}
+\definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+
+% Parametrage pour le package listing
+\lstset{
+  aboveskip=3mm,
+  belowskip=-2mm,
+  backgroundcolor=\color{darkWhite},
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{red},
+  deletekeywords={...},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  framexleftmargin=16pt,
+  framextopmargin=3pt,
+  framexbottommargin=6pt,
+  frame=tb,
+  keepspaces=true,
+  keywordstyle=\color{blue},
+  language=C,
+  literate=
+  {²}{{\textsuperscript{2}}}1
+  {⁴}{{\textsuperscript{4}}}1
+  {⁶}{{\textsuperscript{6}}}1
+  {⁸}{{\textsuperscript{8}}}1
+  {€}{{\euro{}}}1
+  {é}{{\'e}}1
+  {è}{{\`{e}}}1
+  {ê}{{\^{e}}}1
+  {ë}{{\¨{e}}}1
+  {É}{{\'{E}}}1
+  {Ê}{{\^{E}}}1
+  {û}{{\^{u}}}1
+  {ù}{{\`{u}}}1
+  {â}{{\^{a}}}1
+  {à}{{\`{a}}}1
+  {á}{{\'{a}}}1
+  {ã}{{\~{a}}}1
+  {Á}{{\'{A}}}1
+  {Â}{{\^{A}}}1
+  {Ã}{{\~{A}}}1
+  {ç}{{\c{c}}}1
+  {Ç}{{\c{C}}}1
+  {õ}{{\~{o}}}1
+  {ó}{{\'{o}}}1
+  {ô}{{\^{o}}}1
+  {Õ}{{\~{O}}}1
+  {Ó}{{\'{O}}}1
+  {Ô}{{\^{O}}}1
+  {î}{{\^{i}}}1
+  {Î}{{\^{I}}}1
+  {í}{{\'{i}}}1
+  {Í}{{\~{Í}}}1,
+  morekeywords={*,...},
+  numbers=left,
+  numbersep=10pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=1,
+  stringstyle=\color{gray},
+  tabsize=4,
+  title=\lstname,
+}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Cet article a pour but de montrer ce que je sais faire en Latex.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\filbreak
+\section{Les textes}
+
+\subsection{Gras italique}
+Il est possible de mettre certaines parties du texte en \textbf{gras} ou-bien en \textit{italique}.
+
+\subsection{Police}
+\textsf{J'aime bien cette police.}
+\textsc{Je n'aime pas trop celle là.}
+
+\subsection{Couleurs}
+Enfin, utiliser de la couleur permet de \textcolor{red}{faire ressortir} des passages importants de la phrase. Mais il 
+ne faut pas trop en abuser \fcolorbox{blue}{red}{au} \fcolorbox{red}{blue}{risque} \fcolorbox{blue}{red}{de} \fcolorbox{red}{blue}{perdre} le lecteur.
+
+\subsection{Bibliographie}
+Vu que je ne sais pas trop quand citer un document pour la bibliographie, je vais le faire maintenant \cite{preparata-1988}.
+
+
+\filbreak
+\section{Jeu Tents}
+
+\subsection{Tableau}
+\label{Tableau}
+
+Voici à quoi ressemble le jeu par défaut du jeu tents tel que defini sur le site de référence \textcolor{blue}{\url{https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/tents.html}}:
+
+\medskip
+
+\begin{center}
+\begin{tabular}{ c | c  c  c  c  c  c  c  c | }		
+        & 4 & 0 & 1 & 2 & 1 & 1 & 2 & 1 \\
+      \hline
+     3 &   &   &   &   & T & T &   &   \\
+     0 & T &   &   &   &   &   &   & T \\
+     4 &   &   &   &   & T &   &   &   \\
+     0 & T &   &   &   &   & T &   &   \\
+     4 &   & T &   &   &   &   &   &   \\
+     0 & T &   &   &   & T &   & T &   \\
+     1 &   &   &   &   &   &   &   &   \\
+     0 & T &   &   &   &   &   &   &   \\
+    \hline  
+    \end{tabular}
+    
+  \end{center}
+
+\subsection{Image}
+
+Voici à quoi ressemble notre interface graphique du jeu tents pour le jeu par défaut
+presenté dans la partie\hyperref[Tableau]{ \textcolor{blue}{~\ref{Tableau}} }:
+
+\medskip
+
+\includegraphics[height=10cm]{tents_default.png}
+
+
+\filbreak
+\section{Mathématiques}
+
+\LaTeX est particulièrement adapté à la rédaction de textes mathématiques: 
+
+
+\[(a+b)^n = \sum_{k=0}^{n} (^n_k ) a^{n-k} b^k \]
+
+\[ z_1 = \sqrt{x^2_1 + y^2_1} \]
+
+\[ T(I) = \sum_{i=0}^{I} \frac{h(i)}{M} \]
+
+\[ X = \frac{\int_{\lambda_{min}}^{\lambda_{max}} E(\lambda)S(\lambda)\overline{x}(\lambda)d\lambda}{\int_{\lambda_{min}}^{\lambda_{max}}S(\lambda)\overline{y}(\lambda)d\lambda} \]
+
+
+\filbreak
+\section{Informatique}
+
+Ce code en forme de donut génère l'animation d'un donut en art ASCII  :
+
+\begin{lstlisting}
+             k;double sin()
+         ,cos();main(){float A=
+       0,B=0,i,j,z[1760];char b[
+     1760];printf("\x1b[2J");for(;;
+  ){memset(b,32,1760);memset(z,0,7040)
+  ;for(j=0;6.28>j;j+=0.07)for(i=0;6.28
+ >i;i+=0.02){float c=sin(i),d=cos(j),e=
+ sin(A),f=sin(j),g=cos(A),h=d+2,D=1/(c*
+ h*e+f*g+5),l=cos      (i),m=cos(B),n=s\
+in(B),t=c*h*g-f*        e;int x=40+30*D*
+(l*h*m-t*n),y=            12+15*D*(l*h*n
++t*m),o=x+80*y,          N=8*((f*e-c*d*g
+ )*m-c*d*e-f*g-l        *d*n);if(22>y&&
+ y>0&&x>0&&80>x&&D>z[o]){z[o]=D;;;b[o]=
+ ".,-~:;=!*#$@"[N>0?N:0];}}/*#****!!-*/
+  printf("\x1b[H");for(k=0;1761>k;k++)
+   putchar(k%80?b[k]:10);A+=0.04;B+=
+     0.02;}}/*****####*******!!=;:~
+       ~::==!!!**********!!!==::-
+         .,~~;;;========;;;:~-.
+             ..,--------,*/
+\end{lstlisting}
+
+Comme on peut le voir sur le gif suivant : \textcolor{blue}{\url{https://hackaday.com/wp-content/uploads/2020/07/spinning-donut-featured.gif?w=800}}
+
+\filbreak
+Et voici une version équivalente sans obfuscation :
+
+\begin{lstlisting}
+  int k;
+  double sin();
+  double cos();
+  main() {
+    float A=0;
+    float B=0;
+    float i;
+    float j;
+    float z[1760];
+    char  b[1760];
+    printf("\x1b[2J");
+    for (;;) {
+      memset(b, 32, 1760);
+      memset(z, 0, 7040);
+      for (j = 0; 6.28 > j; j += 0.07) {
+        for (i = 0; 6.28 > i; i += 0.02) {
+          float c = sin(i);
+          float d = cos(j);
+          float e = sin(A);
+          float f = sin(j);
+          float g = cos(A);
+          float h = d + 2;
+          float D = 1 / (c * h * e + f * g + 5);
+          float l = cos(i);
+          float m = cos(B);
+          float n = sin(B);
+          float t = c * h * g - f * e;
+   
+          int x = 40 + 30 * D * (l * h * m - t * n);
+          int y = 12 + 15 * D * (l * h * n + t * m);
+          int o = x + 80 * y;
+          int N = 8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n);
+   
+          if (22 > y && y > 0 && x > 0 && 80 > x && D > z[o]) {
+            z[o] = D;
+            b[o] = ".,-~:;=!*#$@"[N > 0 ? N : 0];
+          }
+        }
+      }
+      printf("\x1b[H");
+      for (k = 0; 1761 > k; k++) {
+        putchar(k % 80 ? b[k] : 10);
+      }
+      A += 0.04;
+      B += 0.02;
+    }
+  }
+\end{lstlisting}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{biblio} % fichier biblio.bib
+
+\end{document}
+
