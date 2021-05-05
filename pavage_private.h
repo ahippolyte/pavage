@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "point.h"
 
@@ -27,4 +28,4 @@ bool cell_is_equal(cell_s* cell1, cell_s* cell2);
 
 void cell_delete(cell_s* cell);
 
-int cell_tab_get_height(cell_s* *tab, point_s* p);
+int cell_tab_get_height(cell_s* *tab, uint size, point_s* point);
