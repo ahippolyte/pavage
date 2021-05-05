@@ -23,10 +23,10 @@
 
 \subsection{Pavage du plan}
 
-Un pavage P dans un espace E est un ensemble fini de n éléments {p1,p2,...,pn} appartenant à E et sous-espace de P. Chaque element est compacts et d’interieur non vide.
+Un pavage P dans un plan est un ensemble fini d'éléments compacts et d’interieur non vide.
 P a une frontière F (points au contact de P et de son complementaire(ensemble des elements de E qui n'appartienent pas à P)) et un intérieur (emsemble des points de P qui n'appartiennent pas à F).
 On dit que P est fermé si F appartient à P.
-La reunion des sous-ensemble {p1,p2,...,pn} est egale à P. C'est une partition du plan (euclidien, hyperbolique (1) …).
+Un pavage est une partition du plan (euclidien, hyperbolique (1) …).
 On peut aussi paver dans un espace de dimension supérieur au plan mais nous allons nous concentrer sur l’espace à deux dimensions.
 Chaque élément de P possède au moins un côté connexe a un autre.
 Il peut y avoir plusieurs éléments de forme différentes pour paver un plan.
@@ -35,14 +35,14 @@ Il peut y avoir plusieurs éléments de forme différentes pour paver un plan.
 
 Lorsque les même éléments sont représentés plusieurs fois, on dit que le pavage est regulier (irrégulier si non).
 Les sous-espaces de P sont image l’un de l’autre par une isométrie(3) du plan (translation, rotation,symetrie centrale, symétrie axiale, symétrie glissée…).
-Pour tout couple (p1,p2) de P régulier, il existe une isometrie du pavage f tel que f(p1)=p2.
+Pour tout couple (p1,p2) d'élément de P régulier, il existe une isometrie du pavage f tel que f(p1)=p2.
 
 
 \subsection{Pavage périodique / aperiodique}
 
 \textbf{\textsc{Périodique}}
 
-Le pavage périodique est composé d'elements répétés sur une portion regulière du plan.
+Un pavage P est périodique s'il est composé d'elements répétés sur une portion regulière du plan.
 On peut le retrouver sur nos carrelages ou sur les dessins de M.C Escher (pavage hyperbolique).
 Ce type de pavage est connu depuis l’antiquité comme motif décoratif.
 Le mathematicien russe Fedorov a montré que seulement 17 types de pavages periodiques existaient dans le plan.
@@ -50,14 +50,15 @@ Deux pavages sont considérés de meme type s’ils sont invariant par le meme g
 
 \textbf{\textsc{Apériodique}}
 
-Le pavage apériodique est composé d'ensemble d'élements répétés apériodiquement.
+Un pavage est apériodique s'il est composé d'ensemble d'élements répétés apériodiquement.
 Le pavage de Penrose (4) est l'exemple le plus connu.
+Un puzzle est un pavage apériodique la forme est unique pour chaque piece et les couleurs ne représentent pas de motifs périodiques (la plus part du temps).
 
 
 
 \section{Pavage du plan par des dominos}
 
-Il n’existe à ce jour, aucun algorithme qui dit systématiquement si une portion de plan est pavable par des polygones.
+Aucun algorithme ne dit systématiquement si une portion de plan est pavable par des polygones.
 On dit que le problème est indécidable (6).
 
 Dans cette partie, nous allons alors nous concentrer sur le pavage par dominos, le domino 2x1 et 1x2.
@@ -65,46 +66,127 @@ Soit P le pavage construit par les dominos dans Z2. P est une portion finie de p
 On considere aussi que ce sous espace de Z2 n’a pas de trous. Ce type de pavage est régulier par isométrie du plan et apériodique.
 Les dominos ne doivent pas se chevaucher et sont connexes à au moins un autre domino.
 
-\subsection{Polymonio}
+\subsection{Polyomino}
 
-Un domino est un polymonio(5) appartenant à Z2 composé de 2 carrés. Il n’a qu’une forme libre possible et deux formes fixées : 2x1 et 1x2.
+Un polyomino est une réunion connexe et finis de carrés unitaires de Z2 (ex: formes de Tetris) chaque carré a au moins un coté connexe a un autre.
+Il existe 2 groupes de polyomino : a forme fixée et a forme libre (qui peut subir une rotation ).
+
+Un domino est un polyomino(5) appartenant à Z2 composé de 2 carrés. Il n’a qu’une forme libre possible et deux formes fixées : 2x1 et 1x2.
 Un triomino est composé de 3 carrés et a deux formes libres possibles.
-Ainsi de suite, un decamino (10 carrés) a 4655 formes libres différentes
+Ainsi de suite, un decamino (10 carrés) a 4655 formes libres différentes.
 
-\subsection{Nombre de pavage dans un rectangle mxn}
-\textbf{\textsc{2xn}}
-
-Soit Fn le nombre de pavage possible.
-Le premier cas est le rectangle 2x1, il y a bien sûr qu’un pavage possible : F1 = 1
-Le deuxieme cas est un rectangle 2x2, où deux pavages sont possibles deux dominos en long ou deux dominos en large.
-Dans un cas général, si on ajoute au rectangle 2xn un rectangle sur le coté de longueur 2, le nombre Fn de pavage augmente de 1.
-Mais on peut aussi ajouter deux rectangles en long au rectangle 2x(n-1) sur le coté de longueur 2. Dans ce cas la, le nombre Fn-1 de pavage augmente de 2.
-Ainsi on a tous les pavages du rectangle 2x(n+1) et Fn+1 = Fn + Fn-1.
-Ce sont les nombres de Fibonacci : 1, 2, 3, 5, 8, 13, 21, 34, 55…
-Le rectangle de dimension 2x10 a 89 pavages possibles.
+Un pavage dans Z2 est un polyomino composé de sous-polyominos (ici les dominos).
+Etant donné un ensemble finis P de polyomino, la pavabilité est decidable puisqu'on peut toujours essayer toutes les combinaisons possibles.
+Il s'agit alors de trouver un algorithme efficace pour dire si un polyomino est pavable ou non par des dominos.
 
 \subsection{Algorithme de Thurston}
 
+L'algorithme de Thurston décide en temps linéaire si un polyomino sans trou est pavable par dominos et le construit si oui.
+Prenons un polyomino de n cases, sa complexité est en O(nlog(n)). Soit p son périmetre, p=racine de n car n est son air.
+Ainsi on peut aussi dire que sa complexité est en 0(p2log(p2)).
 
-\textbf{\textsc{definitions}}
+Considérons un polyomino sans trou. On colorie ses cases comme un damier (noir et blanc). Ce polyomino peut etre représenté par un graphe dont les arretes seraient les cotés des cases du damier.
+On definit une fonction de hauteur h appliqué aux n sommets du graphe G {v0,v1,...,vn}.
+Partons d'un sommet v0 quelconque.
+- h(v0)=0
+Soient vi et vj deux sommets de G reliés par une arrete alors
+- h(vj) = h(vi)+1 si l'arrete (vi,vj) a sur sa gauche une case noire.
+- h(vj) = h(vi)-1 si non.
 
-(1)	Espace hyperbolique : espace qui ne vérifie pas le 5eme postulat d’Euclide (2) . Il existe une infinité de droites différentes parallèle à une même droite.
+\subsection{Nombre de pavage dans un polyomino}
+
+\subsubsection{Nombre de pavage dans un rectangle mxn}
+
+
+
+\textbf{\textsc{2xn}}
+
+
+Soit Fn le nombre de pavage possible.
+
+Le premier cas est le rectangle 2x1, il y a bien sûr qu’un pavage possible : F1 = 1.
+
+Le deuxieme cas est un rectangle 2x2, où deux pavages sont possibles deux dominos en long ou deux dominos en large.
+
+Dans un cas général, si on ajoute au rectangle 2xn un rectangle sur le coté de longueur 2, le nombre Fn de pavage augmente de 1.
+
+Mais on peut aussi ajouter deux rectangles en long au rectangle 2x(n-1) sur le coté de longueur 2. Dans ce cas la, le nombre Fn-1 de pavage augmente de 2.
+
+Ainsi on a tous les pavages du rectangle 2x(n+1) et Fn+1 = Fn + Fn-1.
+
+Ce sont les nombres de Fibonacci : 1, 2, 3, 5, 8, 13, 21, 34, 55…
+
+Le rectangle de dimension 2x10 a 89 pavages possibles.
+
+
+
+\textbf{\textsc{3x2n}}
+
+
+Bien sur un rectangle de dimension 3x(2n+1) est impossible à paver puisqu'il y a un nombre impair de cases.
+
+Le premier cas est un rectangle 3x2, il y a trois pavages possibles (image), F3 = 3.
+
+Si on y ajoute un deuxieme blos 3x2, il y a 3x3 pavages possibles dans chaque bloc.
+Mais on peut aussi former 2 pavages dans le rectangle 3x4 sans former de bloc 3x2.
+
+Ainsi, en général, si on appelle an le nombre de pavage dans un rectangle de 3×2n, an+1 est obtenu en y ajoutant un bloc de 3×2.
+Ce qui donne 3×an, plus toutes les combinaisons où ce bloc est concaténé avec des blocs précédents sans former de blocs de 3×2.
+Dans ce cas, il y a un bloc de 3x2i suivi d'un bloc de 3x2j sans blocs internes. Il n'y a que deux possibilités obtenues en dupliquant les dominos rouges de l'exemple 3x4. (image)
+
+Chacune de ces possibilités donne donc lieu à aix2 possibilités.
+Donc an+1 = 3xan + 2xsomme de i à n des ai.
+
+Calculons an+1 - an = 3×an + 2×somme de i<nai - 3×an-1 - 2×somme de i<n-1ai = 3×an - an-1 + 2×somme de i<n-1ai - 2×somme de i<n-1ai = 3×an - an-1 et finalement
+
+an+1 = 4xan-an-1
+
+a1 = 3
+
+a2 = 4×3 - 1 = 11
+
+a3 = 4×11 - 3 = 41
+
+a10 = 4×a9 - a8 = 413403 ...
+
+
+\textbf{\textsc{mxn}}
+
+Le cas géneral est beaucoup plus compliqué à demontrer mais voici la formule qui permet de trouver le nombre de pavage possible dans un rectangle mxn:
+
+$\prod_{j=1}^{\left \lceil \frac{m}{2} \right \rceil} \prod_{k=1}^{\left \lceil \frac{n}{2} \right \rceil}\left ( 4\cos^{2}\frac{j\pi }{m+1}+4\cos^{2}\frac{k\pi }{n+1} \right )$
+
+
+\subsubsection{Nombre de pavage dans un diamant aztèque}
+
+
+
+\section{Description de notre algorithme}
+
+\section{references}
+
+ (1)	Espace hyperbolique : espace qui ne vérifie pas le 5eme postulat d’Euclide (2) . Il existe une infinité de droites différentes parallèle à une même droite.
+
 (2)	Prenons un point  P extérieur à une droite d1, il n’existe qu’une droite d2 parallèle à d1 qui passe par P.
+
 (3)	Isometrie.
+
 (4)	Pavage de Penrose: pavage qui répond à plusieurs règles précises Il existe 4 pavages de Penrose différents :
 Pentagonal ( avec des pentagones, losanges, pentagrammes et des portions de pentagramme).
 Cerfs-volant et fléchettes ( avec deux quadrilatères, l'un convexe, l'autre concave )
 Losanges ( avec deux sortes de losanges, fins et gros )
 Triangle d’or ( avec des triangles isocèles dont les cotés ont des longueurs proportionnelles au nombre d’or )
-(5)	Polyomino : réunion connexe de carrés unitaires (ex: formes de Tetris) chaque carré a au moins un coté connexe a un autre, ils peuvent être en 3D)
-Il existe 2 groupes de polyomino : a forme fixée et a forme libre (qui peut subir une rotation ).
+
+(5)
+
 (6)	Probleme indecidable : demontré par Alan Turing en 1936, est un probleme qui ne peut pas etre resolu algorithmiquement en un temps toujours fini. Ce probeleme est vrai sur les machines de Turing.
 
+Escher: artiste neerlandais né en 1898 et mort en 1972 qui fut extremement inspiré par les mathematiques. Ces oeuvres representent des constructions impossibles, des explorations de l'infini et des pavages.
+William Thurston: mathématicien américain né en 1946 et mort en 2012, spécialisé dans la topologie sur les espaces bi et tri-dimensionnels et dont il fut recompenser par la médaille Fields en 1983.
+Evgraf Fedorov: mathématicien cristallographe russe né en 1853 et mort en 1919 (polytope à developper)
 
-$\forall \chi \in \mathbb{Z}, \hat{u}(\chi) = \sum_{x=0}^{N-1} e^{-2i\Pi\frac{\chi x}{N}}$
 
-% 
-
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{biblio} % fichier biblio.bib
 \end{document}
