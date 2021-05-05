@@ -52,13 +52,14 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     return AREA_IS_MAYBE_PAVABLE;
 }
 
-fill_map_inside(heap_s * heap_of_point,hash_s *map_of_height,point_s* *half_points){
+bool is_map_pavable(heap_s * heap_of_point,hash_s *map_of_height,point_s* *half_points){
 
     cell_s *cellule;
     point* point;
     int hauteur;
 
     point* point_suivant;
+    cell_s *new_cell;
 
     while (heap_empty(heap_of_point)){
         
@@ -66,7 +67,6 @@ fill_map_inside(heap_s * heap_of_point,hash_s *map_of_height,point_s* *half_poin
 
         point = cellule->point;
         hauteur = cellule->height;
-
         
         if (abs((int)point->x%2) == abs((int)point->y%2)) { // On a du noirs en haut a gauche don on ne doit tester que Nord et Sud
             
@@ -75,16 +75,72 @@ fill_map_inside(heap_s * heap_of_point,hash_s *map_of_height,point_s* *half_poin
             if(is_inside(point_suivant, half_points)){
                 if (hash_search(map_of_height, point_suivant) == INT_MAX){
                     hash_add(map_of_height,point_suivant,hauteur+1);
-                    heap_
+                    new_cell = cell_new(point_suivant, hauteur+1);
+                    heap_add(heap_of_point,new_cell)
+                }
+
+                else{
+                    if(hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3){
+                        return false;
+                    }
                 }
             }
 
+            // SUD
+            point_suivant = next_point(point, SOUTH);
+            if(is_inside(point_suivant, half_points)){
+                if (hash_search(map_of_height, point_suivant) == INT_MAX){
+                    hash_add(map_of_height,point_suivant,hauteur+1);
+                    new_cell = cell_new(point_suivant, hauteur+1);
+                    heap_add(heap_of_point,new_cell)
+                }
+
+                else{
+                    if(hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3){
+                        return false;
+                    }
+                }
+            }
         } else {
         
+                    // EST
+            point_suivant = next_point(point, EST);
+            if(is_inside(point_suivant, half_points)){
+                if (hash_search(map_of_height, point_suivant) == INT_MAX){
+                    hash_add(map_of_height,point_suivant,hauteur+1);
+                    new_cell = cell_new(point_suivant, hauteur+1);
+                    heap_add(heap_of_point,new_cell)
+                }
+
+                else{
+                    if(hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3){
+                        return false;
+                    }
+                }
+            }
+
+            // SUD
+            point_suivant = next_point(point, WEST);
+            if(is_inside(point_suivant, half_points)){
+                if (hash_search(map_of_height, point_suivant) == INT_MAX){
+                    hash_add(map_of_height,point_suivant,hauteur+1);
+                    new_cell = cell_new(point_suivant, hauteur+1);
+                    heap_add(heap_of_point,new_cell)
+                }
+
+                else{
+                    if(hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3){
+                        return false;
+                    }
+                }
+            }
+
+
         }
     }
 
-    }
+    return true;
+
 
 }
 
