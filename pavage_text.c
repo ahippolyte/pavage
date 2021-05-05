@@ -9,22 +9,22 @@ int main(int argc, char* argv[]) {
         }
         directions_char[size] = '\0';
         direction directions[size];
-        uint nb_N=0, nb_S=0, nb_E=0, nb_W=0;
-        for(uint i=0; i<size; i++){
+        uint nb_N = 0, nb_S = 0, nb_E = 0, nb_W = 0;
+        for (uint i = 0; i < size; i++) {
             switch (directions_char[i]) {
-                case 'N' :
+                case 'N':
                     nb_N++;
                     directions[i] = NORTH;
                     break;
-                case 'S' :
+                case 'S':
                     nb_S++;
                     directions[i] = SOUTH;
                     break;
-                case 'E' :
+                case 'E':
                     nb_E++;
                     directions[i] = EST;
                     break;
-                case 'W' :
+                case 'W':
                     nb_W++;
                     directions[i] = WEST;
                     break;
@@ -33,17 +33,17 @@ int main(int argc, char* argv[]) {
                     break;
             }
         }
-        if(!(nb_N == nb_S && nb_E == nb_W)){
+        if (!(nb_N == nb_S && nb_E == nb_W)) {
             fprintf(stderr, "Le contour n'est pas correcte");
             exit(EXIT_FAILURE);
         }
-        uint nb_points = (nb_N+1)*(nb_W+1);
-        cell_s* *area_points = (cell_s*)malloc(nb_points*sizeof(cell_s));
-        
+        uint nb_points = (nb_N + 1) * (nb_W + 1);
+        hash_s* area_points = hash_new(nb_points);
+
         point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
         int nb_inter_points = 0;
 
-        state result = fill_map_edge_from_direction_list(directions, size, hash, &nb_inter_points, inter_points);
+        state result = fill_map_edge_from_direction_list(directions, size, area_points, &nb_inter_points, inter_points);
         switch (result) {
             case EDGE_IS_LOOPING:
                 printf("Le contour forme une boucle\n");
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
                 break;
         }
 
-        for(uint i=0; i<nb_inter_points; i++){
+        for (uint i = 0; i < nb_inter_points; i++) {
             point_print(inter_points[i]);
         }
     }

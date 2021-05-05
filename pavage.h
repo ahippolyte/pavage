@@ -4,11 +4,10 @@
 #include <string.h>
 
 #include "hash_table.h"
-#include "pavage_private.h"
 #include "heap.h"
 
-#ifndef __TOOLS_H__
-#define __TOOLS_H__
+#ifndef __PAVAGE_H__
+#define __PAVAGE_H__
 
 /**
  * @brief Different direction used to define an edge of a map
@@ -35,6 +34,10 @@ typedef enum {
 } state;
 
 state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point,point_s* *half_points);
+
+bool is_inside(point_s* point, point_s* *half_points, int x_max);
+
+bool is_map_pavable(heap_s * heap_of_point, hash_s *map_of_height, point_s* *half_points, int x_max);
 
 /**
  * @param hash a pointer on a hash table
@@ -74,4 +77,4 @@ point_s *next_point(point_s *c, direction d);
 
 int calculate_height(point_s *old_point, int old_height, direction direction);
 
-#endif  // __TOOLS_H__
+#endif  // __PAVAGE_H__

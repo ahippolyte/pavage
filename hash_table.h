@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "point.h"
+#include "cell.h"
 
 /**
  * @file hash_table.h
@@ -15,17 +15,6 @@
 #define __HASH_TABLE_H__
 
 typedef unsigned int uint;
-
-typedef struct{
-    point_s *point;
-    int height;
-}cell_s;
-
-cell_s* cell_new(point_s* s, int height);
-
-bool cell_is_equal(cell_s* cell1, cell_s* cell2);
-
-void cell_delete(cell_s* cell);
 
 typedef struct hash {
     cell_s **p_cell;
@@ -50,7 +39,7 @@ void hash_print(hash_s *hash);
  * @param key the point
  * @param data the height
  **/
-void hash_add(hash_s *hash, cell_s* cell);
+void hash_add(hash_s *hash, point_s* point, int height);
 
 /**
  * @brief Find in the hash table the height of the key.

@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-#include "hash_table.h"
 #include "heap.h"
 #include "point.h"
 
@@ -50,6 +49,70 @@ bool test_point_is_equal() {
     return true;
 }
 
+/*---------------- HASH_hash ---------------*/
+
+/**     test_hash_new    **/
+
+bool test_hash_new() {
+    hash_s *hash = hash_new(5);
+    if (hash == NULL) {
+        return false;
+    }
+    hash_delete(hash);
+    return true;
+}
+
+/**     test_hash_print    **/
+
+bool test_hash_print() {
+    hash_s *hash = hash_new(2);
+    if (hash == NULL) {
+        fprintf(stderr, "Failed to create a hash table!");
+        return false;
+    }
+
+    point_s *point1 = point_new(1, 0);
+    hash_add(hash, point1, 1);
+
+    point_s *point2 = point_new(0, 1);
+    hash_add(hash, point2, 0);
+
+    hash_print(hash);
+
+    hash_delete(hash);
+    return true;
+}
+
+/**     test_hash_add    **/
+
+bool test_hash_add() {
+    hash_s *hash = hash_new(1);
+
+    point_s *point = point_new(1, 0);
+    hash_add(hash, point, 1);
+
+    if (hash->p_cell[hash->index - 1]->point->x == 1 && hash->p_cell[hash->index - 1]->point->y == 0 && hash->p_cell[hash->index - 1]->height == 1) {
+        hash_delete(hash);
+        return true;
+    }
+    hash_delete(hash);
+    return false;
+}
+
+/**     test_hash_search    **/
+
+bool test_hash_search() {
+    hash_s *hash = hash_new(1);
+    point_s *point = point_new(1, 0);
+    hash_add(hash, point, 1);
+    if (hash_search(hash, point) == 1) {
+        hash_delete(hash);
+        return true;
+    }
+    hash_delete(hash);
+    return false;
+}
+
 /*--------------- HEAP --------------*/
 
 bool test_heap_new() {
@@ -68,10 +131,33 @@ bool test_heap_print() {
     }
     heap_print(heap);
 
-    printf("Insert -> %d,%d\n", 1,0);
-    point_s* point = point_new(1,0);
-    cell_s* cell = cell_new(point, 1);
-    heap_add(heap, cell);
+    point_s *p1 = point_new(2, 0);
+    printf("Insert -> (%f,%f), %d\n", p1->x, p1->y, 1);
+    heap_add(heap, cell_new(p1, 1));
+    
+    heap_print(heap);
+
+    point_s *p2 = point_new(1, 2);
+    printf("Insert -> (%f,%f), %d\n", p2->x, p2->y, 0);
+    heap_add(heap, cell_new(p2, 0));
+
+    heap_print(heap);
+
+    point_s *p3 = point_new(0, 0);
+    printf("Insert -> (%f,%f), %d\n", p3->x, p3->y, -1);
+    heap_add(heap, cell_new(p3, -1));
+
+    heap_print(heap);
+
+    point_s *p4 = point_new(1, 1);
+    printf("Insert -> (%f,%f), %d\n", p4->x, p4->y, -3);
+    heap_add(heap, cell_new(p4, 3));
+
+    heap_print(heap);
+
+    point_s *p5 = point_new(1, 0);
+    printf("Insert -> (%f,%f), %d\n", p5->x, p5->y, -3);
+    heap_add(heap, cell_new(p5, -3));
 
     heap_print(heap);
 
@@ -82,8 +168,8 @@ bool test_heap_print() {
 bool test_heap_empty() {
     heap_s *heap_1 = heap_new(2);
     heap_s *heap_2 = heap_new(2);
-    point_s* point = point_new(1,0);
-    heap_add(heap_1, cell_new(point,2));
+    point_s *p1 = point_new(1, 3);
+    heap_add(heap_1, cell_new(p1, 3));
 
     bool assert = heap_empty(heap_2) && !heap_empty(heap_1);
     heap_delete(heap_1);
@@ -94,64 +180,61 @@ bool test_heap_empty() {
 bool test_heap_add() {
     heap_s *heap = heap_new(5);
 
-    point_s *point1 = point_new(0, 1);
-    cell_s *cell1 = cell_new(point1, 1);
+    cell_s *cell1 = cell_new(point_new(1, 3), 1);
     heap_add(heap, cell1);
 
-    point_s *point2 = point_new(1, 0);
-    cell_s *cell2 = cell_new(point2, -1);
+    cell_s *cell2 = cell_new(point_new(1, 2), 2);
     heap_add(heap, cell2);
 
-    bool top1 = cell_is_equal(heap_top(heap), cell2);
+    cell_s *cell3 = cell_new(point_new(1, 0), 0);
+    heap_add(heap, cell3);
+
+    bool top1 = cell_is_equal(heap_top(heap), cell3);
+
+    cell_s *cell4 = cell_new(point_new(0, 0), -1);
+    heap_add(heap, cell4);
+
+    bool top2 = cell_is_equal(heap_top(heap), cell4);
 
     heap_delete(heap);
-    return (top1);
+    return (top1 && top2);
 }
 
 bool test_heap_top() {
-    heap_s *heap = heap_new(3);
+    heap_s *heap = heap_new(5);
 
-    point_s *point1 = point_new(0, 1);
-    cell_s *cell1 = cell_new(point1, 1);
+    cell_s *cell1 = cell_new(point_new(1, 3), 1);
     heap_add(heap, cell1);
 
-    point_s *point2 = point_new(1, 0);
-    cell_s *cell2 = cell_new(point2, -1);
+    cell_s *cell2 = cell_new(point_new(1, 2), 2);
     heap_add(heap, cell2);
 
-    point_s *point3 = point_new(1, 1);
-    cell_s *cell3 = cell_new(point3, 0);
+    cell_s *cell3 = cell_new(point_new(1, 0), 0);
     heap_add(heap, cell3);
 
-    bool assert = cell_is_equal(heap_top(heap), cell2);
+    bool top = cell_is_equal(heap_top(heap), cell3);
+
     heap_delete(heap);
-    return (assert);
+    return (top);
 }
 
 bool test_heap_pop() {
     heap_s *heap = heap_new(3);
 
-    point_s *point1 = point_new(0, 1);
-    cell_s *cell1 = cell_new(point1, 1);
+    cell_s *cell1 = cell_new(point_new(1, 3), 1);
     heap_add(heap, cell1);
 
-    point_s *point2 = point_new(1, 0);
-    cell_s *cell2 = cell_new(point2, -1);
+    cell_s *cell2 = cell_new(point_new(1, 2), -1);
     heap_add(heap, cell2);
 
-    point_s *point3 = point_new(1, 1);
-    cell_s *cell3 = cell_new(point3, 0);
+    cell_s *cell3 = cell_new(point_new(1, 0), 0);
     heap_add(heap, cell3);
 
-    cell_s* pop1 = heap_pop(heap);
-    cell_s* pop2 = heap_pop(heap);
-    if(cell_is_equal(pop1, cell2) && cell_is_equal(pop2, cell3)){
-        heap_delete(heap);
-        return true;
-    }
+    cell_s *pop1 = heap_pop(heap);
+    cell_s *pop2 = heap_pop(heap);
 
     heap_delete(heap);
-    return false;
+    return (pop1 == cell2) && (pop2 == cell3);
 }
 
 /*-------------- fonction usage --------------*/

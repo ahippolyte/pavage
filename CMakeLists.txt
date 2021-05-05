@@ -15,7 +15,7 @@ set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall")
 add_executable(pavage_text pavage_text.c)
 add_executable(pavage_test pavage_test.c)
 
-add_library(pavage point.c hash_table.c pavage.c heap.c)
+add_library(pavage point.c cell.c hash_table.c heap.c pavage.c)
 
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)

@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "hash_table.h"
-#include "point.h"
+#include "cell.h"
+
+#ifndef __HEAP_H__
+#define __HEAP_H__
 
 // Structure de tas binaire:
 //
@@ -17,7 +19,7 @@
 
 typedef unsigned int uint;
 
-typedef struct heap{
+typedef struct {
   cell_s* *array;
   int index,size;
 } heap_s;
@@ -59,3 +61,5 @@ cell_s* heap_pop(heap_s *heap);
 
 //Print heap
 void heap_print(heap_s *heap);
+
+#endif //__HEAP_H__
