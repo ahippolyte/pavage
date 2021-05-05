@@ -27,4 +27,4 @@ bool cell_is_equal(cell_s* cell1, cell_s* cell2);
 
 void cell_delete(cell_s* cell);
 
-int get_height_from_cell(cell_s* *tab, point_s* p);
+int cell_tab_get_height(cell_s* *tab, point_s* p);
