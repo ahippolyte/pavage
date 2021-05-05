@@ -15,7 +15,7 @@ set(CMAKE_C_FLAGS "-O0 -std=c99 -g -Wall")
 add_executable(pavage_text pavage_text.c)
 add_executable(pavage_test pavage_test.c)
 
-add_library(pavage point.c hash_table.c pavage.c queue.c heap.c)
+add_library(pavage point.c hash_table.c pavage.c heap.c)
 
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
@@ -30,13 +30,6 @@ add_test(test_hash_new ./pavage_test hash_new)
 add_test(test_hash_print ./pavage_test hash_print)
 add_test(test_hash_add ./pavage_test hash_add)
 add_test(test_hash_search ./pavage_test hash_search)
-
-add_test(test_queue_new ./pavage_test queue_new)
-add_test(test_queue_print ./pavage_test queue_print)
-add_test(test_queue_enqueue ./pavage_test queue_enqueue)
-add_test(test_queue_dequeue ./pavage_test queue_dequeue)
-add_test(test_queue_is_empty ./pavage_test queue_is_empty)
-add_test(test_queue_peek ./pavage_test queue_peek)
 
 add_test(test_heap_new ./pavage_test heap_new)
 add_test(test_heap_print ./pavage_test heap_print)

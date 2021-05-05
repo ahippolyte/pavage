@@ -6,14 +6,23 @@ heap_s *heap_new(uint size) {
         fprintf(stderr, "Allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    heap->array = (int *)malloc((size + 1) * sizeof(int));
+    heap->array = (cell_s**)malloc(size * sizeof(cell_s*));
     if (heap->array == NULL) {
         fprintf(stderr, "Allocation failed\n");
         free(heap);
         exit(EXIT_FAILURE);
     }
-    heap->nmax = size;
-    heap->n = 0;
+    for(uint i=0; i<size; i++){
+        heap->array[i] = (cell_s*)malloc(size*sizeof(cell_s));
+        if(heap->array[i] == NULL){
+            fprintf(stderr, "Allocation failed!\n");
+            exit(EXIT_FAILURE);
+        }
+        heap->array[i]->point = point_new(0,0);
+        heap->array[i]->height = 0;
+    }
+    heap->size = size;
+    heap->index = 0;
     return heap;
 }
 
@@ -25,6 +34,9 @@ void heap_delete(heap_s *heap) {
         fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
+    for(uint i=0; i<heap->size; i++){
+        cell_delete(heap->array[i]);
+    }
     free(heap->array);
     free(heap);
 }
@@ -34,30 +46,30 @@ bool heap_empty(heap_s *heap) {
         fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
-    if (heap->n == 0) {
+    if (heap->index == 0) {
         return true;
     }
     return false;
 }
 
-void heap_add(heap_s *heap, int value) {
+void heap_add(heap_s *heap, cell_s* cell) {
     if (heap == NULL) {
         fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
 
-    if (heap->n >= heap->nmax) {
+    if (heap->index >= heap->size) {
         fprintf(stderr, "Heap is full!\n");
         return;
     }
 
-    heap->n++;
+    heap->index++;
+    heap->array[heap->index] = cell;
 
-    heap->array[heap->n] = value;
-    int i = heap->n;
-    while (i > 1 && heap->array[i] < heap->array[i / 2]) {
-        int temp = heap->array[i / 2];
-        heap->array[i / 2] = heap->array[i];
+    int i = heap->index;
+    while (i > 1 && heap->array[i]->height < heap->array[i/2]->height) {
+        cell_s* temp = heap->array[i/2];
+        heap->array[i/2] = heap->array[i];
         heap->array[i] = temp;
         i /= 2;
     }
@@ -66,31 +78,31 @@ void heap_add(heap_s *heap, int value) {
 // Renvoie l'objet en haut du tas h, c'est-à-dire l'élément minimal
 // selon f(), sans le supprimer. On supposera h!=NULL. Renvoie NULL si
 // le tas est vide.
-int heap_top(heap_s *heap) {
-    if (heap_empty(heap)) return INT_MAX;
+cell_s* heap_top(heap_s *heap) {
+    if (heap_empty(heap)) return NULL;
     return heap->array[1];
 }
 
 // Comme heap_top() sauf que l'objet est en plus supprimé du
 // tas. Renvoie NULL si le tas est vide.
-int heap_pop(heap_s *heap) {
-    int resultMin = heap_top(heap);
+cell_s* heap_pop(heap_s *heap) {
+    cell_s* resultMin = heap_top(heap);
 
-    heap->array[1] = heap->array[heap->n];
-    heap->n--;
+    heap->array[1] = heap->array[heap->index];
+    heap->index--;
 
     int i = 1;
-    while (2 * i <= (heap->n)) {
-        if (2 * i + 1 > heap->n || heap->array[2 * i] < heap->array[2 * i + 1]) {
-            if (heap->array[i] > heap->array[2 * i]) {
-                int temp = heap->array[2 * i];
+    while (2 * i <= (heap->index)) {
+        if (2 * i + 1 > heap->index || heap->array[2 * i]->height < heap->array[2 * i + 1]->height) {
+            if (heap->array[i]->height > heap->array[2 * i]->height) {
+                cell_s* temp = heap->array[2 * i];
                 heap->array[2 * i] = heap->array[i];
                 heap->array[i] = temp;
             }
             i = 2 * i;
         } else {
-            if (heap->array[i] < heap->array[2 * i + 1]) {
-                int temp = heap->array[2 * i + 1];
+            if (heap->array[i]->height < heap->array[2 * i + 1]->height) {
+                cell_s* temp = heap->array[2 * i + 1];
                 heap->array[2 * i + 1] = heap->array[i];
                 heap->array[i] = temp;
             }
@@ -121,7 +133,7 @@ void heap_print(heap_s *h) {
     printf("\n");
 
     int haut = 0;  // hauteur du tas (=nombre de lignes)
-    int j = h->n;
+    int j = h->index;
     while (j > 0) haut++, j >>= 1;
 
     int s = 2 / 2;  // nombre de caractères avant le milieu du pattern
@@ -136,10 +148,11 @@ void heap_print(heap_s *h) {
 
         // ligne avec les éléments
         rule(pm - s, " ");
-        for (int b = 0; b < B && (j < h->n); b++) {
+        for (int b = 0; b < B && (j < h->index); b++) {
             j++;
             printf(" ");  // cas pair
-            printf("%02i ", h->array[j]);
+            printf("%02i", h->array[j]->height);
+            point_print(h->array[j]->point);
             if (b < B - 1) rule(ep - 1, " ");  // -1 pour l'espace terminal
         }
         printf("\n");
