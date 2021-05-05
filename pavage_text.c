@@ -37,8 +37,8 @@ int main(int argc, char* argv[]) {
             fprintf(stderr, "Le contour n'est pas correcte");
             exit(EXIT_FAILURE);
         }
-        hash_s* hash = hash_new((nb_N+1)*(nb_W+1));
-        printf("%d\n",(nb_N+1)*(nb_W+1));
+        uint nb_points = (nb_N+1)*(nb_W+1);
+        cell_s* *area_points = (cell_s*)malloc(nb_points*sizeof(cell_s));
         
         point_s** inter_points = (point_s**)malloc(size / 2 * sizeof(point_s));
         int nb_inter_points = 0;

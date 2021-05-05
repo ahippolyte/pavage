@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "hash_table.h"
-#include "queue.h"
+#include "pavage_private.h"
 
 #ifndef __TOOLS_H__
 #define __TOOLS_H__

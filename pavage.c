@@ -22,7 +22,9 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
             return EDGE_IS_LOOPING;
         }
 
-        hash_add(map_of_height, new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
+        cell_s* cell = cell_new(new_point, calculate_height(last_point, hash_search(map_of_height, last_point), new_direction));
+
+        hash_add(map_of_height, cell);
 
         if (new_direction == NORTH){
             half_points[*nb_half_point] = point_new( (last_point->x), (last_point->y) + 0.5);
@@ -57,8 +59,8 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
 int Xmin(hash_s *hash) {
     int min = 0;
     for (uint i = 0; i < hash->size; i++) {
-        if (hash->p_cell[i]->key->x < min) {
-            min = hash->p_cell[i]->key->x;
+        if (hash->p_cell[i]->point->x < min) {
+            min = hash->p_cell[i]->point->x;
         }
     }
     return min;
@@ -67,8 +69,8 @@ int Xmin(hash_s *hash) {
 int Xmax(hash_s *hash) {
     int max = 0;
     for (uint i = 0; i < hash->size; i++) {
-        if (hash->p_cell[i]->key->x > max) {
-            max = hash->p_cell[i]->key->x;
+        if (hash->p_cell[i]->point->x > max) {
+            max = hash->p_cell[i]->point->x;
         }
     }
     return max;
@@ -77,8 +79,8 @@ int Xmax(hash_s *hash) {
 int Ymin(hash_s *hash) {
     int min = 0;
     for (uint i = 0; i < hash->size; i++) {
-        if (hash->p_cell[i]->key->y < min) {
-            min = hash->p_cell[i]->key->y;
+        if (hash->p_cell[i]->point->y < min) {
+            min = hash->p_cell[i]->point->y;
         }
     }
     return min;
@@ -87,8 +89,8 @@ int Ymin(hash_s *hash) {
 int Ymax(hash_s *hash) {
     int max = 0;
     for (uint i = 0; i < hash->size; i++) {
-        if (hash->p_cell[i]->key->y > max) {
-            max = hash->p_cell[i]->key->y;
+        if (hash->p_cell[i]->point->y > max) {
+            max = hash->p_cell[i]->point->y;
         }
     }
     return max;
