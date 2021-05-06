@@ -1,7 +1,7 @@
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <limits.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "cell.h"
 
@@ -20,8 +20,8 @@
 typedef unsigned int uint;
 
 typedef struct {
-  cell_s* *array;
-  int index,size;
+    cell_s **array;
+    int index, size;
 } heap_s;
 
 // Crée un tas pouvant accueillir au plus k>0 objets avec une fonction
@@ -30,7 +30,7 @@ typedef struct {
 // variable T comme "double * T;" alors T est une variable de type
 // "double*" (avec sizeof(T)=4) et *T est une variable de type
 // "double" (avec sizeof(*T)=8).
-heap_s * heap_new(uint size);
+heap_s *heap_new(uint size);
 
 // Détruit le tas h. On supposera h!=NULL. Attention ! Il s'agit de
 // libérer ce qui a été alloué par heap_create(). NB: Les objets
@@ -43,18 +43,18 @@ bool heap_empty(heap_s *heap);
 
 // Ajoute un objet au tas h. On supposera h!=NULL. Renvoie vrai s'il
 // n'y a pas assez de place, et faux sinon.
-void heap_add(heap_s *heap, cell_s* cell);
+void heap_add(heap_s *heap, cell_s *cell);
 
 // Renvoie l'objet en haut du tas h, c'est-à-dire l'élément minimal
 // selon f(), sans le supprimer. On supposera h!=NULL. Renvoie NULL si
 // le tas est vide.
-cell_s* heap_top(heap_s *heap);
+cell_s *heap_top(heap_s *heap);
 
 // Comme heap_top() sauf que l'objet est en plus supprimé du
 // tas. Renvoie NULL si le tas est vide.
-cell_s* heap_pop(heap_s *heap);
+cell_s *heap_pop(heap_s *heap);
 
-//Print heap
+// Print heap
 void heap_print(heap_s *heap);
 
-#endif //__HEAP_H__
+#endif  //__HEAP_H__

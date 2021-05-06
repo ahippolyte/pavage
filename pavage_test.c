@@ -47,9 +47,9 @@ bool test_point_is_equal() {
 
 /*---------------- CELL ---------------*/
 
-bool test_cell_new(){
-    cell_s* cell = cell_new(1.5, 0, 2);
-    if(cell == NULL){
+bool test_cell_new() {
+    cell_s *cell = cell_new(1.5, 0, 2);
+    if (cell == NULL) {
         cell_delete(cell);
         return false;
     }
@@ -57,13 +57,13 @@ bool test_cell_new(){
     return true;
 }
 
-bool test_cell_is_equal(){
-    cell_s* cell1 = cell_new(1, 0, 2);
-    cell_s* cell2 = cell_new(1, 1, 2);
-    cell_s* cell3 = cell_new(1, 0, 3);
-    cell_s* cell4 = cell_new(1, 0, 2);
+bool test_cell_is_equal() {
+    cell_s *cell1 = cell_new(1, 0, 2);
+    cell_s *cell2 = cell_new(1, 1, 2);
+    cell_s *cell3 = cell_new(1, 0, 3);
+    cell_s *cell4 = cell_new(1, 0, 2);
 
-    if(cell1 == NULL || cell2 == NULL || cell3 == NULL || cell4 == NULL){
+    if (cell1 == NULL || cell2 == NULL || cell3 == NULL || cell4 == NULL) {
         cell_delete(cell1);
         cell_delete(cell2);
         cell_delete(cell3);
@@ -71,7 +71,7 @@ bool test_cell_is_equal(){
         return false;
     }
 
-    if(!cell_is_equal(cell1,cell2) && !cell_is_equal(cell1,cell2) && !cell_is_equal(cell1,cell3) && cell_is_equal(cell1,cell4)){
+    if (!cell_is_equal(cell1, cell2) && !cell_is_equal(cell1, cell2) && !cell_is_equal(cell1, cell3) && cell_is_equal(cell1, cell4)) {
         cell_delete(cell1);
         cell_delete(cell2);
         cell_delete(cell3);
@@ -115,7 +115,6 @@ bool test_hash_print() {
     hash_add(hash, point2, 0);
 
     hash_print(hash);
-
 
     point_delete(point1);
     point_delete(point2);
@@ -178,23 +177,23 @@ bool test_heap_print() {
     printf("Heap size: %u\n", heap->size);
 
     printf("Heap index: %u\n", heap->index);
-    cell_s* cell1 = cell_new(2, 0, 1);
+    cell_s *cell1 = cell_new(2, 0, 1);
     heap_add(heap, cell1);
     printf("Heap index: %u\n", heap->index);
-    
-    cell_s* cell2 = cell_new(1, 2, 0);
+
+    cell_s *cell2 = cell_new(1, 2, 0);
     heap_add(heap, cell2);
     printf("Heap index: %u\n", heap->index);
 
-    cell_s* cell3 = cell_new(0, 0, -1);
+    cell_s *cell3 = cell_new(0, 0, -1);
     heap_add(heap, cell3);
     printf("Heap index: %u\n", heap->index);
-    
-    cell_s* cell4 = cell_new(1, 1, 3);
+
+    cell_s *cell4 = cell_new(1, 1, 3);
     heap_add(heap, cell4);
     printf("Heap index: %u\n", heap->index);
 
-    cell_s* cell5 = cell_new(1, 0, -3);
+    cell_s *cell5 = cell_new(1, 0, -3);
     heap_add(heap, cell5);
     printf("Heap index: %u\n", heap->index);
 
@@ -211,7 +210,7 @@ bool test_heap_empty() {
     heap_s *heap_1 = heap_new(2);
     heap_s *heap_2 = heap_new(2);
 
-    cell_s* cell = cell_new(1, 3, 3);
+    cell_s *cell = cell_new(1, 3, 3);
     heap_add(heap_1, cell);
 
     bool assert = heap_empty(heap_2) && !heap_empty(heap_1);
@@ -285,10 +284,10 @@ bool test_heap_pop() {
 
     heap_print(heap);
 
-    cell_s* pop1 = heap_pop(heap);
+    cell_s *pop1 = heap_pop(heap);
 
     heap_print(heap);
-    
+
     bool assert = cell_is_equal(pop1, cell2);
 
     cell_delete(cell1);

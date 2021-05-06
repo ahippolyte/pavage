@@ -39,7 +39,7 @@ void hash_print(hash_s *hash);
  * @param key the point
  * @param data the height
  **/
-void hash_add(hash_s *hash, point_s* point, int height);
+void hash_add(hash_s *hash, point_s *point, int height);
 
 /**
  * @brief Find in the hash table the height of the key.

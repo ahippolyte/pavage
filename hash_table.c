@@ -41,7 +41,7 @@ void hash_print(hash_s *hash) {
     return;
 }
 
-void hash_add(hash_s *hash, point_s* point, int height) {
+void hash_add(hash_s *hash, point_s *point, int height) {
     if (hash == NULL || point == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);

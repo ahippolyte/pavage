@@ -24,9 +24,9 @@ typedef struct point {
  **/
 point_s *point_new(float x, float y);
 
-void point_set_x(point_s* point, float x);
+void point_set_x(point_s *point, float x);
 
-void point_set_y(point_s* point, float x);
+void point_set_y(point_s *point, float x);
 
 /**
  * @brief Print a point.

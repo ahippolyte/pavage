@@ -7,17 +7,17 @@ heap_s *heap_new(uint size) {
         exit(EXIT_FAILURE);
     }
     heap->size = size;
-    
-    heap->array = (cell_s **)malloc((heap->size+1) * sizeof(cell_s));
+
+    heap->array = (cell_s **)malloc((heap->size + 1) * sizeof(cell_s));
     if (heap->array == NULL) {
         fprintf(stderr, "Allocation failed\n");
         free(heap);
         exit(EXIT_FAILURE);
     }
 
-    for (uint i = 0; i<heap->size+1; i++) {
+    for (uint i = 0; i < heap->size + 1; i++) {
         heap->array[i] = cell_new(0, 0, 0);
-        if(heap->array[i] == NULL){
+        if (heap->array[i] == NULL) {
             fprintf(stderr, "Allocation failed\n");
             free(heap->array);
             free(heap);
@@ -53,11 +53,11 @@ void heap_add(heap_s *heap, cell_s *cell) {
     heap->index++;
     cell_set_point(heap->array[heap->index], cell->point);
     cell_set_height(heap->array[heap->index], cell->height);
-    
+
     int i = heap->index;
-    while (i > 1 && heap->array[i]->height < heap->array[i/2]->height) {
-        cell_s *temp = heap->array[i/2];
-        heap->array[i/2] = heap->array[i];
+    while (i > 1 && heap->array[i]->height < heap->array[i / 2]->height) {
+        cell_s *temp = heap->array[i / 2];
+        heap->array[i / 2] = heap->array[i];
         heap->array[i] = temp;
         i /= 2;
     }
@@ -69,7 +69,7 @@ cell_s *heap_top(heap_s *heap) {
 }
 
 cell_s *heap_pop(heap_s *heap) {
-    cell_s *resultMin = cell_copy(heap_top(heap));
+    cell_s *top = cell_copy(heap_top(heap));
 
     cell_set_point(heap->array[1], heap->array[heap->index]->point);
     cell_set_height(heap->array[1], heap->array[heap->index]->height);
@@ -93,7 +93,7 @@ cell_s *heap_pop(heap_s *heap) {
             i = 2 * i + 1;
         }
     }
-    return resultMin;
+    return top;
 }
 
 void rule(int n, char *s) {
@@ -161,7 +161,7 @@ void heap_delete(heap_s *heap) {
         fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
-    for (uint i = 0; i < heap->size+1; i++) {
+    for (uint i = 0; i < heap->size + 1; i++) {
         cell_delete(heap->array[i]);
     }
     free(heap->array);

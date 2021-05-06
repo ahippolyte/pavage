@@ -51,7 +51,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     return AREA_IS_MAYBE_PAVABLE;
 }
 
-bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half_points, int x_max) {
+bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half_points, uint nb_half_points, int x_max) {
     cell_s *cellule;
     point_s *point;
     int hauteur;
@@ -69,7 +69,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
 
             // NORD
             point_suivant = next_point(point, NORTH);
-            if (is_inside(point_suivant, half_points, x_max)) {
+            if (is_inside(point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
                     new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
@@ -85,7 +85,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
 
             // SUD
             point_suivant = next_point(point, SOUTH);
-            if (is_inside(point_suivant, half_points, x_max)) {
+            if (is_inside(point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
                     new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
@@ -98,11 +98,10 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                     }
                 }
             }
-        }
-        else {
+        } else {
             // EST
             point_suivant = next_point(point, EST);
-            if (is_inside(point_suivant, half_points, x_max)) {
+            if (is_inside(point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
                     new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
@@ -118,7 +117,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
 
             // SUD
             point_suivant = next_point(point, WEST);
-            if (is_inside(point_suivant, half_points, x_max)) {
+            if (is_inside(point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
                     new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
@@ -137,7 +136,27 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
     return true;
 }
 
-bool is_inside(point_s *point, point_s **half_points, int x_max) { return false; }
+bool point_belong_to(point_s *point, point_s **tab, uint size) {
+    for (uint i = 0; i < size; i++) {
+        if (point_is_equal(point, tab[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool is_inside(point_s *point, point_s **half_points, uint nb_half_points, int x_max) {
+    point_s *p = point_new(point->x, point->y);
+    uint cpt = 0;
+    while (next_point(p, EST)->x <= x_max) {
+        if (point_belong_to(p, half_points, nb_half_points)) {
+            cpt++;
+        }
+        point_set_x(p, next_point(p, EST)->x);
+    }
+    if (cpt % 2 == 1) return true;
+    return false;
+}
 
 /**   X Y min max   **/
 

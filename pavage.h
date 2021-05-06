@@ -33,11 +33,12 @@ typedef enum {
     ERROR_MAP,
 } state;
 
-state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction , hash_s *map_of_height, int* nb_half_point,point_s* *half_points);
+state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_direction, hash_s *map_of_height, int *nb_half_point,
+                                        point_s **half_points);
 
-bool is_inside(point_s* point, point_s* *half_points, int x_max);
+bool is_inside(point_s *point, point_s **half_points, uint nb_half_points, int x_max);
 
-bool is_map_pavable(heap_s * heap_of_point, hash_s *map_of_height, point_s* *half_points, int x_max);
+bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half_points, uint nb_half_points, int x_max);
 
 /**
  * @param hash a pointer on a hash table
