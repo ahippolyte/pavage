@@ -16,7 +16,7 @@ heap_s *heap_new(uint size) {
     }
 
     for (uint i = 0; i<heap->size+1; i++) {
-        heap->array[i] = cell_new(point_new(0, 0), 0);
+        heap->array[i] = cell_new(0, 0, 0);
         if(heap->array[i] == NULL){
             fprintf(stderr, "Allocation failed\n");
             free(heap->array);
@@ -24,7 +24,6 @@ heap_s *heap_new(uint size) {
             exit(EXIT_FAILURE);
         }
     }
-
     heap->index = 0;
     return heap;
 }
@@ -46,12 +45,14 @@ void heap_add(heap_s *heap, cell_s *cell) {
         exit(EXIT_FAILURE);
     }
 
-    if (heap->index+1 > heap->size) {
+    if (heap->index >= heap->size) {
         fprintf(stderr, "Heap is full!\n");
         return;
     }
 
-    heap->array[++heap->index] = cell;
+    heap->index++;
+    cell_set_point(heap->array[heap->index], cell->point);
+    cell_set_height(heap->array[heap->index], cell->height);
     
     int i = heap->index;
     while (i > 1 && heap->array[i]->height < heap->array[i/2]->height) {

@@ -11,6 +11,22 @@ point_s *point_new(float x, float y) {
     return point;
 }
 
+void point_set_x(point_s* point, float x) {
+    if (point == NULL) {
+        fprintf(stderr, "Allocation failed!");
+        exit(EXIT_FAILURE);
+    }
+    point->x = x;
+}
+
+void point_set_y(point_s* point, float y) {
+    if (point == NULL) {
+        fprintf(stderr, "Allocation failed!");
+        exit(EXIT_FAILURE);
+    }
+    point->y = y;
+}
+
 void point_print(const point_s *point) {
     if (point == NULL) {
         fprintf(stderr, "Invalid pointer reference!");

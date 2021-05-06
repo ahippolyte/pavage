@@ -72,7 +72,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             if (is_inside(point_suivant, half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
-                    new_cell = cell_new(point_suivant, hauteur + 1);
+                    new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
                     heap_add(heap_of_point, new_cell);
                 }
 
@@ -88,7 +88,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             if (is_inside(point_suivant, half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
-                    new_cell = cell_new(point_suivant, hauteur + 1);
+                    new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
                     heap_add(heap_of_point, new_cell);
                 }
 
@@ -105,7 +105,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             if (is_inside(point_suivant, half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
-                    new_cell = cell_new(point_suivant, hauteur + 1);
+                    new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
                     heap_add(heap_of_point, new_cell);
                 }
 
@@ -121,7 +121,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             if (is_inside(point_suivant, half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
-                    new_cell = cell_new(point_suivant, hauteur + 1);
+                    new_cell = cell_new(point_suivant->x, point_suivant->y, hauteur + 1);
                     heap_add(heap_of_point, new_cell);
                 }
 

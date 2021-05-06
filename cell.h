@@ -10,9 +10,18 @@ typedef struct{
     int height;
 }cell_s;
 
-cell_s* cell_new(point_s* point, int height);
+
+//cell_s* cell_new(point_s* point, int height);
+
+cell_s* cell_new(float x, float y, int height);
+
+void cell_set_point(cell_s* cell, point_s* point);
+
+void cell_set_height(cell_s* cell, int height);
 
 bool cell_is_equal(cell_s* cell1, cell_s* cell2);
+
+void cell_swap(cell_s* cell1, cell_s* cell2);
 
 void cell_delete(cell_s* cell);
 

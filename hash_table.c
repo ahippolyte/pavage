@@ -12,7 +12,7 @@ hash_s *hash_new(uint size) {
         exit(EXIT_FAILURE);
     }
     for (uint i = 0; i < size; i++) {
-        hash->p_cell[i] = cell_new(point_new(0, 0), 0);
+        hash->p_cell[i] = cell_new(0, 0, 0);
     }
     hash->size = size;
     hash->index = 0;
@@ -52,7 +52,8 @@ void hash_add(hash_s *hash, point_s* point, int height) {
         return;
     }
 
-    hash->p_cell[hash->index] = cell_new(point, height);
+    cell_set_point(hash->p_cell[hash->index], point);
+    cell_set_height(hash->p_cell[hash->index], height);
     hash->index++;
 
     return;
@@ -79,8 +80,7 @@ void hash_delete(hash_s *hash) {
         exit(EXIT_FAILURE);
     }
     for (uint i = 0; i < hash->size; i++) {
-        free(hash->p_cell[i]->point);
-        free(hash->p_cell[i]);
+        cell_delete(hash->p_cell[i]);
     }
     free(hash->p_cell);
     free(hash);
