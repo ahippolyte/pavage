@@ -30,7 +30,7 @@ cell_s* cell_new(float x, float y, int height) {
         exit(EXIT_FAILURE);
     }
     point_set_x(cell->point, x);
-    point_set_x(cell->point, y);
+    point_set_y(cell->point, y);
     cell->height = height;
     return cell;
 }
@@ -65,15 +65,6 @@ cell_s* cell_copy(cell_s* cell){
     cell_set_point(cell_copy, cell->point);
     cell_set_height(cell_copy, cell->height);
     return cell_copy;
-}
-
-void cell_swap(cell_s* cell1, cell_s* cell2){
-    cell_s* temp = cell_copy(cell1);
-    cell_set_point(cell1, cell2->point);
-    cell_set_height(cell1, cell2->height);
-    cell_set_point(cell2, temp->point);
-    cell_set_height(cell2, temp->height);
-    cell_delete(temp);
 }
 
 void cell_delete(cell_s* cell) {

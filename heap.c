@@ -69,9 +69,10 @@ cell_s *heap_top(heap_s *heap) {
 }
 
 cell_s *heap_pop(heap_s *heap) {
-    cell_s *resultMin = heap_top(heap);
+    cell_s *resultMin = cell_copy(heap_top(heap));
 
-    heap->array[1] = heap->array[heap->index];
+    cell_set_point(heap->array[1], heap->array[heap->index]->point);
+    cell_set_height(heap->array[1], heap->array[heap->index]->height);
     heap->index--;
 
     int i = 1;

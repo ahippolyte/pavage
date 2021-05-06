@@ -21,7 +21,7 @@ void cell_set_height(cell_s* cell, int height);
 
 bool cell_is_equal(cell_s* cell1, cell_s* cell2);
 
-void cell_swap(cell_s* cell1, cell_s* cell2);
+cell_s* cell_copy(cell_s* cell);
 
 void cell_delete(cell_s* cell);
 

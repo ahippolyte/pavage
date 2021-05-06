@@ -224,16 +224,18 @@ bool test_heap_empty() {
 bool test_heap_add() {
     heap_s *heap = heap_new(5);
 
-    cell_s *cell1 = cell_new(1, 3, 1);
+    cell_s *cell1 = cell_new(1, 3, 0);
     heap_add(heap, cell1);
 
     cell_s *cell2 = cell_new(1, 2, 2);
     heap_add(heap, cell2);
 
-    cell_s *cell3 = cell_new(1, 0, 0);
+    cell_s *cell3 = cell_new(1, 0, 1);
     heap_add(heap, cell3);
 
-    bool top1 = cell_is_equal(heap_top(heap), cell3);
+    heap_print(heap);
+
+    bool top1 = cell_is_equal(heap_top(heap), cell1);
 
     cell_s *cell4 = cell_new(0, 0, -1);
     heap_add(heap, cell4);
@@ -271,22 +273,15 @@ bool test_heap_top() {
 
 bool test_heap_pop() {
     heap_s *heap = heap_new(3);
-    printf("Heap size: %u\n", heap->size);
-    printf("Heap index: %u\n", heap->index);
 
     cell_s *cell1 = cell_new(1, 3, 1);
     heap_add(heap, cell1);
-    printf("Heap index: %u\n", heap->index);
 
     cell_s *cell2 = cell_new(1, 2, -1);
     heap_add(heap, cell2);
-    printf("Heap index: %u\n", heap->index);
 
     cell_s *cell3 = cell_new(1, 0, 0);
     heap_add(heap, cell3);
-    printf("Heap index: %u\n", heap->index);
-
-    printf("Heap size: %u\n", heap->size);
 
     heap_print(heap);
 
@@ -294,12 +289,12 @@ bool test_heap_pop() {
 
     heap_print(heap);
     
-    printf("Heap index: %u\n", heap->index);
     bool assert = cell_is_equal(pop1, cell2);
 
     cell_delete(cell1);
     cell_delete(cell2);
     cell_delete(cell3);
+    cell_delete(pop1);
     heap_delete(heap);
     return assert;
 }
