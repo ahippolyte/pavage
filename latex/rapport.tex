@@ -37,23 +37,82 @@ Lorsque les même éléments sont représentés plusieurs fois, on dit que le pa
 Les sous-espaces de P sont image l’un de l’autre par une isométrie(3) du plan (translation, rotation,symetrie centrale, symétrie axiale, symétrie glissée…).
 Pour tout couple (p1,p2) d'élément de P régulier, il existe une isometrie du pavage f tel que f(p1)=p2.
 
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/pavage_hexagonal.png}
+    \caption{Exemple de pavage régulier avec des hexagones}
+\end{figure}
+
 
 \subsection{Pavage périodique / aperiodique}
 
 \textbf{\textsc{Périodique}}
 
 Un pavage P est périodique s'il est composé d'elements répétés sur une portion regulière du plan.
-On peut le retrouver sur nos carrelages ou sur les dessins de M.C Escher (pavage hyperbolique).
+On peut le retrouver sur les murs du palais de l'Alhambra ou sur les dessins de M.C Escher (pavage hyperbolique).
 Ce type de pavage est connu depuis l’antiquité comme motif décoratif.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.3] {image/Alhambra.jpg}
+    \caption{Portion de mur de l'Alhambra}
+\end{figure}
+
 Le mathematicien russe Fedorov a montré que seulement 17 types de pavages periodiques existaient dans le plan.
 Deux pavages sont considérés de meme type s’ils sont invariant par le meme groupe d’isométrie(3).
+On retrouve les 17 types de pavages à l'Alhambra.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/Ex1_pavage.jpg}
+    %\caption{Diamants aztèques d'ordre 1, 2, 3 et 6}
+\end{figure}
 
 \textbf{\textsc{Apériodique}}
 
 Un pavage est apériodique s'il est composé d'ensemble d'élements répétés apériodiquement.
-Le pavage de Penrose (4) est l'exemple le plus connu.
+
 Un puzzle est un pavage apériodique la forme est unique pour chaque piece et les couleurs ne représentent pas de motifs périodiques (la plus part du temps).
 
+
+Le pavage de Penrose est l'exemple le plus connu.
+Ce type de pavage répond à plusieurs règles précises.
+
+
+Il existe 4 pavages de Penrose différents :
+
+
+- Pentagonal ( avec des pentagones, losanges, pentagrammes et des portions de pentagramme).
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/penrose_pentagone.png}
+    \caption{Pavage de Penrose pentagonal tracé en noir}
+\end{figure}
+
+- Cerfs-volant et fléchettes ( avec deux quadrilatères, l'un convexe, l'autre concave )
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/penrose_flechette.png}
+    \caption{Pavage de Penrose en fléchettes}
+\end{figure}
+
+- Losanges ( avec deux sortes de losanges, fins et gros )
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/penrose_losange.png}
+    \caption{Pavage de Penrose avec des losanges}
+\end{figure}
+
+- Triangle d’or ( avec des triangles isocèles dont les cotés ont des longueurs proportionnelles au nombre d’or )
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/penrose_tri.png}
+    \caption{Pavage de Penrose avec de triangles d'or}
+\end{figure}
 
 
 \section{Pavage du plan par des dominos}
@@ -66,13 +125,32 @@ Soit P le pavage construit par les dominos dans Z2. P est une portion finie de p
 On considere aussi que ce sous espace de Z2 n’a pas de trous. Ce type de pavage est régulier par isométrie du plan et apériodique.
 Les dominos ne doivent pas se chevaucher et sont connexes à au moins un autre domino.
 
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/pavage_domino.jpg}
+    \caption{Exemple d'un pavage possible d'une portion du plan par des dominos }
+\end{figure}
+
 \subsection{Polyomino}
 
 Un polyomino est une réunion connexe et finis de carrés unitaires de Z2 (ex: formes de Tetris) chaque carré a au moins un coté connexe a un autre.
 Il existe 2 groupes de polyomino : a forme fixée et a forme libre (qui peut subir une rotation ).
 
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/polyomino_libre.png}
+    \caption{8 formes fixes pour une meme forme libre d'un tétromino (4 carrés)}
+\end{figure}
+
 Un domino est un polyomino(5) appartenant à Z2 composé de 2 carrés. Il n’a qu’une forme libre possible et deux formes fixées : 2x1 et 1x2.
 Un triomino est composé de 3 carrés et a deux formes libres possibles.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/triomino.png}
+    \caption{Les deux formes libres du triomino}
+\end{figure}
+
 Ainsi de suite, un decamino (10 carrés) a 4655 formes libres différentes.
 
 Un pavage dans Z2 est un polyomino composé de sous-polyominos (ici les dominos).
@@ -85,12 +163,16 @@ L'algorithme de Thurston décide en temps linéaire si un polyomino sans trou es
 Prenons un polyomino de n cases, sa complexité est en O(nlog(n)). Soit p son périmetre, p=racine de n car n est son air.
 Ainsi on peut aussi dire que sa complexité est en 0(p2log(p2)).
 
-Considérons un polyomino sans trou. On colorie ses cases comme un damier (noir et blanc). Ce polyomino peut etre représenté par un graphe dont les arretes seraient les cotés des cases du damier.
+Considérons un polyomino sans trou. On colorie ses cases comme un damier (cadrié en noir et blanc). Ce polyomino peut etre représenté par un graphe dont les arretes seraient les cotés des cases du damier.
 On definit une fonction de hauteur h appliqué aux n sommets du graphe G {v0,v1,...,vn}.
 Partons d'un sommet v0 quelconque.
+
 - h(v0)=0
+
 Soient vi et vj deux sommets de G reliés par une arrete alors
+
 - h(vj) = h(vi)+1 si l'arrete (vi,vj) a sur sa gauche une case noire.
+
 - h(vj) = h(vi)-1 si non.
 
 \subsection{Nombre de pavage dans un polyomino}
@@ -154,12 +236,21 @@ a10 = 4×a9 - a8 = 413403 ...
 
 Le cas géneral est beaucoup plus compliqué à demontrer mais voici la formule qui permet de trouver le nombre de pavage possible dans un rectangle mxn:
 
-$\prod_{j=1}^{\left \lceil \frac{m}{2} \right \rceil} \prod_{k=1}^{\left \lceil \frac{n}{2} \right \rceil}\left ( 4\cos^{2}\frac{j\pi }{m+1}+4\cos^{2}\frac{k\pi }{n+1} \right )$
+\begin{center}
+    $\prod_{j=1}^{\left \lceil \frac{m}{2} \right \rceil} \prod_{k=1}^{\left \lceil \frac{n}{2} \right \rceil}\left ( 4\cos^{2}\frac{j\pi }{m+1}+4\cos^{2}\frac{k\pi }{n+1} \right )$
+\end{center}
 
 
 \subsubsection{Nombre de pavage dans un diamant aztèque}
 
+Un diamant azteque est un polyomino toujours pavable par des dominos.
 
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/diamants_aztèques.png}
+    \caption{Diamants aztèques d'ordre 1, 2, 3 et 6}
+\end{figure}
 
 \section{Description de notre algorithme}
 
@@ -181,10 +272,47 @@ Triangle d’or ( avec des triangles isocèles dont les cotés ont des longueurs
 
 (6)	Probleme indecidable : demontré par Alan Turing en 1936, est un probleme qui ne peut pas etre resolu algorithmiquement en un temps toujours fini. Ce probeleme est vrai sur les machines de Turing.
 
-Escher: artiste neerlandais né en 1898 et mort en 1972 qui fut extremement inspiré par les mathematiques. Ces oeuvres representent des constructions impossibles, des explorations de l'infini et des pavages.
+Mauritz Cornelis Escher: artiste neerlandais né en 1898 et mort en 1972 très sensible à l’art islamique géométrique et aux mathématiques, il a beaucoup travaillé sur le thème des pavages.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/escher.jpg}
+    \caption{Portrait d'Escher en 1971, 1 an avant son décès}
+\end{figure}
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/dessin1_escherjpg.jpg}
+    \caption{Diamants aztèques d'ordre 1, 2, 3 et 6}
+\end{figure}
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/dessin2_escherjpg.jpg}
+    \caption{Diamants aztèques d'ordre 1, 2, 3 et 6}
+\end{figure}
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/dessin3_escher.jpg}
+    \caption{Diamants aztèques d'ordre 1, 2, 3 et 6}
+\end{figure}
+
 William Thurston: mathématicien américain né en 1946 et mort en 2012, spécialisé dans la topologie sur les espaces bi et tri-dimensionnels et dont il fut recompenser par la médaille Fields en 1983.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/thurston.jpg}
+    \caption{Portrait de Thurston en 1991}
+\end{figure}
+
 Evgraf Fedorov: mathématicien cristallographe russe né en 1853 et mort en 1919 (polytope à developper)
 
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.5] {image/Fedorov.jpg}
+    \caption{Portrait d'Evgraf Fedorov à la fin du 19eme siècle}
+\end{figure}
 
 \nocite{*}
 \bibliographystyle{plain}
