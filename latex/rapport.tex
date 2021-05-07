@@ -34,19 +34,19 @@
 
 \subsection{Pavage du plan}
 
-Un pavage P dans un plan est un ensemble fini d'éléments compacts et d’interieur non vide.
-P a une frontière F (points au contact de P et de son complementaire(ensemble des elements de E qui n'appartienent pas à P)) et un intérieur (emsemble des points de P qui n'appartiennent pas à F).
+Un pavage $P=\left \{ p_{k}\subset \mathbb{R}^{2} \right \}_{1\leq k\leq n}$ dans un plan est un ensemble fini de n éléments inclus dans $\mathbb{R}^{2}$ compacts et d’interieur non vide.
+P a une frontière F (points au contact de P et de son complémentaire \footnote{ensemble des elements de E qui n'appartienent pas à P} et un intérieur \footnote{emsemble des points de P qui n'appartiennent pas à F}).
 On dit que P est fermé si F appartient à P.
-Un pavage est une partition du plan (euclidien, hyperbolique \footnote{ espace qui ne vérifie pas le 5eme postulat d’Euclide (si un point P est extérieur à une droite d1, il n’existe qu’une droite d2 parallèle à d1 qui passe par P). Il existe une infinité de droites différentes parallèle à une même droite. }…).
+Un pavage est une partition du plan (euclidien, hyperbolique \footnote{ espace qui ne vérifie pas le 5ème postulat d’Euclide (si un point $p\in \mathbb{R}^{2}$ est extérieur à une droite $D_{1}$, il n’existe qu’une droite $D_{2}$ parallèle à $D_{1}$ qui passe par p). Il existe une infinité de droites différentes parallèles à une même droite)}.
 
 On peut aussi paver dans un espace de dimension supérieur au plan mais nous allons nous concentrer sur l’espace à deux dimensions.
-Chaque élément de P possède au moins un côté connexe a un autre.
+Chaque élèment de P possède au moins un côté connexe a un autre.
 Il peut y avoir plusieurs éléments de forme différentes pour paver un plan.
 
 \subsection{Pavage régulier}
 
-Lorsque les même éléments sont représentés plusieurs fois, on dit que le pavage est regulier (irrégulier si non).
-Les sous-espaces de P sont image l’un de l’autre par une isométrie du plan \footnote{ Soit E un espace vectoriel euclidien. Une application linéaire f dans E est appelée isométrie linéaire ssi , quel que soit l’élément m de E , on a $\left \| f\left ( m \right ) \right \| = \left \| m \right \|$ , autrement dit, ssi f conserve la norme dans E transformation bijective d'un espace dans un autre (dans le plan : translation, rotation, symetrie centrale, symétrie axiale, symétrie glissée)}.
+Lorsque les n éléments $\left \{ p_{k}\subset \mathbb{R}^{2} \right \}_{1\leq k\leq n}$ sont identiques, on dit que le pavage est régulier (irrégulier si non).
+Tous les sous-espaces de P sont images l’un de l’autre par une isométrie du plan \footnote{ Soit E un espace vectoriel euclidien. Une application linéaire f dans E est appelée isométrie linéaire ssi , quel que soit l’élément m de E , on a $\left \| f\left ( m \right ) \right \| = \left \| m \right \|$ , autrement dit, ssi f conserve la norme dans E transformation bijective d'un espace dans un autre (dans le plan : translation, rotation, symetrie centrale, symétrie axiale, symétrie glissée)}.
 Pour tout couple $\left ( p_{1} ,p_{2}\right )$ d'élément de P régulier, il existe une isometrie du pavage f tel que $f\left (  p_{1}\right )=p_{2}$.
 
 \begin{figure} [h]
@@ -54,6 +54,8 @@ Pour tout couple $\left ( p_{1} ,p_{2}\right )$ d'élément de P régulier, il e
     \includegraphics [scale=0.5] {image/pavage_hexagonal.png}
     \caption{Exemple de pavage régulier avec des hexagones}
 \end{figure}
+
+
 
 \newpage
 
@@ -63,7 +65,15 @@ Pour tout couple $\left ( p_{1} ,p_{2}\right )$ d'élément de P régulier, il e
 
 \textbf{\textsc{Périodique}}
 
-Un pavage P est périodique s'il est composé d'elements répétés sur une portion regulière du plan.
+Un pavage $P=\left \{ p_{k}\subset \mathbb{R}^{2} \right \}_{1\leq k\leq n}$ est périodique s'il est composé de sous-espace images l'un de l'autre par isométrie du plan.
+Un pavage régulier est donc périodique.
+
+\begin{figure} [h]
+    \center
+    \includegraphics [scale=0.3] {image/pavage_périodique_irrégulier.png}
+    \caption{Exemple de pavage irrégulier périodique}
+\end{figure}
+
 On peut le retrouver sur les murs du palais de l'Alhambra ou sur les dessins de M.C Escher (pavage hyperbolique).
 Ce type de pavage est connu depuis l’antiquité comme motif décoratif.
 
@@ -87,9 +97,9 @@ On retrouve les 17 types de pavages à l'Alhambra.
 
 \textbf{\textsc{Apériodique}}
 
-Un pavage est apériodique s'il est composé d'ensemble d'élements répétés apériodiquement.
+Un pavage est apériodique s'il n'est pas composé d'ensemble d'élements répétés périodiquement.
 
-Un puzzle est un pavage apériodique la forme est unique pour chaque piece et les couleurs ne représentent pas de motifs périodiques.
+Un puzzle est un pavage apériodique la forme est unique pour chaque pièce et les couleurs ne représentent pas de motifs périodiques.
 
 
 Le pavage de Penrose est l'exemple le plus connu.
@@ -142,7 +152,7 @@ Il existe 4 pavages de Penrose différents :
 Aucun algorithme ne dit systématiquement si une portion de plan est pavable par des polygones.
 On dit que le problème est indécidable \footnote{Problème qui ne peut pas être résolu algorithmiquement en un temps toujours fini.}.
 
-Dans cette partie, nous allons alors nous concentrer sur le pavage par dominos, le domino $2*1$ et $1*2$.
+Dans cette partie, nous allons alors nous concentrer sur le pavage par dominos $2*1$ et $1*2$ dans le plan euclidien.
 Soit P le pavage construit par les dominos dans . P est une portion finie de plan délimitée par des côtés de longueur entière parallèles aux axes du plan euclidien.
 On considere aussi que ce sous espace de $\mathbb{Z}^{2}$ n’a pas de trous. Ce type de pavage est régulier par isométrie du plan et apériodique.
 Les dominos ne doivent pas se chevaucher et sont connexes à au moins un autre domino.
