@@ -31,18 +31,18 @@ message(STATUS "SDL2 all libraries: ${SDL2_ALL_LIBS}")
 
 ## compilation rules
 include_directories(${SDL2_ALL_INC})
-add_executable(model pavage_sdl.c model.c)
-target_link_libraries(model ${SDL2_ALL_LIBS} m)
 #----------------------------------------#
 
 #------ EXECUTABLES ET BIBLIOTHEQUE ------#
 add_executable(pavage_text pavage_text.c)
 add_executable(pavage_test pavage_test.c)
+add_executable(pavage_sdl pavage_sdl.c model.c)
 
 add_library(pavage point.c cell.c hash_table.c heap.c pavage.c)
 
 target_link_libraries(pavage_text pavage)
 target_link_libraries(pavage_test pavage)
+target_link_libraries(pavage_sdl ${SDL2_ALL_LIBS} m pavage)
 #les dépendances sont calculées automatiquement
 #----------------------------------------#
 

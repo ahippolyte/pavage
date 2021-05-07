@@ -3,12 +3,12 @@
 hash_s *hash_new(uint size) {
     hash_s *hash = (hash_s *)malloc(sizeof(hash_s));
     if (hash == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Hash allocation failed!\n");
         exit(EXIT_FAILURE);
     }
     hash->p_cell = (cell_s **)malloc(size * sizeof(cell_s));
     if (hash->p_cell == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Hash cell tab allocation failed!\n");
         exit(EXIT_FAILURE);
     }
     for (uint i = 0; i < size; i++) {
@@ -57,6 +57,14 @@ void hash_add(hash_s *hash, point_s *point, int height) {
     hash->index++;
 
     return;
+}
+
+point_s* hash_get_point(hash_s* hash, uint index){
+    if (hash == NULL) {
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+    return hash->p_cell[index]->point;
 }
 
 int hash_search(hash_s *hash, const point_s *point) {
