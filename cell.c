@@ -20,12 +20,12 @@ cell_s* cell_new(point_s* point, int height) {
 cell_s* cell_new(float x, float y, int height) {
     cell_s* cell = (cell_s*)malloc(sizeof(cell_s));
     if (cell == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Cell allocation failed!\n");
         exit(EXIT_FAILURE);
     }
     cell->point = point_new(0, 0);
     if (cell->point == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Cell point allocation failed!\n");
         free(cell);
         exit(EXIT_FAILURE);
     }
@@ -37,7 +37,7 @@ cell_s* cell_new(float x, float y, int height) {
 
 void cell_set_point(cell_s* cell, point_s* point) {
     if (cell == NULL || point == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Invalid pointer reference!\n");
         exit(EXIT_FAILURE);
     }
     cell->point->x = point->x;
@@ -46,7 +46,7 @@ void cell_set_point(cell_s* cell, point_s* point) {
 
 void cell_set_height(cell_s* cell, int height) {
     if (cell == NULL) {
-        fprintf(stderr, "Allocation failed!\n");
+        fprintf(stderr, "Invalid pointer reference !\n");
         exit(EXIT_FAILURE);
     }
     cell->height = height;
@@ -54,7 +54,7 @@ void cell_set_height(cell_s* cell, int height) {
 
 bool cell_is_equal(cell_s* cell1, cell_s* cell2) {
     if (cell1 == NULL || cell2 == NULL) {
-        fprintf(stderr, "Invalid pointer adress!\n");
+        fprintf(stderr, "Invalid pointer reference !\n");
         exit(EXIT_FAILURE);
     }
     return point_is_equal(cell1->point, cell2->point) && (cell1->height == cell2->height);

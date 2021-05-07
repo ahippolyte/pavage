@@ -41,6 +41,8 @@ void hash_print(hash_s *hash);
  **/
 void hash_add(hash_s *hash, point_s *point, int height);
 
+point_s* hash_get_point(hash_s* hash, uint index);
+
 /**
  * @brief Find in the hash table the height of the key.
  * @param p_table the hash table

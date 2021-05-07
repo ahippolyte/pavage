@@ -85,7 +85,7 @@ cell_s *heap_pop(heap_s *heap) {
             }
             i = 2 * i;
         } else {
-            if (heap->array[i]->height < heap->array[2 * i + 1]->height) {
+            if (heap->array[i]->height > heap->array[2 * i + 1]->height) {
                 cell_s *temp = heap->array[2 * i + 1];
                 heap->array[2 * i + 1] = heap->array[i];
                 heap->array[i] = temp;
