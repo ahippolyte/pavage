@@ -44,8 +44,8 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* ha
     env->scaled_points = (point_s**)malloc(nb_points*sizeof(point_s*));
     for(uint i=0; i<env->nb_points; i++){
         env->scaled_points[i] = point_copy(hash_get_point(hash_points, i));
-        env->scaled_points[i]->x = abs((int)env->scaled_points[i]->x)*env->multiplier;
-        env->scaled_points[i]->y = abs((int)env->scaled_points[i]->y)*env->multiplier;
+        env->scaled_points[i]->x = abs((int)env->scaled_points[i]->x -Xmin(env->hash_points))*env->multiplier;
+        env->scaled_points[i]->y = abs((int)env->scaled_points[i]->y -Ymin(env->hash_points))*env->multiplier;
     }
 
     env->half_points = half_points;
@@ -96,14 +96,14 @@ void render(SDL_Window *win, SDL_Renderer *ren, Env *env) { /* PUT YOUR CODE HER
             if(is_inside(env->hash_points, iter, env->half_points, env->nb_half_points, Xmax(env->hash_points))){
                 if(is_inside(env->hash_points, next_point(iter, EST), env->half_points, env->nb_half_points, Xmax(env->hash_points))){
                     if(abs( hash_search(env->hash_points, iter) - hash_search(env->hash_points, next_point(iter, EST)) ) == 1 ){
-                        SDL_RenderDrawLine(ren,env->base.x+abs((int)iter->x)*env->multiplier, env->base.y+abs((int)iter->y)*env->multiplier, env->base.x+abs((int)next_point(iter, EST)->x )*env->multiplier, env->base.y+abs((int)next_point(iter, EST)->y )*env->multiplier);
+                        SDL_RenderDrawLine(ren, env->base.x+( (int)iter->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)iter->y-Ymin(env->hash_points) )*env->multiplier, env->base.x+( (int)next_point(iter, EST)->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)next_point(iter, EST)->y-Ymin(env->hash_points) )*env->multiplier);
                     }
                 }
 
 
                 if(is_inside(env->hash_points, next_point(iter, NORTH), env->half_points, env->nb_half_points, Xmax(env->hash_points))){  
                     if(abs( hash_search(env->hash_points, iter) - hash_search(env->hash_points, next_point(iter, NORTH)) ) == 1 ){
-                        SDL_RenderDrawLine(ren,env->base.x+abs((int)iter->x)*env->multiplier, env->base.y+abs((int)iter->y)*env->multiplier, env->base.x+abs((int)next_point(iter, NORTH)->x )*env->multiplier, env->base.y+abs((int)next_point(iter, NORTH)->y )*env->multiplier);
+                        SDL_RenderDrawLine(ren, env->base.x+( (int)iter->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)iter->y-Ymin(env->hash_points) )*env->multiplier, env->base.x+( (int)next_point(iter, NORTH)->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)next_point(iter, NORTH)->y-Ymin(env->hash_points) )*env->multiplier);
                     }
                 }
 
