@@ -38,6 +38,8 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
 
 bool is_inside(hash_s* hash_of_point, point_s *point, point_s **half_points, uint nb_half_points, int x_max);
 
+bool point_belong_to(point_s *point, point_s **tab, uint size);
+
 bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half_points, uint nb_half_points, int x_max);
 
 /**

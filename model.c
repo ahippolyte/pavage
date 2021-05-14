@@ -66,6 +66,24 @@ int y_max(point_s* *tab, uint size){
     return y_max;
 }
 
+int min(int a, int b){
+    if(a>b) return b;
+    return a;
+}
+
+int get_point_index_in_tab(point_s* point, point_s* *tab, uint size){
+    for(uint i=0; i<size; i++){
+        if(point_is_equal(tab[i], point)){
+            return i;
+        }
+    }
+    return -1;
+}
+
+point_s * get_scaled_point(Env* env, point_s* point){
+    return point_new(env->base.x + (point->x - Xmin(env->hash_points))*env->multiplier, env->base.y + (Ymax(env->hash_points) - point->y)*env->multiplier);
+}
+
 Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* hash_points, uint nb_points, point_s* *half_points, int nb_half_points) {
     Env *env = malloc(sizeof(struct Env_t));
 
@@ -79,10 +97,10 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* ha
 
     env->last_edge_point_index = argc-1;
     
-    env->multiplier = 40;
+    env->multiplier = min(w/(Xmax(hash_points)-Xmin(hash_points)+4), h/(Ymax(hash_points)-Ymin(hash_points)+4));
 
-    env->base.w = env->multiplier * (Xmax(hash_points) - Xmin(hash_points));
-    env->base.h = env->multiplier * (Ymax(hash_points) - Ymin(hash_points));
+    env->base.w = (Xmax(hash_points)-Xmin(hash_points))*env->multiplier;
+    env->base.h = (Ymax(hash_points)-Ymin(hash_points))*env->multiplier;
     env->base.x = w/2 - env->base.w/2;
     env->base.y = h/2 - env->base.h/2;
         
@@ -94,14 +112,15 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* ha
     bool is_pavable = is_map_pavable(heap_points, hash_points, half_points, nb_half_points, Xmax(hash_points));
     if(is_pavable) printf("L'aire est pavable\n");
 
-    env->scaled_points = (point_s**)malloc(nb_points*sizeof(point_s*));
+    /**env->scaled_points = (point_s**)malloc(nb_points*sizeof(point_s*));
     
     for(uint i=0; i<env->nb_points; i++){
         env->scaled_points[i] = point_copy(hash_get_point(hash_points, i));
         env->scaled_points[i]->x = (int)env->scaled_points[i]->x*env->multiplier;
         env->scaled_points[i]->y = (int)env->scaled_points[i]->y*env->multiplier;
-    }
+    }**/
     
+    /*
     int xmin = x_min(env->scaled_points, env->nb_points);
     int ymin = y_min(env->scaled_points, env->nb_points);
     for(uint i=0; i<env->nb_points; i++){
@@ -112,6 +131,7 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* ha
             point_set_y(env->scaled_points[i], env->scaled_points[i]->y + abs(ymin));
         }
     }
+    */
 
     return env;
 }
@@ -131,46 +151,57 @@ void render(SDL_Window *win, SDL_Renderer *ren, Env *env) { /* PUT YOUR CODE HER
     /*DESSINE LE CONTOUR UNIQUEMENT*/
     SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
     for(uint i=0; i<env->last_edge_point_index; i++){
-        SDL_RenderDrawLine(ren, env->base.x+env->scaled_points[i]->x, env->base.y+env->scaled_points[i]->y, env->base.x+env->scaled_points[(i+1)%env->last_edge_point_index]->x, env->base.y+env->scaled_points[(i+1)%env->last_edge_point_index]->y);
+        SDL_RenderDrawLine(ren, get_scaled_point(env, env->hash_points->p_cell[i]->point)->x, get_scaled_point(env, env->hash_points->p_cell[i]->point)->y, get_scaled_point(env, env->hash_points->p_cell[(i+1)%env->last_edge_point_index]->point)->x, get_scaled_point(env, env->hash_points->p_cell[(i+1)%env->last_edge_point_index]->point)->y);
     }
 
     /*DESSINE LES DOMINOS*/
-    SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-    point_s* iter = point_new(Xmin(env->hash_points), Ymin(env->hash_points));
-    for(uint x=Xmin(env->hash_points); x<Xmax(env->hash_points); x++){
-        for(uint y=Ymin(env->hash_points); y<Ymax(env->hash_points); y++){
-            point_set_x(iter, x);
-            point_set_y(iter, y);
-            if(is_inside(env->hash_points, iter, env->half_points, env->nb_half_points, Xmax(env->hash_points))){
-                if(is_inside(env->hash_points, next_point(iter, EST), env->half_points, env->nb_half_points, Xmax(env->hash_points))){
-                    if(abs( hash_search(env->hash_points, iter) - hash_search(env->hash_points, next_point(iter, EST)) ) == 1 ){
-                        SDL_RenderDrawLine(ren, env->base.x+( (int)iter->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)iter->y-Ymin(env->hash_points) )*env->multiplier, env->base.x+( (int)next_point(iter, EST)->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)next_point(iter, EST)->y-Ymin(env->hash_points) )*env->multiplier);
-                    }
+    SDL_SetRenderDrawColor(ren, 255, 255, 0, 255);
+    point_s* E;
+    point_s* N;
+    for(uint i=0; i<env->nb_points; i++){
+        E = next_point(env->hash_points->p_cell[i]->point, EST);
+        N = next_point(env->hash_points->p_cell[i]->point, NORTH);
+        
+        if(is_inside(env->hash_points, E, env->half_points, env->nb_half_points, Xmax(env->hash_points))){
+            if(abs(hash_search(env->hash_points, env->hash_points->p_cell[i]->point) - hash_search(env->hash_points, E)) == 1){
+                if(hash_search(env->hash_points, E) != INT_MAX){
+                    SDL_RenderDrawLine(ren, get_scaled_point(env, env->hash_points->p_cell[i]->point)->x, get_scaled_point(env, env->hash_points->p_cell[i]->point)->y, get_scaled_point(env, E)->x, get_scaled_point(env, E)->y);
                 }
-
-
-                if(is_inside(env->hash_points, next_point(iter, NORTH), env->half_points, env->nb_half_points, Xmax(env->hash_points))){  
-                    if(abs( hash_search(env->hash_points, iter) - hash_search(env->hash_points, next_point(iter, NORTH)) ) == 1 ){
-                        SDL_RenderDrawLine(ren, env->base.x+( (int)iter->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)iter->y-Ymin(env->hash_points) )*env->multiplier, env->base.x+( (int)next_point(iter, NORTH)->x-Xmin(env->hash_points) )*env->multiplier, env->base.y+( (int)next_point(iter, NORTH)->y-Ymin(env->hash_points) )*env->multiplier);
-                    }
-                }
-
             }
-            
+        }
+        if(is_inside(env->hash_points, N, env->half_points, env->nb_half_points, Xmax(env->hash_points))){
+            if(abs(hash_search(env->hash_points, env->hash_points->p_cell[i]->point) - hash_search(env->hash_points, N)) == 1){
+                if(hash_search(env->hash_points, N) != INT_MAX){
+                    SDL_RenderDrawLine(ren, get_scaled_point(env, env->hash_points->p_cell[i]->point)->x, get_scaled_point(env, env->hash_points->p_cell[i]->point)->y, get_scaled_point(env, N)->x, get_scaled_point(env, N)->y);
+                }
+            }
         }
     }
-
 }
 
 /* **************************************************************** */
 
 bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
+    int w, h;
+    SDL_GetWindowSize(win, &w, &h);
+    
     if (e->type == SDL_QUIT) {
         return true;
     }
+    if (e->type == SDL_WINDOWEVENT && e->window.event == SDL_WINDOWEVENT_RESIZED){
+        env->multiplier = min(w,h)/env->last_edge_point_index;
 
-    /* PUT YOUR CODE HERE TO PROCESS EVENTS */
+        env->base.w = env->multiplier * (Xmax(env->hash_points) - Xmin(env->hash_points));
+        env->base.h = env->multiplier * (Ymax(env->hash_points) - Ymin(env->hash_points));
+        env->base.x = w/2 - env->base.w/2;
+        env->base.y = h/2 - env->base.h/2;
 
+        for(uint i=0; i<env->nb_points; i++){
+            env->scaled_points[i]->x = (int)env->scaled_points[i]->x*env->multiplier;
+            env->scaled_points[i]->y = (int)env->scaled_points[i]->y*env->multiplier;
+        }
+    }
+    
     return false;
 }
 

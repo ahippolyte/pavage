@@ -67,6 +67,15 @@ point_s* hash_get_point(hash_s* hash, uint index){
     return hash->p_cell[index]->point;
 }
 
+int hash_get_index(hash_s *hash, point_s *point){
+    for(uint i=0; i<hash->size; i++){
+        if(point_is_equal(hash->p_cell[i]->point, point)){
+            return i;
+        }
+    }
+    return -1;
+}
+
 int hash_search(hash_s *hash, const point_s *point) {
     if (hash == NULL || point == NULL) {
         fprintf(stderr, "Invalid pointer reference!");

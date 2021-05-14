@@ -45,7 +45,7 @@ void point_print(const point_s *point) {
         fprintf(stderr, "Invalid pointer reference!\n");
         exit(EXIT_FAILURE);
     }
-    printf("(%.1f, %.1f)\n", point->x, point->y);
+    printf("(%f, %f)\n", point->x, point->y);
     return;
 }
 
@@ -57,6 +57,8 @@ bool point_is_equal(const point_s *point_1, const point_s *point_2) {
     if (point_1->x == point_2->x && point_1->y == point_2->y) {
         return true;
     }
+    point_print(point_1);
+    point_print(point_2);
     return false;
 }
 

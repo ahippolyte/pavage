@@ -11,7 +11,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     }
 
     point_s *first_point = point_new(0, 0);
-    point_s *last_point = first_point;
+    point_s *last_point = point_copy(first_point);
     direction new_direction = 0;
     point_s *new_point = NULL;
 
@@ -20,6 +20,8 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         new_point = next_point(last_point, new_direction);
 
         if (hash_search(map_of_height, new_point) != INT_MAX && i != nb_of_direction - 1) {
+            point_delete(first_point);
+            point_delete(last_point);
             return EDGE_IS_LOOPING;
         }
 
@@ -38,7 +40,8 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     }
 
     if (!point_is_equal(new_point, first_point)) {
-        point_delete(first_point);
+        //point_delete(first_point);
+        printf("COUCOU\n");
         return EDGE_IS_DISCONNECTED;
     }
     //point_delete(first_point);
@@ -80,6 +83,9 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                 else {
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
+                        cell_delete(cellule);
+                        cell_delete(new_cell);
+                        point_delete(point_suivant);
                         return false;
                     }
                 }
@@ -98,6 +104,9 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                 else {
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
+                        cell_delete(cellule);
+                        cell_delete(new_cell);
+                        point_delete(point_suivant);
                         return false;
                     }
                 }
@@ -116,6 +125,9 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                 else {
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
+                        cell_delete(cellule);
+                        cell_delete(new_cell);
+                        point_delete(point_suivant);
                         return false;
                     }
                 }
@@ -134,6 +146,9 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                 else {
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
+                        cell_delete(cellule);
+                        cell_delete(new_cell);
+                        point_delete(point_suivant);
                         return false;
                     }
                 }
@@ -218,16 +233,16 @@ point_s *next_point(point_s *c, direction d) {
     }
     point_s *next_c = point_new(c->x, c->y);
     if (d == NORTH) {
-        next_c->y++;
+        next_c->y = next_c->y+1;
     }
-    if (d == SOUTH) {
-        next_c->y--;
+    else if (d == SOUTH) {
+        next_c->y = next_c->y-1;
     }
-    if (d == EST) {
-        next_c->x++;
+    else if (d == EST) {
+        next_c->x = next_c->x+1;
     }
-    if (d == WEST) {
-        next_c->x--;
+    else if (d == WEST) {
+        next_c->x = next_c->x-1;
     }
     return next_c;
 }
