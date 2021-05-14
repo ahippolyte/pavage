@@ -11,10 +11,10 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     }
 
     point_s *first_point = point_new(0, 0);
-    point_s *last_point = point_copy(first_point);
-    direction new_direction = 0;
+    point_s *last_point = point_new(0, 0);
     point_s *new_point = NULL;
-
+    direction new_direction = 0;
+    
     for (int i = 0; i < nb_of_direction; i++) {
         new_direction = list_of_direction[i];
         new_point = next_point(last_point, new_direction);
@@ -22,6 +22,7 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         if (hash_search(map_of_height, new_point) != INT_MAX && i != nb_of_direction - 1) {
             point_delete(first_point);
             point_delete(last_point);
+            point_delete(new_point);
             return EDGE_IS_LOOPING;
         }
 
@@ -40,17 +41,22 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     }
 
     if (!point_is_equal(new_point, first_point)) {
-        //point_delete(first_point);
-        printf("COUCOU\n");
+        point_delete(first_point);
+        point_delete(last_point);
+        point_delete(new_point);
+        //printf("COUCOU\n");
         return EDGE_IS_DISCONNECTED;
     }
-    //point_delete(first_point);
 
     if (hash_search(map_of_height, last_point) != 0) {
         hash_print(map_of_height);
+        point_delete(first_point);
+        point_delete(last_point);
+        point_delete(new_point);
         return AREA_IS_NOT_PAVABLE;
     }
 
+    point_delete(last_point);
     return AREA_IS_MAYBE_PAVABLE;
 }
 
@@ -156,6 +162,9 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
         }
     }
 
+    cell_delete(cellule);
+    cell_delete(new_cell);
+    point_delete(point_suivant);
     return true;
 }
 
@@ -178,7 +187,11 @@ bool is_inside(hash_s* hash_of_point, point_s *point, point_s **half_points, uin
         }
         point_set_x(p, next_point(p, EST)->x);
     }
-    if (cpt % 2 == 1) return true;
+    if (cpt % 2 == 1){
+        point_delete(p);
+        return true;
+    }
+    point_delete(p);
     return false;
 }
 
@@ -244,6 +257,7 @@ point_s *next_point(point_s *c, direction d) {
     else if (d == WEST) {
         next_c->x = next_c->x-1;
     }
+
     return next_c;
 }
 

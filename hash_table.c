@@ -1,6 +1,6 @@
 #include "hash_table.h"
 
-hash_s *hash_new(uint size) {
+hash_s *hash_new(const uint size) {
     hash_s *hash = (hash_s *)malloc(sizeof(hash_s));
     if (hash == NULL) {
         fprintf(stderr, "Hash allocation failed!\n");
@@ -20,46 +20,7 @@ hash_s *hash_new(uint size) {
     return hash;
 }
 
-void hash_print(hash_s *hash) {
-    if (hash == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
-        exit(EXIT_FAILURE);
-    }
-    printf(" ______________________\n");
-    printf("|_____ HASH TABLE _____|\n\n");
-    printf("Size: %u\n", hash->size);
-    printf("________________________\n\n");
-    for (uint i = 0; i < hash->size; i++) {
-        printf("ELEMENT %u\n", i);
-        printf("points: ");
-        point_print(hash->p_cell[i]->point);
-        printf("Height: %d\n", hash->p_cell[i]->height);
-        printf("---------\n");
-    }
-    printf(" _______________________ \n");
-    printf("|_________ END _________|\n");
-    return;
-}
-
-void hash_add(hash_s *hash, point_s *point, int height) {
-    if (hash == NULL || point == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
-        exit(EXIT_FAILURE);
-    }
-
-    if (hash->index > hash->size) {
-        printf("Hash is full!\n");
-        return;
-    }
-
-    cell_set_point(hash->p_cell[hash->index], point);
-    cell_set_height(hash->p_cell[hash->index], height);
-    hash->index++;
-
-    return;
-}
-
-point_s* hash_get_point(hash_s* hash, uint index){
+point_s* hash_get_point(hash_s* hash, const uint index){
     if (hash == NULL) {
         fprintf(stderr, "Invalid pointer reference!");
         exit(EXIT_FAILURE);
@@ -67,7 +28,12 @@ point_s* hash_get_point(hash_s* hash, uint index){
     return hash->p_cell[index]->point;
 }
 
-int hash_get_index(hash_s *hash, point_s *point){
+int hash_get_index(hash_s *hash, const point_s *point){
+    if (hash == NULL || point == NULL) {
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+    
     for(uint i=0; i<hash->size; i++){
         if(point_is_equal(hash->p_cell[i]->point, point)){
             return i;
@@ -89,6 +55,45 @@ int hash_search(hash_s *hash, const point_s *point) {
     }
 
     return INT_MAX;
+}
+
+void hash_add(hash_s *hash, const point_s *point, const int height) {
+    if (hash == NULL || point == NULL) {
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+
+    if (hash->index > hash->size) {
+        printf("Hash is full!\n");
+        return;
+    }
+
+    cell_set_point(hash->p_cell[hash->index], point);
+    cell_set_height(hash->p_cell[hash->index], height);
+    hash->index++;
+
+    return;
+}
+
+void hash_print(const hash_s *hash) {
+    if (hash == NULL) {
+        fprintf(stderr, "Invalid pointer reference!");
+        exit(EXIT_FAILURE);
+    }
+    printf(" ______________________\n");
+    printf("|_____ HASH TABLE _____|\n\n");
+    printf("Size: %u\n", hash->size);
+    printf("________________________\n\n");
+    for (uint i = 0; i < hash->size; i++) {
+        printf("ELEMENT %u\n", i);
+        printf("points: ");
+        point_print(hash->p_cell[i]->point);
+        printf("Height: %d\n", hash->p_cell[i]->height);
+        printf("---------\n");
+    }
+    printf(" _______________________ \n");
+    printf("|_________ END _________|\n");
+    return;
 }
 
 void hash_delete(hash_s *hash) {

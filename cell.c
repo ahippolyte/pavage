@@ -17,7 +17,7 @@ cell_s* cell_new(point_s* point, int height) {
 }
 */
 
-cell_s* cell_new(float x, float y, int height) {
+cell_s* cell_new(const float x, const float y, const int height){
     cell_s* cell = (cell_s*)malloc(sizeof(cell_s));
     if (cell == NULL) {
         fprintf(stderr, "Cell allocation failed!\n");
@@ -35,7 +35,26 @@ cell_s* cell_new(float x, float y, int height) {
     return cell;
 }
 
-void cell_set_point(cell_s* cell, point_s* point) {
+cell_s* cell_copy(const cell_s* cell){
+    if (cell == NULL) {
+        fprintf(stderr, "Invalid pointer adress\n");
+        exit(EXIT_FAILURE);
+    }
+    cell_s* cell_copy = cell_new(0, 0, 0);
+    cell_set_point(cell_copy, cell->point);
+    cell_set_height(cell_copy, cell->height);
+    return cell_copy;
+}
+
+bool cell_is_equal(const cell_s* cell1, const cell_s* cell2){
+    if (cell1 == NULL || cell2 == NULL) {
+        fprintf(stderr, "Invalid pointer reference !\n");
+        exit(EXIT_FAILURE);
+    }
+    return point_is_equal(cell1->point, cell2->point) && (cell1->height == cell2->height);
+}
+
+void cell_set_point(cell_s* cell, const point_s* point){
     if (cell == NULL || point == NULL) {
         fprintf(stderr, "Invalid pointer reference!\n");
         exit(EXIT_FAILURE);
@@ -44,7 +63,7 @@ void cell_set_point(cell_s* cell, point_s* point) {
     cell->point->y = point->y;
 }
 
-void cell_set_height(cell_s* cell, int height) {
+void cell_set_height(cell_s* cell, const int height){
     if (cell == NULL) {
         fprintf(stderr, "Invalid pointer reference !\n");
         exit(EXIT_FAILURE);
@@ -52,22 +71,11 @@ void cell_set_height(cell_s* cell, int height) {
     cell->height = height;
 }
 
-bool cell_is_equal(cell_s* cell1, cell_s* cell2) {
-    if (cell1 == NULL || cell2 == NULL) {
-        fprintf(stderr, "Invalid pointer reference !\n");
+void cell_delete(cell_s* cell) {
+    if (cell == NULL) {
+        fprintf(stderr, "Invalid pointer adress\n");
         exit(EXIT_FAILURE);
     }
-    return point_is_equal(cell1->point, cell2->point) && (cell1->height == cell2->height);
-}
-
-cell_s* cell_copy(cell_s* cell) {
-    cell_s* cell_copy = cell_new(0, 0, 0);
-    cell_set_point(cell_copy, cell->point);
-    cell_set_height(cell_copy, cell->height);
-    return cell_copy;
-}
-
-void cell_delete(cell_s* cell) {
     point_delete(cell->point);
     free(cell);
 }

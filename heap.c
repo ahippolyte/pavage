@@ -1,6 +1,6 @@
 #include "heap.h"
 
-heap_s *heap_new(uint size) {
+heap_s *heap_new(const uint size) {
     heap_s *heap = (heap_s *)malloc(sizeof(heap_s));
     if (heap == NULL) {
         fprintf(stderr, "Allocation failed\n");
@@ -28,47 +28,21 @@ heap_s *heap_new(uint size) {
     return heap;
 }
 
-bool heap_empty(heap_s *heap) {
+cell_s *heap_top(const heap_s *heap) {
     if (heap == NULL) {
-        fprintf(stderr, "Invalid pointer adress\n");
+        fprintf(stderr, "Hash allocation failed!\n");
         exit(EXIT_FAILURE);
     }
-    if (heap->index == 0) {
-        return true;
-    }
-    return false;
-}
-
-void heap_add(heap_s *heap, cell_s *cell) {
-    if (heap == NULL) {
-        fprintf(stderr, "Invalid pointer adress\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (heap->index >= heap->size) {
-        fprintf(stderr, "Heap is full!\n");
-        return;
-    }
-
-    heap->index++;
-    cell_set_point(heap->array[heap->index], cell->point);
-    cell_set_height(heap->array[heap->index], cell->height);
-
-    int i = heap->index;
-    while (i > 1 && heap->array[i]->height < heap->array[i / 2]->height) {
-        cell_s *temp = heap->array[i / 2];
-        heap->array[i / 2] = heap->array[i];
-        heap->array[i] = temp;
-        i /= 2;
-    }
-}
-
-cell_s *heap_top(heap_s *heap) {
     if (heap_empty(heap)) return NULL;
     return heap->array[1];
 }
 
 cell_s *heap_pop(heap_s *heap) {
+    if (heap == NULL) {
+        fprintf(stderr, "Hash allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
+    
     cell_s *top = cell_copy(heap_top(heap));
 
     cell_set_point(heap->array[1], heap->array[heap->index]->point);
@@ -96,17 +70,53 @@ cell_s *heap_pop(heap_s *heap) {
     return top;
 }
 
-void rule(int n, char *s) {
+
+void heap_add(heap_s *heap, const cell_s *cell) {
+    if (heap == NULL) {
+        fprintf(stderr, "Invalid pointer adress\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (heap->index >= heap->size) {
+        fprintf(stderr, "Heap is full!\n");
+        return;
+    }
+
+    heap->index++;
+    cell_set_point(heap->array[heap->index], cell->point);
+    cell_set_height(heap->array[heap->index], cell->height);
+
+    int i = heap->index;
+    while (i > 1 && heap->array[i]->height < heap->array[i / 2]->height) {
+        cell_s *temp = heap->array[i / 2];
+        heap->array[i / 2] = heap->array[i];
+        heap->array[i] = temp;
+        i /= 2;
+    }
+}
+
+bool heap_empty(const heap_s *heap) {
+    if (heap == NULL) {
+        fprintf(stderr, "Invalid pointer adress\n");
+        exit(EXIT_FAILURE);
+    }
+    if (heap->index == 0) {
+        return true;
+    }
+    return false;
+}
+
+void rule(const int n, const char *s) {
     for (int i = 0; i < n; i++) printf("%s", s);
 }
 
-void heap_print(heap_s *h) {
-    if (h == NULL) {
+void heap_print(const heap_s *heap) {
+    if (heap == NULL) {
         printf("heap = NULL\n\n");
         return;
     }
 
-    if (heap_empty(h)) {
+    if (heap_empty(heap)) {
         printf("Empty heap\n");
     }
 
@@ -114,7 +124,7 @@ void heap_print(heap_s *h) {
     printf("\n");
 
     int haut = 0;  // hauteur du tas (=nombre de lignes)
-    int j = h->index;
+    int j = heap->index;
     while (j > 0) haut++, j >>= 1;
 
     int s = 2 / 2;  // nombre de caractères avant le milieu du pattern
@@ -129,11 +139,11 @@ void heap_print(heap_s *h) {
 
         // ligne avec les éléments
         rule(pm - s, " ");
-        for (int b = 0; b < B && (j < h->index); b++) {
+        for (int b = 0; b < B && (j < heap->index); b++) {
             j++;
             printf(" ");  // cas pair
-            printf("%02i", h->array[j]->height);
-            point_print(h->array[j]->point);
+            printf("%02i", heap->array[j]->height);
+            point_print(heap->array[j]->point);
             if (b < B - 1) rule(ep - 1, " ");  // -1 pour l'espace terminal
         }
         printf("\n");

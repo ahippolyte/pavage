@@ -20,7 +20,6 @@ struct Env_t {
     int nb_half_points;
     SDL_Rect base;
     int multiplier;
-    point_s* *scaled_points;
 };
 
 /* **************************************************************** */
@@ -112,27 +111,6 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[], hash_s* ha
     bool is_pavable = is_map_pavable(heap_points, hash_points, half_points, nb_half_points, Xmax(hash_points));
     if(is_pavable) printf("L'aire est pavable\n");
 
-    /**env->scaled_points = (point_s**)malloc(nb_points*sizeof(point_s*));
-    
-    for(uint i=0; i<env->nb_points; i++){
-        env->scaled_points[i] = point_copy(hash_get_point(hash_points, i));
-        env->scaled_points[i]->x = (int)env->scaled_points[i]->x*env->multiplier;
-        env->scaled_points[i]->y = (int)env->scaled_points[i]->y*env->multiplier;
-    }**/
-    
-    /*
-    int xmin = x_min(env->scaled_points, env->nb_points);
-    int ymin = y_min(env->scaled_points, env->nb_points);
-    for(uint i=0; i<env->nb_points; i++){
-        if(xmin < 0){
-            point_set_x(env->scaled_points[i], env->scaled_points[i]->x + abs(xmin));
-        }
-        if(ymin < 0){
-            point_set_y(env->scaled_points[i], env->scaled_points[i]->y + abs(ymin));
-        }
-    }
-    */
-
     return env;
 }
 
@@ -187,7 +165,7 @@ bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
     
     if (e->type == SDL_QUIT) {
         return true;
-    }
+    }/*
     if (e->type == SDL_WINDOWEVENT && e->window.event == SDL_WINDOWEVENT_RESIZED){
         env->multiplier = min(w,h)/env->last_edge_point_index;
 
@@ -200,7 +178,7 @@ bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
             env->scaled_points[i]->x = (int)env->scaled_points[i]->x*env->multiplier;
             env->scaled_points[i]->y = (int)env->scaled_points[i]->y*env->multiplier;
         }
-    }
+    }*/
     
     return false;
 }
@@ -210,9 +188,11 @@ bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
 void clean(SDL_Window *win, SDL_Renderer *ren, Env *env) {
     /* PUT YOUR CODE HERE TO CLEAN MEMORY */
     hash_delete(env->hash_points);
-    for(uint i=0; i<env->nb_points; i++){
-        point_delete(env->scaled_points[i]);
+    for(uint i=0; i<env->nb_half_points; i++){
+        point_delete(env->half_points[i]);
     }
+    free(env->half_points);
+    
     free(env);
 }
 

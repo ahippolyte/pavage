@@ -74,10 +74,13 @@ int main(int argc, char* argv[]) {
                 break;
         }
 
-        for (uint i = 0; i < nb_inter_points; i++) {
-            point_print(inter_points[i]);
+        hash_delete(area_points);
+        for(uint i=0; i<nb_inter_points; i++){
+            point_delete(inter_points[i]);
+            free(inter_points);
         }
     }
 
+    
     return EXIT_SUCCESS;
 }

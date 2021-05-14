@@ -12,15 +12,15 @@ typedef struct {
 
 // cell_s* cell_new(point_s* point, int height);
 
-cell_s* cell_new(float x, float y, int height);
+cell_s* cell_new(const float x, const float y, const int height);
 
-void cell_set_point(cell_s* cell, point_s* point);
+cell_s* cell_copy(const cell_s* cell);
 
-void cell_set_height(cell_s* cell, int height);
+bool cell_is_equal(const cell_s* cell1, const cell_s* cell2);
 
-bool cell_is_equal(cell_s* cell1, cell_s* cell2);
+void cell_set_point(cell_s* cell, const point_s* point);
 
-cell_s* cell_copy(cell_s* cell);
+void cell_set_height(cell_s* cell, const int height);
 
 void cell_delete(cell_s* cell);
 

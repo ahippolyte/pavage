@@ -22,19 +22,9 @@ typedef struct point {
  * @param y the y point
  * @return the point
  **/
-point_s *point_new(float x, float y);
+point_s *point_new(const float x, const float y);
 
-point_s* point_copy(point_s* point);
-
-void point_set_x(point_s *point, float x);
-
-void point_set_y(point_s *point, float x);
-
-/**
- * @brief Print a point.
- * @param point the corresponding point
- **/
-void point_print(const point_s *point);
+point_s* point_copy(const point_s* point);
 
 /**
  * @brief Compare two points.
@@ -45,6 +35,16 @@ void point_print(const point_s *point);
  * @return true if the two points are equal, false otherwise
  **/
 bool point_is_equal(const point_s *point_1, const point_s *point_2);
+
+void point_set_x(point_s *point, const float x);
+
+void point_set_y(point_s *point, const float x);
+
+/**
+ * @brief Print a point.
+ * @param point the corresponding point
+ **/
+void point_print(const point_s *point);
 
 /**
  * @brief Deletes the point and frees the allocated memory.
