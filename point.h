@@ -36,6 +36,10 @@ point_s* point_copy(const point_s* point);
  **/
 bool point_is_equal(const point_s *point_1, const point_s *point_2);
 
+bool point_check_coordinates(const point_s *point, const float x, const float y);
+
+void point_set_coordinates(point_s* point, const float x, const float y);
+
 void point_set_x(point_s *point, const float x);
 
 void point_set_y(point_s *point, const float x);

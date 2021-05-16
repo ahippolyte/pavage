@@ -10,17 +10,18 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
         return ERROR_MAP;
     }
 
-    point_s *first_point = point_new(0, 0);
     point_s *last_point = point_new(0, 0);
-    point_s *new_point = NULL;
+    point_s *new_point = point_new(0, 0);
     direction new_direction = 0;
     
     for (int i = 0; i < nb_of_direction; i++) {
         new_direction = list_of_direction[i];
-        new_point = next_point(last_point, new_direction);
+        //new_point = next_point(last_point, new_direction);
+        point_set_coordinates(new_point, last_point->x, last_point->y);
+        next_point(new_point, new_direction);
+
 
         if (hash_search(map_of_height, new_point) != INT_MAX && i != nb_of_direction - 1) {
-            point_delete(first_point);
             point_delete(last_point);
             point_delete(new_point);
             return EDGE_IS_LOOPING;
@@ -37,11 +38,10 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
             *nb_half_point += 1;
         }
 
-        last_point = new_point;
+        point_set_coordinates(last_point, new_point->x, new_point->y);
     }
 
-    if (!point_is_equal(new_point, first_point)) {
-        point_delete(first_point);
+    if (!point_check_coordinates(new_point, 0, 0)){
         point_delete(last_point);
         point_delete(new_point);
         //printf("COUCOU\n");
@@ -50,13 +50,13 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
 
     if (hash_search(map_of_height, last_point) != 0) {
         hash_print(map_of_height);
-        point_delete(first_point);
         point_delete(last_point);
         point_delete(new_point);
         return AREA_IS_NOT_PAVABLE;
     }
 
-    point_delete(last_point);
+    //point_delete(last_point);
+    point_delete(new_point);
     return AREA_IS_MAYBE_PAVABLE;
 }
 
@@ -69,16 +69,18 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
     cell_s *new_cell;
 
     while (!heap_empty(heap_of_point)) {
-        cellule = cell_copy(heap_pop(heap_of_point));
+        cellule = heap_pop(heap_of_point);
 
         point = cellule->point;
         hauteur = cellule->height;
 
-        if (abs((int)point->x % 2) == abs((int)point->y % 2)) {  // On a du noirs en haut a gauche don on ne doit tester que Nord et Sud
+        if (abs((int)point->x % 2) == abs((int)point->y % 2)) {  // On a du noirs en haut a gauche donc on ne doit tester que Nord et Sud
 
             // NORD
-            point_set_x(point_suivant, next_point(point, NORTH)->x);
-            point_set_y(point_suivant, next_point(point, NORTH)->y);
+            //point_set_x(point_suivant, next_point(point, NORTH)->x);
+            //point_set_y(point_suivant, next_point(point, NORTH)->y);
+            point_set_coordinates(point_suivant, point->x, point->y);
+            next_point(point_suivant, NORTH);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
@@ -92,14 +94,17 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                         cell_delete(cellule);
                         cell_delete(new_cell);
                         point_delete(point_suivant);
+                        heap_delete(heap_of_point);
                         return false;
                     }
                 }
             }
 
             // SUD
-            point_set_x(point_suivant, next_point(point, SOUTH)->x);
-            point_set_y(point_suivant, next_point(point, SOUTH)->y);
+            //point_set_x(point_suivant, next_point(point, SOUTH)->x);
+            //point_set_y(point_suivant, next_point(point, SOUTH)->y);
+            point_set_coordinates(point_suivant, point->x, point->y);
+            next_point(point_suivant, SOUTH);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
@@ -113,14 +118,17 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                         cell_delete(cellule);
                         cell_delete(new_cell);
                         point_delete(point_suivant);
+                        heap_delete(heap_of_point);
                         return false;
                     }
                 }
             }
         } else {
             // EST
-            point_set_x(point_suivant, next_point(point, EST)->x);
-            point_set_y(point_suivant, next_point(point, EST)->y);
+            //point_set_x(point_suivant, next_point(point, EST)->x);
+            //point_set_y(point_suivant, next_point(point, EST)->y);
+            point_set_coordinates(point_suivant, point->x, point->y);
+            next_point(point_suivant, EST);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
@@ -134,14 +142,17 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                         cell_delete(cellule);
                         cell_delete(new_cell);
                         point_delete(point_suivant);
+                        heap_delete(heap_of_point);
                         return false;
                     }
                 }
             }
 
             // SUD
-            point_set_x(point_suivant, next_point(point, WEST)->x);
-            point_set_y(point_suivant, next_point(point, WEST)->y);
+            //point_set_x(point_suivant, next_point(point, WEST)->x);
+            //point_set_y(point_suivant, next_point(point, WEST)->y);
+            point_set_coordinates(point_suivant, point->x, point->y);
+            next_point(point_suivant, WEST);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
                 if (hash_search(map_of_height, point_suivant) == INT_MAX) {
                     hash_add(map_of_height, point_suivant, hauteur + 1);
@@ -155,16 +166,18 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                         cell_delete(cellule);
                         cell_delete(new_cell);
                         point_delete(point_suivant);
+                        heap_delete(heap_of_point);
                         return false;
                     }
                 }
             }
         }
+        cell_delete(cellule);
     }
 
-    cell_delete(cellule);
     cell_delete(new_cell);
     point_delete(point_suivant);
+    heap_delete(heap_of_point);
     return true;
 }
 
@@ -185,7 +198,8 @@ bool is_inside(hash_s* hash_of_point, point_s *point, point_s **half_points, uin
         if (point_belong_to(p, half_points, nb_half_points)) {
             cpt++;
         }
-        point_set_x(p, next_point(p, EST)->x);
+        //point_set_x(p, next_point(p, EST)->x);
+        next_point(p, EST);
     }
     if (cpt % 2 == 1){
         point_delete(p);
@@ -239,26 +253,24 @@ int Ymax(hash_s *hash) {
 
 /**   Auxiliary function for fill_map_edge_from_direction_list   **/
 
-point_s *next_point(point_s *c, direction d) {
+void next_point(point_s *c, direction d) {
     if (c == NULL) {
         fprintf(stderr, "invalid pointer adresse");
         exit(EXIT_FAILURE);
     }
-    point_s *next_c = point_new(c->x, c->y);
+    
     if (d == NORTH) {
-        next_c->y = next_c->y+1;
+        point_set_y(c, c->y+1);
     }
     else if (d == SOUTH) {
-        next_c->y = next_c->y-1;
+        point_set_y(c, c->y-1);
     }
     else if (d == EST) {
-        next_c->x = next_c->x+1;
+        point_set_x(c, c->x+1);
     }
     else if (d == WEST) {
-        next_c->x = next_c->x-1;
+        point_set_x(c, c->x-1);
     }
-
-    return next_c;
 }
 
 int calculate_height(point_s *old_point, int old_height, direction direction) {

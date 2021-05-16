@@ -11,7 +11,7 @@ hash_s *hash_new(const uint size) {
         fprintf(stderr, "Hash cell tab allocation failed!\n");
         exit(EXIT_FAILURE);
     }
-    for (uint i = 0; i < size; i++) {
+    for (uint i=0; i<size; i++) {
         hash->p_cell[i] = cell_new(0, 0, 0);
     }
     hash->size = size;
@@ -22,7 +22,7 @@ hash_s *hash_new(const uint size) {
 
 point_s* hash_get_point(hash_s* hash, const uint index){
     if (hash == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference (hash_get_point)\n");
         exit(EXIT_FAILURE);
     }
     return hash->p_cell[index]->point;
@@ -30,7 +30,7 @@ point_s* hash_get_point(hash_s* hash, const uint index){
 
 int hash_get_index(hash_s *hash, const point_s *point){
     if (hash == NULL || point == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference (hash_get_index)\n");
         exit(EXIT_FAILURE);
     }
     
@@ -44,7 +44,7 @@ int hash_get_index(hash_s *hash, const point_s *point){
 
 int hash_search(hash_s *hash, const point_s *point) {
     if (hash == NULL || point == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference (hash_search)\n");
         exit(EXIT_FAILURE);
     }
 
@@ -59,7 +59,7 @@ int hash_search(hash_s *hash, const point_s *point) {
 
 void hash_add(hash_s *hash, const point_s *point, const int height) {
     if (hash == NULL || point == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference (hash_add)\n");
         exit(EXIT_FAILURE);
     }
 
@@ -77,7 +77,7 @@ void hash_add(hash_s *hash, const point_s *point, const int height) {
 
 void hash_print(const hash_s *hash) {
     if (hash == NULL) {
-        fprintf(stderr, "Invalid pointer reference!");
+        fprintf(stderr, "Invalid pointer reference (hash_print)\n");
         exit(EXIT_FAILURE);
     }
     printf(" ______________________\n");
@@ -98,7 +98,7 @@ void hash_print(const hash_s *hash) {
 
 void hash_delete(hash_s *hash) {
     if (hash == NULL) {
-        fprintf(stderr, "Invalid pointer adress!");
+        fprintf(stderr, "Invalid pointer adress (hash_delete)\n");
         exit(EXIT_FAILURE);
     }
     for (uint i = 0; i < hash->size; i++) {

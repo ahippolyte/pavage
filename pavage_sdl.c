@@ -48,6 +48,7 @@ int main(int argc, char* argv[]) {
             exit(EXIT_FAILURE);
         }
 		uint nb_points = (nb_N + 1) * (nb_W + 1);
+        printf("%d\n", nb_points);
 		hash_s* hash_points = hash_new(nb_points);
 		
 		point_s* *half_points = (point_s**)malloc(size / 2 * sizeof(point_s));
