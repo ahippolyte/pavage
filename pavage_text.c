@@ -60,9 +60,6 @@ int main(int argc, char* argv[]) {
             case AREA_IS_NOT_PAVABLE:
                 printf("L'aire n'est pas pavable\n");
                 break;
-            case AREA_IS_PAVABLE:
-                printf("L'aire est pavable\n");
-                break;
             case ERROR_DIRECTION_TABLE:
                 printf("Direction inconnue\n");
                 break;

@@ -25,8 +25,12 @@ point_s* point_copy(const point_s* point){
 }
 
 bool point_is_equal(const point_s *point_1, const point_s *point_2) {
-    if (point_1 == NULL || point_2 == NULL) {
-        fprintf(stderr, "Invalid pointer reference (point_is_equal)\n");
+    if (point_1 == NULL){
+        fprintf(stderr, "Invalid pointer reference (point_is_equal 1)\n");
+        exit(EXIT_FAILURE);
+    }
+    if (point_2 == NULL){
+        fprintf(stderr, "Invalid pointer reference (point_is_equal 2)\n");
         exit(EXIT_FAILURE);
     }
     if (point_1->x == point_2->x && point_1->y == point_2->y) {

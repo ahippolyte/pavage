@@ -63,7 +63,7 @@ void hash_add(hash_s *hash, const point_s *point, const int height) {
         exit(EXIT_FAILURE);
     }
 
-    if (hash->index > hash->size) {
+    if (hash->index >= hash->size) {
         printf("Hash is full!\n");
         return;
     }

@@ -48,10 +48,9 @@ int main(int argc, char* argv[]) {
             exit(EXIT_FAILURE);
         }
 		uint nb_points = (nb_N + 1) * (nb_W + 1);
-        printf("%d\n", nb_points);
 		hash_s* hash_points = hash_new(nb_points);
 		
-		point_s* *half_points = (point_s**)malloc(size / 2 * sizeof(point_s));
+		point_s* *half_points = (point_s**)malloc(size*sizeof(point_s));
 		int nb_half_points = 0;
 		state result = fill_map_edge_from_direction_list(directions, size, hash_points, &nb_half_points, half_points);
 		switch (result) {
@@ -68,15 +67,11 @@ int main(int argc, char* argv[]) {
                 exit(EXIT_FAILURE);
                 break;
             case AREA_IS_MAYBE_PAVABLE:
-                printf("L'aire est peut être pavable\n");
-                //Lancement de la fenêtre
+                //printf("L'aire est peut être pavable\n");
                 break;
             case AREA_IS_NOT_PAVABLE:
                 printf("L'aire n'est pas pavable\n");
                 exit(EXIT_FAILURE);
-                break;
-            case AREA_IS_PAVABLE:
-                printf("L'aire est pavable\n");
                 break;
             case ERROR_DIRECTION_TABLE:
                 printf("Direction inconnue\n");

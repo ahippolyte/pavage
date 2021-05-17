@@ -28,7 +28,6 @@ typedef enum {
     EDGE_IS_CONNECTED,  // Edge is an area
     AREA_IS_MAYBE_PAVABLE,
     AREA_IS_NOT_PAVABLE,
-    AREA_IS_PAVABLE,
     ERROR_DIRECTION_TABLE,
     ERROR_MAP,
 } state;

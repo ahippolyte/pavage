@@ -44,12 +44,10 @@ state fill_map_edge_from_direction_list(direction *list_of_direction, int nb_of_
     if (!point_check_coordinates(new_point, 0, 0)){
         point_delete(last_point);
         point_delete(new_point);
-        //printf("COUCOU\n");
         return EDGE_IS_DISCONNECTED;
     }
 
     if (hash_search(map_of_height, last_point) != 0) {
-        hash_print(map_of_height);
         point_delete(last_point);
         point_delete(new_point);
         return AREA_IS_NOT_PAVABLE;
@@ -77,8 +75,6 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
         if (abs((int)point->x % 2) == abs((int)point->y % 2)) {  // On a du noirs en haut a gauche donc on ne doit tester que Nord et Sud
 
             // NORD
-            //point_set_x(point_suivant, next_point(point, NORTH)->x);
-            //point_set_y(point_suivant, next_point(point, NORTH)->y);
             point_set_coordinates(point_suivant, point->x, point->y);
             next_point(point_suivant, NORTH);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
@@ -92,7 +88,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
                         cell_delete(cellule);
-                        cell_delete(new_cell);
+                        //cell_delete(new_cell);
                         point_delete(point_suivant);
                         heap_delete(heap_of_point);
                         return false;
@@ -101,8 +97,6 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             }
 
             // SUD
-            //point_set_x(point_suivant, next_point(point, SOUTH)->x);
-            //point_set_y(point_suivant, next_point(point, SOUTH)->y);
             point_set_coordinates(point_suivant, point->x, point->y);
             next_point(point_suivant, SOUTH);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
@@ -116,7 +110,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
                         cell_delete(cellule);
-                        cell_delete(new_cell);
+                        //cell_delete(new_cell);
                         point_delete(point_suivant);
                         heap_delete(heap_of_point);
                         return false;
@@ -125,8 +119,6 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
             }
         } else {
             // EST
-            //point_set_x(point_suivant, next_point(point, EST)->x);
-            //point_set_y(point_suivant, next_point(point, EST)->y);
             point_set_coordinates(point_suivant, point->x, point->y);
             next_point(point_suivant, EST);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
@@ -140,7 +132,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
                         cell_delete(cellule);
-                        cell_delete(new_cell);
+                        //cell_delete(new_cell);
                         point_delete(point_suivant);
                         heap_delete(heap_of_point);
                         return false;
@@ -148,9 +140,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                 }
             }
 
-            // SUD
-            //point_set_x(point_suivant, next_point(point, WEST)->x);
-            //point_set_y(point_suivant, next_point(point, WEST)->y);
+            // WEST
             point_set_coordinates(point_suivant, point->x, point->y);
             next_point(point_suivant, WEST);
             if (is_inside(map_of_height, point_suivant, half_points, nb_half_points, x_max)) {
@@ -164,7 +154,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
                     if (hash_search(map_of_height, point_suivant) != hauteur + 1 && hash_search(map_of_height, point_suivant) != hauteur + 3
                         && hash_search(map_of_height, point_suivant) != hauteur - 1 && hash_search(map_of_height, point_suivant) != hauteur - 3) {
                         cell_delete(cellule);
-                        cell_delete(new_cell);
+                        //cell_delete(new_cell);
                         point_delete(point_suivant);
                         heap_delete(heap_of_point);
                         return false;
@@ -175,7 +165,7 @@ bool is_map_pavable(heap_s *heap_of_point, hash_s *map_of_height, point_s **half
         cell_delete(cellule);
     }
 
-    cell_delete(new_cell);
+    //cell_delete(new_cell);
     point_delete(point_suivant);
     heap_delete(heap_of_point);
     return true;
@@ -198,7 +188,6 @@ bool is_inside(hash_s* hash_of_point, point_s *point, point_s **half_points, uin
         if (point_belong_to(p, half_points, nb_half_points)) {
             cpt++;
         }
-        //point_set_x(p, next_point(p, EST)->x);
         next_point(p, EST);
     }
     if (cpt % 2 == 1){
